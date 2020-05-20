@@ -23,5 +23,3 @@ jobs:
       run: dotnet build ./src/Standard/Standard.sln --configuration Release --no-restore
     - name: Test
       run: dotnet test ./src/Standard/Standard.Tests/Standard.Tests.csproj --no-restore --verbosity normal
-    - name: Pack
-      run: dotnet pack ./src/Standard/Standard/Standard.csproj --configuration Release --no-restore
