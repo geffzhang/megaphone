@@ -4,6 +4,6 @@ namespace Standard
 {
     public interface IClock
     {
-        DateTimeOffset Now { get; }
+        DateTimeOffset Now { get; } 
     }
 }
