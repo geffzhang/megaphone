@@ -23,6 +23,7 @@ namespace Crawler.Command
             SetTitle(model, document);
             SetDescription(model, document);
 
+            await Task.CompletedTask;
         }
         private static void SetTitle(Crawler.Models.Resource model, HtmlDocument document)
         {

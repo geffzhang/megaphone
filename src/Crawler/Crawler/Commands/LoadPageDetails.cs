@@ -21,6 +21,8 @@ namespace Crawler.Command
             document.LoadHtml(content);
             var title = document.DocumentNode.SelectSingleNode("//html/head/title");
             model.Display = title.InnerText;
+
+            await Task.CompletedTask;
         }
     }
 }
