@@ -24,11 +24,11 @@ jobs:
     - name: Test
       run: dotnet test ./src/Standard/Standard.Tests/Standard.Tests.csproj --no-restore --verbosity normal
     - name: Pack
-      run: dotnet pack ./src/Standard/Standard/Standard.csproj --configuration Release
+      run: dotnet pack ./src/Standard/Standard/Standard.csproj --configuration Release --no-restore
     - name: Push Nupkg to GitHub Packages
       uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
       with:
-        nupkg-path:  '.src/Standard/Standard/bin/Release/*.nupkg'
+        nupkg-path:  'src/Standard/Standard/bin/Release/*.nupkg'
         repo-owner:  'AlexandreBrisebois'
         gh-user:  'AlexandreBrisebois'
         token:  ${{ secrets.GITHUB_TOKEN }}
