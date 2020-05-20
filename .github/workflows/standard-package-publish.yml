@@ -1,4 +1,4 @@
-name: Publish Standard to Packages
+name: Standard Publish to Packages
 
 on:
   push:
