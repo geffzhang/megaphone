@@ -10,7 +10,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+ 
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
@@ -18,13 +18,13 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore ./src/Standard/Standard.sln
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build ./src/Standard/Standard.sln --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test ./src/Standard/Standard.sln --no-restore --verbosity normal
     - name: Pack
-      run: dotnet pack --configuration Release
+      run: dotnet pack ./src/Standard/Standard.sln --configuration Release
     - name: Push Nupkg to GitHub Packages
       uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
       with:
