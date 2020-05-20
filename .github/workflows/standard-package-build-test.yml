@@ -25,7 +25,3 @@ jobs:
       run: dotnet test ./src/Standard/Standard.Tests/Standard.Tests.csproj --no-restore --verbosity normal
     - name: Pack
       run: dotnet pack ./src/Standard/Standard/Standard.csproj --configuration Release --no-restore
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        path: src/Standard/Standard/bin/Release/*.nupkg
