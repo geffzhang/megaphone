@@ -1,0 +1,24 @@
+name: Publish Standard to Packages
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'src/Standard/**'
+      
+jobs:
+  build:
+    name: Publish Package
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v2
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v2
+    - name: Push Nupkg to GitHub Packages
+      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+      with:
+        nupkg-path:  '*.nupkg'
+        repo-owner:  'AlexandreBrisebois'
+        gh-user:  'AlexandreBrisebois'
+        token:  ${{ secrets.GITHUB_TOKEN }}
