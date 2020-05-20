@@ -1,4 +1,4 @@
-name: Publish Standard to Packages
+name: Build Standard
 
 on:
   pull_request:
@@ -25,10 +25,7 @@ jobs:
       run: dotnet test ./src/Standard/Standard.Tests/Standard.Tests.csproj --no-restore --verbosity normal
     - name: Pack
       run: dotnet pack ./src/Standard/Standard/Standard.csproj --configuration Release --no-restore
-    - name: Push Nupkg to GitHub Packages
-      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2
       with:
-        nupkg-path:  'src/Standard/Standard/bin/Release/*.nupkg'
-        repo-owner:  'AlexandreBrisebois'
-        gh-user:  'AlexandreBrisebois'
-        token:  ${{ secrets.GITHUB_TOKEN }}
+        path: src/Standard/Standard/bin/Release/*.nupkg
