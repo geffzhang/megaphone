@@ -8,17 +8,27 @@ on:
       
 jobs:
   build:
-    name: Publish Package
+    name: Build, Test, Publish Package
     runs-on: ubuntu-latest
  
     steps:
     - uses: actions/checkout@v2
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: Install dependencies
+      run: dotnet restore ./src/Standard/Standard.sln
+    - name: Build
+      run: dotnet build ./src/Standard/Standard.sln --configuration Release --no-restore
+    - name: Test
+      run: dotnet test ./src/Standard/Standard.Tests/Standard.Tests.csproj --no-restore --verbosity normal
+    - name: Pack
+      run: dotnet pack ./src/Standard/Standard/Standard.csproj --configuration Release --no-restore
     - name: Push Nupkg to GitHub Packages
       uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
       with:
-        nupkg-path:  '*.nupkg'
+        nupkg-path:  'src/Standard/Standard/bin/Release/*.nupkg'
         repo-owner:  'AlexandreBrisebois'
         gh-user:  'AlexandreBrisebois'
         token:  ${{ secrets.GITHUB_TOKEN }}
