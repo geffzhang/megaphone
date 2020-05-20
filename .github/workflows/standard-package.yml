@@ -1,0 +1,34 @@
+name: Publish Standard to Packages
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'src/Standard/**'
+      
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+    - name: Pack
+      run: dotnet pack --configuration Release
+    - name: Push Nupkg to GitHub Packages
+      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+      with:
+        nupkg-path:  './Standard/bin/Release/*.nupkg'
+        repo-owner:  'AlexandreBrisebois'
+        gh-user:  'AlexandreBrisebois'
+        token:  ${{ secrets.GITHUB_TOKEN }}
