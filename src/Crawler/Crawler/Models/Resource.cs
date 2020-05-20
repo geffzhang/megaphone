@@ -1,5 +1,4 @@
 using System;
-using Resource.Models;
 
 namespace Crawler.Models
 {

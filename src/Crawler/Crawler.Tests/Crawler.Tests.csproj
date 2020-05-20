@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Crawler\Crawler.csproj" />
-    <ProjectReference Include="..\..\Models\Resource.Models\Resource.Models.csproj" />
   </ItemGroup>
 
 </Project>

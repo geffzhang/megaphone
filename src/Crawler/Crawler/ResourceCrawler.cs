@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Resource.Models;
+using Crawler.Models;
 
 namespace Crawler
 {

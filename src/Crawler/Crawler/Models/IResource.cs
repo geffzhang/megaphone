@@ -1,6 +1,6 @@
 using System;
 
-namespace Resource.Models
+namespace Crawler.Models
 {
     public interface IResource
     {

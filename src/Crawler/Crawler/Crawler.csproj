@@ -3,16 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>8.0</LangVersion>
+    <RepositoryUrl>https://github.com/OWNER/REPOSITORY</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.23" />
     <PackageReference Include="Microsoft.SyndicationFeed.ReaderWriter" Version="1.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Standard\Standard\Standard.csproj" />
-    <ProjectReference Include="..\..\Models\Resource.Models\Resource.Models.csproj" />
+    <PackageReference Include="Standard" Version="1.0.1" />
   </ItemGroup>
 
 </Project>

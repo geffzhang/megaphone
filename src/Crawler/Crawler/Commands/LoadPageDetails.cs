@@ -1,10 +1,11 @@
 using System.Threading.Tasks;
+using Crawler.Models;
 using HtmlAgilityPack;
 using Standard.Commands;
 
 namespace Crawler.Command
 {
-    internal class LoadPageDetails : ICommand<Crawler.Models.Resource>
+    internal class LoadPageDetails : ICommand<Models.Resource>
     {
         private readonly string content;
 
@@ -13,7 +14,7 @@ namespace Crawler.Command
             this.content = content;
         }
 
-        public async Task ApplyAsync(Crawler.Models.Resource model)
+        public async Task ApplyAsync(Models.Resource model)
         {
             model.Type = ResourceType.Page;
 

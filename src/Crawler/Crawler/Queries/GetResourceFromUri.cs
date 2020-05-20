@@ -4,7 +4,6 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using Crawler.Command;
 using Crawler.Models;
-using Resource.Models;
 using Standard.Extensions;
 using Standard.Queries;
 
@@ -26,11 +25,11 @@ namespace Crawler.Queries
             return await MakeResourceAsync(response);
         }
 
-        private async Task<Crawler.Models.Resource> MakeResourceAsync(HttpResponseMessage response)
+        private async Task<Models.Resource> MakeResourceAsync(HttpResponseMessage response)
         {
             var resourceId = response.RequestMessage.RequestUri.ToGuid().ToString();
 
-            var resource = new Crawler.Models.Resource(resourceId)
+            var resource = new Models.Resource(resourceId)
             {
                 Self = response.RequestMessage.RequestUri,
                 IsActive = response.IsSuccessStatusCode,
@@ -43,7 +42,7 @@ namespace Crawler.Queries
 
         }
 
-        private static async Task LoadResourceDetails(HttpResponseMessage response, Crawler.Models.Resource resource)
+        private static async Task LoadResourceDetails(HttpResponseMessage response, Models.Resource resource)
         {
             var content = await response.Content.ReadAsStringAsync();
 

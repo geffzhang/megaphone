@@ -11,7 +11,6 @@ using Microsoft.SyndicationFeed;
 using Microsoft.SyndicationFeed.Atom;
 using Microsoft.SyndicationFeed.Rss;
 using Standard.Extensions;
-using Resource.Models;
 
 namespace Crawler
 {

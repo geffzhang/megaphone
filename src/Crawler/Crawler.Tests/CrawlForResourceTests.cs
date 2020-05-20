@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using Resource.Models;
+using Crawler.Models;
 using Standard.Extensions;
 using Xunit;
 using Xunit.Abstractions;
