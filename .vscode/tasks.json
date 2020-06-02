@@ -2,96 +2,68 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "Build Solution",
+            "dependsOn": [
+                "Crawler Build"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Crawler Build",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Crawler/Crawler.Tests/Crawler.Tests.csproj",
+                "${workspaceFolder}/src/Crawler/Crawler.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
+         {
+            "label": "Daprd (All Services)",
+            "dependsOn": [
+                "Daprd Crawler"
+            ],
+            "problemMatcher": []
+        },
         {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
+            "label": "Daprd Crawler",
+            "command": "daprd",
             "args": [
-                "publish",
-                "${workspaceFolder}/src/Crawler/Crawler.Tests/Crawler.Tests.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "-app-id",
+                "crawler-service",
+                "-components-path",
+                "${workspaceFolder}/components/local",
+                "-app-port",
+                "5100",
+                "-dapr-grpc-port",
+                "5101",
+                "-dapr-http-port",
+                "5180",
+                "-metrics-port",
+                "5190",
+                "-config",
+                "${workspaceFolder}/components/local/configuration.tracing.yaml"
             ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "watch",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "watch",
-                "run",
-                "${workspaceFolder}/src/Crawler/Crawler.Tests/Crawler.Tests.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "type": "docker-build",
-            "label": "docker-build: debug",
-            "dependsOn": [
-                "build"
-            ],
-            "dockerBuild": {
-                "tag": "megaphone:dev",
-                "target": "base",
-                "dockerfile": "${workspaceFolder}/src/Crawler/Crawler.API/Dockerfile",
-                "context": "${workspaceFolder}",
-                "pull": true
-            },
-            "netCore": {
-                "appProject": "${workspaceFolder}/src/Crawler/Crawler.API/Crawler.API.csproj"
-            }
-        },
-        {
-            "type": "docker-build",
-            "label": "docker-build: release",
-            "dependsOn": [
-                "build"
-            ],
-            "dockerBuild": {
-                "tag": "megaphone:latest",
-                "dockerfile": "${workspaceFolder}/src/Crawler/Crawler.API/Dockerfile",
-                "context": "${workspaceFolder}",
-                "pull": true
-            },
-            "netCore": {
-                "appProject": "${workspaceFolder}/src/Crawler/Crawler.API/Crawler.API.csproj"
-            }
-        },
-        {
-            "type": "docker-run",
-            "label": "docker-run: debug",
-            "dependsOn": [
-                "docker-build: debug"
-            ],
-            "dockerRun": {},
-            "netCore": {
-                "appProject": "${workspaceFolder}/src/Crawler/Crawler.API/Crawler.API.csproj",
-                "enableDebugging": true
-            }
-        },
-        {
-            "type": "docker-run",
-            "label": "docker-run: release",
-            "dependsOn": [
-                "docker-build: release"
-            ],
-            "dockerRun": {},
-            "netCore": {
-                "appProject": "${workspaceFolder}/src/Crawler/Crawler.API/Crawler.API.csproj"
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": ".",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "beginsPattern": "^.*starting Dapr Runtime.*",
+                    "endsPattern": "^.*waiting on port.*"
+                }
             }
         }
     ]

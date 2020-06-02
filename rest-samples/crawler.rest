@@ -1,0 +1,28 @@
+@crawler-service = 127.0.0.1:5100
+
+@url = https://azure.microsoft.com/en-us/updates/cni-security-vulnerability-in-older-aks-clusters-and-mitigation-steps/
+
+@feed-id = d37aa251-81ba-4ced-a19a-f21269b1a184
+
+### Crawl Resource
+POST http://{{crawler-service}}/api/crawler
+Content-Type: application/json
+ 
+"{{url}}"
+
+### Add item to Watch List
+POST http://{{crawler-service}}/api/crawler/watch
+Content-Type: application/json
+
+{
+    "url": "{{url}}"
+}
+
+### Get Watch List
+GET http://{{crawler-service}}/api/crawler/watch
+
+### Get item from Watch List
+GET http://{{crawler-service}}/api/crawler/watch/{{feed-id}}
+
+### Remove item from Watch List
+DELETE http://{{crawler-service}}/api/crawler/watch/{{feed-id}}

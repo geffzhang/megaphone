@@ -1,4 +1,4 @@
-dotnet restore "./xsrc/Crawler/Crawler.sln"
+dotnet restore "./src/Crawler/Crawler.sln"
 
 dotnet build "./src/Crawler/Crawler.sln" --configuration Release --no-restore
 

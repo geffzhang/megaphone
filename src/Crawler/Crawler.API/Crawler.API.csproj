@@ -5,4 +5,14 @@
     <LangVersion>8.0</LangVersion>
     <UserSecretsId>0d381d0445f4881f89b324a2b3da2222</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Crawler\Crawler.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapr.AspNetCore" Version="0.7.0-preview01" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Standard" Version="1.0.1" />
+  </ItemGroup>
+
 </Project>
