@@ -1,85 +1,79 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
-using Dapr;
-using Dapr.Client;
+using Crawler.API.Commands;
+using Crawler.API.Models;
+using Crawler.API.Queries;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Standard.Extensions;
 
 namespace Crawler.API.Controllers
 {
-    public class Item
-    {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
-        [JsonProperty("url")]
-        public string Url { get; set; }
-    }
-
     [ApiController]
     [EnableCors]
     [Route("/api/crawler/watch")]
-    public class WatchController : ControllerBase
+    public class WatchListController : ControllerBase
     {
-        const string STORENAME = "crawler-state-store";
-        const string STORELISTKEY = "crawler-state-store";
+        private readonly HttpClient httpClient;
+        public WatchListController(IHttpClientFactory httpClientFactory) : base()
+        {
+            httpClient = httpClientFactory.CreateClient();
+        }
 
         [Route("")]
         [HttpPost]
-        public async Task<CreatedAtActionResult> PostAsync([FromServices] DaprClient daprClient, Item item)
+        public async Task<CreatedAtActionResult> PostAsync(Item item)
         {
-            var stateEntity = await daprClient.GetStateEntryAsync<List<Item>>(STORENAME, STORELISTKEY);
-            var watchItems = stateEntity.Value ?? new List<Item>();
+            var q = new GetWatchListQuery();
+            var items = await q.ExecuteAsync(this.httpClient);
 
-            item.Id = Guid.NewGuid().ToString();
+            item.Id = new Uri(item.Url).ToGuid().ToString();
+            items.Add(item);
 
-            watchItems.Add(item);
-            stateEntity.Value = watchItems;
-            await stateEntity.TrySaveAsync();
+            var c = new PersistWatchListCommand(items);
+            await c.ApplyAsync(this.httpClient);
 
-            return new CreatedAtActionResult("Get", "Watch", new { id = item.Id }, item);
+            var publish = new PublishEventCommand(new CrawlRequestEvent { Url = item.Url }, "crawl");
+            await publish.ApplyAsync(this.httpClient);
+
+            return new CreatedAtActionResult("Get", "WatchList", new { id = item.Id }, item);
         }
 
         [Route("")]
         [HttpGet]
-        public async Task<JsonResult> GetAsync([FromServices] DaprClient daprClient)
+        public async Task<JsonResult> GetAsync()
         {
-            var stateEntity = await daprClient.GetStateEntryAsync<List<Item>>(STORENAME, STORELISTKEY);
-            var watchItems = stateEntity.Value ?? new List<Item>();
-            return new JsonResult(watchItems);
+            var q = new GetWatchListQuery();
+            var items = await q.ExecuteAsync(this.httpClient);
+            return new JsonResult(items);
         }
 
         [Route("{id}")]
         [HttpGet]
-        public async Task<IActionResult> GetAsync([FromServices] DaprClient daprClient, string id)
+        public async Task<IActionResult> GetAsync(string id)
         {
-            var stateEntity = await daprClient.GetStateEntryAsync<List<Item>>(STORENAME, STORELISTKEY);
-            var watchItems = stateEntity.Value ?? new List<Item>();
+            var q = new GetWatchListQuery();
+            var items = await q.ExecuteAsync(this.httpClient);
 
-            var item = watchItems.FirstOrDefault(i => i.Id == id);
-
-            if (item == null)
-                return NotFound();
+            var item = items.FirstOrDefault(i => i.Id == id);
 
             return new JsonResult(item);
         }
 
         [Route("{id}")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync([FromServices] DaprClient daprClient, string id)
+        public async Task<IActionResult> DeleteAsync(string id)
         {
-            var stateEntity = await daprClient.GetStateEntryAsync<List<Item>>(STORENAME, STORELISTKEY);
-            var watchItems = stateEntity.Value ?? new List<Item>();
+            var q = new GetWatchListQuery();
+            var items = await q.ExecuteAsync(this.httpClient);
 
-            stateEntity.Value = watchItems.Where(i => i.Id != id).ToList();
+            items = items.Where(i => i.Id != id).ToList();
 
-            if (watchItems.Count == stateEntity.Value.Count)
-                return NotFound();
-
-            await stateEntity.TrySaveAsync();
+            var c = new PersistWatchListCommand(items);
+            await c.ApplyAsync(this.httpClient);
 
             return Ok();
         }

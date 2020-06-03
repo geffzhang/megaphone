@@ -1,7 +1,7 @@
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: messagebus
+  name: crawler-commands
 spec:
   type: pubsub.redis
   metadata:
@@ -9,3 +9,5 @@ spec:
     value: localhost:6379
   - name: redisPassword
     value: ""
+  scopes:
+  - crawler-service

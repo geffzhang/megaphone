@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Dapr.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace Crawler.API
 {
@@ -26,8 +26,20 @@ namespace Crawler.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddDapr();
-
+            services.AddControllers();
+            services.AddHttpClient();
+            
+            services.AddSingleton(new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                PropertyNameCaseInsensitive = true,
+            });
+            
+            services.AddMvc(opts =>
+            {
+                opts.InputFormatters.Insert(0, new CloudNative.CloudEvents.CloudEventJsonInputFormatter());
+            });
+            
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
@@ -51,7 +63,6 @@ namespace Crawler.API
                 app.UseExceptionHandler("/Error");
             }
 
-            app.UseCloudEvents();
             app.UseRouting();
             app.UseCors();
 
@@ -59,7 +70,6 @@ namespace Crawler.API
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapSubscribeHandler();
                 endpoints.MapControllers();
             });
         }
