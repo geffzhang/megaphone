@@ -2,7 +2,7 @@
 
 namespace Resources.API.Events
 {
-    public class CrawlRequestEvent
+    public class ResourceEvent
     {
         [JsonPropertyName("url")]
         public string Url { get; set; }

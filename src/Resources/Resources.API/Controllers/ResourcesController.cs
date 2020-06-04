@@ -15,7 +15,7 @@ namespace Resources.API.Controllers
 {
     [ApiController]
     [EnableCors]
-    [Route("/api/list")]
+    [Route("/api/resources")]
     public class ResourcesController : ControllerBase
     {
         private readonly HttpClient httpClient;
@@ -37,7 +37,7 @@ namespace Resources.API.Controllers
             var c = new PersistResourceCommand(items, "<id>");
             await c.ApplyAsync(httpClient);
 
-            var publish = new PublishEventCommand(new CrawlRequestEvent { Url = item.Url }, "crawl");
+            var publish = new PublishEventCommand(new ResourceEvent { Url = item.Url }, "crawl");
             await publish.ApplyAsync(httpClient);
 
             return new CreatedAtActionResult("Get", "List", new { id = item.Id }, item);
