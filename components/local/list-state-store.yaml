@@ -1,7 +1,7 @@
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: crawler-state-store
+  name: list-state-store
 spec:
   type: state.redis
   metadata:
@@ -10,4 +10,4 @@ spec:
   - name: redisPassword
     value: ""
   scopes:
-  - crawler-service
+  - list-service

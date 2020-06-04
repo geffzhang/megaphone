@@ -4,7 +4,8 @@
         {
             "label": "Build Solution",
             "dependsOn": [
-                "Crawler Build"
+                "Crawler Build",
+                "List Build"
             ],
             "problemMatcher": [],
             "group": {
@@ -24,10 +25,23 @@
             ],
             "problemMatcher": "$msCompile"
         },
-         {
+        {
+            "label": "List Build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/List/List.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "Daprd (All Services)",
             "dependsOn": [
-                "Daprd Crawler"
+                "Daprd Crawler",
+                "Daprd List"
             ],
             "problemMatcher": []
         },
@@ -47,6 +61,41 @@
                 "5180",
                 "-metrics-port",
                 "5190",
+                "-config",
+                "${workspaceFolder}/components/local/configuration.tracing.yaml"
+            ],
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": ".",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "beginsPattern": "^.*starting Dapr Runtime.*",
+                    "endsPattern": "^.*waiting on port.*"
+                }
+            }
+        },
+        {
+            "label": "Daprd List",
+            "command": "daprd",
+            "args": [
+                "-app-id",
+                "list-service",
+                "-components-path",
+                "${workspaceFolder}/components/local",
+                "-app-port",
+                "5200",
+                "-dapr-grpc-port",
+                "5201",
+                "-dapr-http-port",
+                "5280",
+                "-metrics-port",
+                "5290",
                 "-config",
                 "${workspaceFolder}/components/local/configuration.tracing.yaml"
             ],

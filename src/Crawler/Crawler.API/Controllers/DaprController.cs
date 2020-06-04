@@ -6,7 +6,6 @@ namespace Crawler.API.Controllers
     [Route("[controller]")]
     public class DaprController : ControllerBase
     {
-        // TODO: Challenge 2
         [HttpGet("subscribe")]
         public IActionResult GetTask()
         {
