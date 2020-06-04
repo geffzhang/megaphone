@@ -1,9 +1,9 @@
 using System;
 using System.Text.Json.Serialization;
 
-namespace Crawler.API.Models
+namespace Resources.API.Models
 {
-    public class Item
+    public class Resource
     {
         [JsonPropertyName("url")]
         public string Url { get; set; }

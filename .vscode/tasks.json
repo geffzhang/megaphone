@@ -38,10 +38,23 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "Resources Build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Resources/Resources.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "Daprd (All Services)",
             "dependsOn": [
                 "Daprd Crawler",
-                "Daprd List"
+                "Daprd List",
+                "Daprd Resources"
             ],
             "problemMatcher": []
         },
@@ -61,6 +74,41 @@
                 "5180",
                 "-metrics-port",
                 "5190",
+                "-config",
+                "${workspaceFolder}/components/local/configuration.tracing.yaml"
+            ],
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": ".",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "beginsPattern": "^.*starting Dapr Runtime.*",
+                    "endsPattern": "^.*waiting on port.*"
+                }
+            }
+        },
+        {
+            "label": "Daprd Resources",
+            "command": "daprd",
+            "args": [
+                "-app-id",
+                "resources-service",
+                "-components-path",
+                "${workspaceFolder}/components/local",
+                "-app-port",
+                "5300",
+                "-dapr-grpc-port",
+                "5301",
+                "-dapr-http-port",
+                "5380",
+                "-metrics-port",
+                "5390",
                 "-config",
                 "${workspaceFolder}/components/local/configuration.tracing.yaml"
             ],

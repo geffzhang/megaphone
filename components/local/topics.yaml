@@ -1,7 +1,7 @@
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: crawler-commands
+  name: topics
 spec:
   type: pubsub.redis
   metadata:
@@ -12,3 +12,4 @@ spec:
   scopes:
   - crawler-service
   - list-service
+  - resources-service

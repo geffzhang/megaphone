@@ -35,6 +35,22 @@
                 "DAPR_HTTP_PORT": "5280",
                 "DAPR_GRPC_PORT": "5201"
             }
+        },
+        {
+            "name": "Debug Resources",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "Resources Build",
+            "program": "${workspaceFolder}/src/Resources/Resources.API/bin/Debug/netcoreapp3.1/Resources.API.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Resources/Resources.API/",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://127.0.0.1:5300;",
+                "DAPR_HTTP_PORT": "5380",
+                "DAPR_GRPC_PORT": "5301"
+            }
         }       
     ],
     "compounds": [
@@ -42,7 +58,8 @@
             "name": "Debug All Services",
             "configurations": [
                 "Debug Crawler",
-                "Debug List"
+                "Debug List",
+                "Debug Resources"
             ]
         }
     ]
