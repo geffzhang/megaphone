@@ -1,11 +1,13 @@
 @crawler-service = 127.0.0.1:5100
+@list-service = 127.0.0.1:5200
+@resources-service = 127.0.0.1:5300
 
 @url = https://devblogs.microsoft.com/dotnet/feed/
 
 @feed-id = c50f7543-6b69-5e46-ae5e-bf0b82dede0e
 
 ### Add item to Watch List
-POST http://{{crawler-service}}/api/crawler/watch
+POST http://{{list-service}}/api/list
 Content-Type: application/json
 
 {
@@ -13,13 +15,13 @@ Content-Type: application/json
 }
 
 ### Get Subscriptions
-GET http://{{crawler-service}}/dapr/subscribe
+GET http://{{list-service}}/dapr/subscribe
 
 ### Get Watch List
-GET http://{{crawler-service}}/api/crawler/watch
+GET http://{{list-service}}/api/list
 
 ### Get item from Watch List
-GET http://{{crawler-service}}/api/crawler/watch/{{feed-id}}
+GET http://{{list-service}}/api/list/{{feed-id}}
 
 ### Remove item from Watch List
-DELETE http://{{crawler-service}}/api/crawler/watch/{{feed-id}}
+DELETE http://{{list-service}}/api/list/{{feed-id}}
