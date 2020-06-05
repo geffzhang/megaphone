@@ -5,8 +5,8 @@ namespace Resources.API.Models
 {
     public class ResourceRepresentation
     {
-         [JsonPropertyName("id")]
-        public string Id { get; set;}
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
         [JsonPropertyName("display")]
         public string Display { get; set; }
         [JsonPropertyName("statusCode")]

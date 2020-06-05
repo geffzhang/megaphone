@@ -23,7 +23,7 @@ namespace Crawler.API.Commands
                 Description = resource.Description,
                 Display = resource.Display,
                 Id = resource.Id,
-                IsActive = resource.IsActive,
+                IsActive = resource.IsActive,            
                 Published = resource.Published,
                 Self = resource.Self,
                 StatusCode = resource.StatusCode,

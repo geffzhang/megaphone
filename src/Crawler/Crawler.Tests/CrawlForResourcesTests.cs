@@ -29,7 +29,7 @@ namespace Crawler.XUnitTest
             ResourceCrawler crawler = new WebResourceCrawler();
 
             var uri = "https://channel9.msdn.com/Shows/Azure-Friday/feed".ToUri();
-            var resource = new Crawler.Models.Resource(uri.ToGuid().ToString())
+            var resource = new Resource(uri.ToGuid().ToString())
             {
                 Self = uri,
                 Description = string.Empty

@@ -6,6 +6,7 @@ using CloudNative.CloudEvents;
 using Newtonsoft.Json.Linq;
 using Crawler.Models;
 using System.Net.Http;
+using System.Linq;
 
 namespace Crawler.API.Controllers
 {
@@ -32,8 +33,11 @@ namespace Crawler.API.Controllers
             {
                 var resources = await crawler.GetChildResourcesAsync(resource);
 
-                foreach (var r in resources)
+                resources.AsParallel().ForAll(async r =>
+                {
+                    await GetCachedCopy(crawler, r);
                     await UpdateResource(r);
+                });
             }
 
             return Ok();
@@ -42,6 +46,14 @@ namespace Crawler.API.Controllers
             {
                 var c = new UpdateResourceCommand(resource);
                 await c.ApplyAsync(httpClient);
+            }
+
+            static async Task GetCachedCopy(WebResourceCrawler crawler, Resource resource)
+            {
+                var source = await crawler.GetResourceAsync(resource.Self);
+                resource.StatusCode = source.StatusCode;
+                resource.Cache = source.Cache;
+                resource.IsActive = source.IsActive;
             }
         }
     }

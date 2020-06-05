@@ -25,11 +25,11 @@ namespace Crawler.Queries
             return await MakeResourceAsync(response);
         }
 
-        private async Task<Models.Resource> MakeResourceAsync(HttpResponseMessage response)
+        private async Task<Resource> MakeResourceAsync(HttpResponseMessage response)
         {
             var resourceId = response.RequestMessage.RequestUri.ToGuid().ToString();
 
-            var resource = new Models.Resource(resourceId)
+            var resource = new Resource(resourceId)
             {
                 Self = response.RequestMessage.RequestUri,
                 IsActive = response.IsSuccessStatusCode,
@@ -45,6 +45,7 @@ namespace Crawler.Queries
         private static async Task LoadResourceDetails(HttpResponseMessage response, Models.Resource resource)
         {
             var content = await response.Content.ReadAsStringAsync();
+            resource.Cache = content;
 
             switch (response.Content.Headers.ContentType.MediaType)
             {

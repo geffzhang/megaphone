@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ### Get resource
-GET http://{{resources-service}}/api/resources/1b5b03f0-a2bf-599c-b149-46dd72c5a134
+GET http://{{resources-service}}/api/resources/07f7d8ee-db4f-5816-944c-5e360b63a41e
 
 
 ### Get Watch List

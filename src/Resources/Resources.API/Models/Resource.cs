@@ -13,7 +13,8 @@ namespace Resources.API.Models
         public int StatusCode { get; set; }
         [JsonPropertyName("created")]
         public DateTimeOffset Created { get; set; } = DateTimeOffset.UtcNow;
-        public bool IsActive { get { return StatusCode == 200; } }
+        [JsonPropertyName("isActive")]
+        public bool IsActive { get; set; }
         [JsonPropertyName("type")]
         public ResourceType Type { get; set; }
         [JsonPropertyName("description")]

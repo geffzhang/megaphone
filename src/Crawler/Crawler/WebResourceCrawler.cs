@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Crawler.Models;
@@ -26,8 +27,7 @@ namespace Crawler
 
         public override async Task<IEnumerable<Resource>> GetChildResourcesAsync(Resource resource)
         {
-            var content = await Client.GetByteArrayAsync(resource.Self);
-            var stream = new MemoryStream(content) { Position = 0 };
+            var stream = new MemoryStream(Encoding.UTF8.GetBytes(resource.Cache)) { Position = 0 };
 
             List<Resource> resources = new List<Resource>();
 
