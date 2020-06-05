@@ -1,8 +1,7 @@
-﻿using Resources.API.Models;
-using System;
+﻿using System;
 using System.Text.Json.Serialization;
 
-namespace Resources.API.Events
+namespace List.API.Events
 {
     public class ResourceEvent
     {

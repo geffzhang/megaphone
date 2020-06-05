@@ -6,16 +6,16 @@ namespace List.API.Controllers
     [Route("[controller]")]
     public class DaprController : ControllerBase
     {
-        // [HttpGet("subscribe")]
-        // public IActionResult GetTask()
-        // {
-        //     return Ok(new[]
-        //     { "crawl"
-        //         // new {
-        //         //     Topic = "order",
-        //         //     Route = "/order"
-        //         // }
-        //         });
-        // }
+        [HttpGet("subscribe")]
+        public IActionResult GetTask()
+        {
+            return Ok(new[]
+            { "resource-events"
+                // new {
+                //     Topic = "order",
+                //     Route = "/order"
+                // }
+                });
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace Crawler.XUnitTest
 
             var resources = await crawler.GetChildResourcesAsync(resource).ConfigureAwait(false);
 
-            Assert.IsAssignableFrom<IEnumerable<IResource>>(resources);
+            Assert.IsAssignableFrom<IEnumerable<Resource>>(resources);
             Assert.True(resources.Any());
         }
     }

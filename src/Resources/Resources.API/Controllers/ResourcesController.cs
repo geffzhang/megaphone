@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using List.API.Commands;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Resources.API.Commands;
 using Resources.API.Events;
 using Resources.API.Models;
@@ -24,59 +25,97 @@ namespace Resources.API.Controllers
             httpClient = httpClientFactory.CreateClient();
         }
 
-        [Route("")]
-        [HttpPost]
-        public async Task<CreatedAtActionResult> PostAsync(Resource item)
+        [Route("{id}")]
+        [HttpPut]
+        public async Task<IActionResult> PutAsync(string id, ResourceRepresentation resource)
         {
-            var q = new GetListQuery("<id>");
-            var items = await q.ExecuteAsync(httpClient);
+            try
+            {
+                var r = await GetResourceOrDefault(id);
 
-            item.Id = new Uri(item.Url).ToGuid().ToString();
-            items.Add(item);
+                Update(r, resource);
 
-            var c = new PersistResourceCommand(items, "<id>");
-            await c.ApplyAsync(httpClient);
+                var c = new PersistResourceCommand(r, id);
+                await c.ApplyAsync(httpClient);
 
-            var publish = new PublishEventCommand(new ResourceEvent { Url = item.Url }, "crawl");
-            await publish.ApplyAsync(httpClient);
+                var publish = new PublishEventCommand(new ResourceEvent
+                {
+                    Event = "update",
+                    Id = r.Id,
+                    LastCrawled = DateTimeOffset.UtcNow,
+                    LastStatusCode = r.StatusCode,
+                    Url = Url.Action("Get", new { id = resource.Id }),
+                    Type = r.Type
 
-            return new CreatedAtActionResult("Get", "List", new { id = item.Id }, item);
+                }, "resource-events");
+
+                await publish.ApplyAsync(httpClient);
+
+                return new OkObjectResult(resource);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [Route("")]
-        [HttpGet]
-        public async Task<JsonResult> GetAsync()
+        private async Task<Resource> GetResourceOrDefault(string id)
         {
-            var q = new GetListQuery("<id>");
-            var items = await q.ExecuteAsync(httpClient);
-            return new JsonResult(items);
+            var q = new GetResourceQuery(id);
+            var r = await q.ExecuteAsync(httpClient);
+            return r;
+        }
+
+        private static void Update(Resource r, ResourceRepresentation resource)
+        {
+            r.Id = resource.Id;
+            r.Self = resource.Self;
+            r.StatusCode = resource.StatusCode;
+
+            if (resource.IsActive)
+            {
+                r.Created = resource.Created;
+                r.Published = resource.Published;
+                r.Type = resource.Type;
+                r.Description = resource.Description;
+                r.Display = resource.Display;
+            }
         }
 
         [Route("{id}")]
         [HttpGet]
-        public async Task<IActionResult> GetAsync(string id)
+        public async Task<JsonResult> GetAsync(string id)
         {
-            var q = new GetListQuery("<id>");
-            var items = await q.ExecuteAsync(httpClient);
-
-            var item = items.FirstOrDefault(i => i.Id == id);
-
-            return new JsonResult(item);
+            var q = new GetResourceQuery(id);
+            var r = await q.ExecuteAsync(httpClient);
+            return new JsonResult(r);
         }
 
-        [Route("{id}")]
-        [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(string id)
-        {
-            var q = new GetListQuery("<id>");
-            var items = await q.ExecuteAsync(httpClient);
+        // [Route("{id}")]
+        // [HttpGet]
+        // public async Task<IActionResult> GetAsync(string id)
+        // {
+        //     var q = new GetListQuery("<id>");
+        //     var items = await q.ExecuteAsync(httpClient);
 
-            items = items.Where(i => i.Id != id).ToList();
+        //     var item = items.FirstOrDefault(i => i.Id == id);
 
-            var c = new PersistResourceCommand(items, "<id>");
-            await c.ApplyAsync(httpClient);
+        //     return new JsonResult(item);
+        // }
 
-            return Ok();
-        }
+        // [Route("{id}")]
+        // [HttpDelete]
+        // public async Task<IActionResult> DeleteAsync(string id)
+        // {
+        //     var q = new GetListQuery("<id>");
+        //     var items = await q.ExecuteAsync(httpClient);
+
+        //     items = items.Where(i => i.Id != id).ToList();
+
+        //     var c = new PersistResourceCommand(items, "<id>");
+        //     await c.ApplyAsync(httpClient);
+
+        //     return Ok();
+        // }
     }
 }

@@ -3,11 +3,11 @@ using System;
 namespace Crawler.Models
 {
     [Serializable]
-    public class Resource : IResource
+    public class Resource
     {
         public Resource(string id)
         {
-            this.Id = id;
+            Id = id;
         }
 
         public string Id { get; }

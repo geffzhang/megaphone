@@ -3,11 +3,11 @@ using Resources.API.Models;
 
 namespace Resources.API.Queries
 {
-    class GetListQuery : GetQuery<List<Resource>>
+    class GetResourceQuery : GetQuery<Resource>
     {
         const string STORENAME = "resources-state-store";
 
-        public GetListQuery(string key) : base(STORENAME, key)
+        public GetResourceQuery(string key) : base(STORENAME, key)
         {
         }
     }

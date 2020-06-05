@@ -27,7 +27,7 @@ namespace Crawler.XUnitTest
         {
             ResourceCrawler crawler = new WebResourceCrawler();
             var resource = await crawler.GetResourceAsync("https://www.google.com".ToUri()).ConfigureAwait(false);
-            Assert.IsAssignableFrom<IResource>(resource);
+            Assert.IsAssignableFrom<Resource>(resource);
         }
 
         [Fact]

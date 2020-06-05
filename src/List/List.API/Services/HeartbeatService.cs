@@ -23,12 +23,19 @@ namespace List.API.Services
         {
             timer = new Timer(async state =>
                       {
-                          var q = new GetListQuery();
-                          var items = await q.ExecuteAsync(httpClient);
+                          try
+                          {
+                              var q = new GetListQuery();
+                              var items = await q.ExecuteAsync(httpClient);
 
-                          foreach (var i in items)
-                             if (IsDueForCrawl(i))
-                                 await PublishCrawlRequest(i);                            
+                              foreach (var i in items)
+                                  if (IsDueForCrawl(i))
+                                      await PublishCrawlRequest(i);
+                          }
+                          catch
+                          {
+                              // nothing
+                          }
                       },
                       null,
                       TimeSpan.Zero,

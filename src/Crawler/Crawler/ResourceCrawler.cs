@@ -7,8 +7,8 @@ namespace Crawler
 {
     public abstract class ResourceCrawler
     {
-        public abstract Task<IResource> GetResourceAsync(Uri uri);
+        public abstract Task<Resource> GetResourceAsync(Uri uri);
 
-        public abstract Task<IEnumerable<IResource>> GetChildResourcesAsync(IResource resource);
+        public abstract Task<IEnumerable<Resource>> GetChildResourcesAsync(Resource resource);
     }
 }

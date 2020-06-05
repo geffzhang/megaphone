@@ -1,19 +1,21 @@
 using System;
 using System.Text.Json.Serialization;
+using Crawler.Models;
 
-namespace Resources.API.Models
+namespace Crawler.API.Models
 {
-    public class Resource
+    public class ResourceRepresentation
     {
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        public string Id { get; set;}
         [JsonPropertyName("display")]
         public string Display { get; set; }
         [JsonPropertyName("statusCode")]
         public int StatusCode { get; set; }
         [JsonPropertyName("created")]
         public DateTimeOffset Created { get; set; } = DateTimeOffset.UtcNow;
-        public bool IsActive { get { return StatusCode == 200; } }
+        [JsonPropertyName("isActive")]
+        public bool IsActive { get; set; }
         [JsonPropertyName("type")]
         public ResourceType Type { get; set; }
         [JsonPropertyName("description")]

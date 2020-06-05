@@ -9,7 +9,7 @@ using Standard.Queries;
 
 namespace Crawler.Queries
 {
-    internal class GetResourceFromUri : IQuery<Uri, IResource>
+    internal class GetResourceFromUri : IQuery<Uri, Resource>
     {
         private readonly HttpClient client;
 
@@ -18,7 +18,7 @@ namespace Crawler.Queries
             this.client = client;
         }
 
-        public async Task<IResource> ExecuteAsync(Uri model)
+        public async Task<Resource> ExecuteAsync(Uri model)
         {
             var response = await client.GetAsync(model);
 

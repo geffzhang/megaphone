@@ -3,11 +3,11 @@ using Resources.API.Models;
 
 namespace Resources.API.Commands
 {
-    class PersistResourceCommand : PersistCommand<List<Resource>>
+    class PersistResourceCommand : PersistCommand<Resource>
     {
         const string STORENAME = "resources-state-store";
 
-        public PersistResourceCommand(List<Resource> content,string key) : base(content, STORENAME, key)
+        public PersistResourceCommand(Resource content,string key) : base(content, STORENAME, key)
         {
         }
     }

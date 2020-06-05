@@ -25,5 +25,5 @@ namespace Crawler.API.Commands
             if (!postResult.IsSuccessStatusCode)
                 throw new Exception("Failed to publish");
         }
-    }
+    } 
 }

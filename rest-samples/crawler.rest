@@ -14,8 +14,9 @@ Content-Type: application/json
     "url": "{{url}}"
 }
 
-### Get Subscriptions
-GET http://{{list-service}}/dapr/subscribe
+### Get resource
+GET http://{{resources-service}}/api/resources/1b5b03f0-a2bf-599c-b149-46dd72c5a134
+
 
 ### Get Watch List
 GET http://{{list-service}}/api/list
@@ -25,3 +26,8 @@ GET http://{{list-service}}/api/list/{{feed-id}}
 
 ### Remove item from Watch List
 DELETE http://{{list-service}}/api/list/{{feed-id}}
+
+
+
+### Get Subscriptions
+GET http://{{list-service}}/dapr/subscribe

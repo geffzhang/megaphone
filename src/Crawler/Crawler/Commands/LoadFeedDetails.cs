@@ -5,7 +5,7 @@ using Standard.Commands;
 
 namespace Crawler.Command
 {
-    internal class LoadFeedDetails : ICommand<Models.Resource>
+    internal class LoadFeedDetails : ICommand<Resource>
     {
         private readonly string content;
 
@@ -14,7 +14,7 @@ namespace Crawler.Command
             this.content = content;
         }
 
-        public async Task ApplyAsync(Models.Resource model)
+        public async Task ApplyAsync(Resource model)
         {
             model.Type = ResourceType.Feed;
 
@@ -26,12 +26,12 @@ namespace Crawler.Command
 
             await Task.CompletedTask;
         }
-        private static void SetTitle(Models.Resource model, HtmlDocument document)
+        private static void SetTitle(Resource model, HtmlDocument document)
         {
             var title = document.DocumentNode.SelectSingleNode("//rss/channel/title");
             model.Display = title.InnerText;
         }
-        private static void SetDescription(Models.Resource model, HtmlDocument document)
+        private static void SetDescription(Resource model, HtmlDocument document)
         {
             var description = document.DocumentNode.SelectSingleNode("//rss/channel/description");
             model.Description = description.InnerText;

@@ -18,52 +18,69 @@ namespace Crawler
     {
         private static readonly HttpClient Client = new HttpClient();
 
-        public override async Task<IResource> GetResourceAsync(Uri uri)
+        public override async Task<Resource> GetResourceAsync(Uri uri)
         {
             var query = new GetResourceFromUri(Client);
             return await query.ExecuteAsync(uri);
         }
 
-        public override async Task<IEnumerable<IResource>> GetChildResourcesAsync(IResource resource)
+        public override async Task<IEnumerable<Resource>> GetChildResourcesAsync(Resource resource)
         {
             var content = await Client.GetByteArrayAsync(resource.Self);
             var stream = new MemoryStream(content) { Position = 0 };
 
-            var resources = await TryMaterializeResourcesFromRssFeedAsync(stream);
-            
+            List<Resource> resources = new List<Resource>();
+
+            //if (model.FeedType == "rss")
+            //{
+            resources = await TryMaterializeResourcesFromRssFeedAsync(stream);
+            //}
+            //else
+            //{
+            //    resources = await TryMaterializeResourcesFromAtomFeedAsync(stream);
+            //}          
+
             return resources;
         }
 
-        private async Task<List<Crawler.Models.Resource>> TryMaterializeResourcesFromRssFeedAsync(MemoryStream stream)
+        private async Task<List<Resource>> TryMaterializeResourcesFromRssFeedAsync(MemoryStream stream)
         {
             using var xmlReader = XmlReader.Create(stream, new XmlReaderSettings { Async = true });
-            
+
             var feedReader = new RssFeedReader(xmlReader);
 
             return await ToResources(feedReader);
         }
 
-        private async Task<List<Crawler.Models.Resource>> ToResources(XmlFeedReader feedReader)
+        private async Task<List<Resource>> TryMaterializeResourcesFromAtomFeedAsync(MemoryStream stream)
         {
-            var resources = new List<Crawler.Models.Resource>();
+            using var xmlReader = XmlReader.Create(stream, new XmlReaderSettings { Async = true });
+            var feedReader = new AtomFeedReader(xmlReader);
+
+            return await ToResources(feedReader);
+        }
+
+        private async Task<List<Resource>> ToResources(XmlFeedReader feedReader)
+        {
+            var resources = new List<Resource>();
 
             while (await feedReader.Read())
             {
                 if (feedReader.ElementType != SyndicationElementType.Item) continue;
-                
+
                 var item = await feedReader.ReadContent();
 
                 var uri = GetUri(item);
 
                 if (uri == null) continue;
-                
+
                 var published = GetPublicationDate(item);
                 if (!published.HasValue)
                     break;
 
                 var description = GetDescription(item);
 
-                var r = new Crawler.Models.Resource(uri.ToGuid().ToString())
+                var r = new Resource(uri.ToGuid().ToString())
                 {
                     Published = published.Value.ToUniversalTime(),
                     Display = GetTitle(item),
@@ -153,14 +170,6 @@ namespace Crawler
                 return title.Value;
 
             return string.Empty;
-        }
-
-        private async Task<List<Crawler.Models.Resource>> TryMaterializeResourcesFromAtomFeedAsync(MemoryStream stream, string sourceName)
-        {
-            using var xmlReader = XmlReader.Create(stream, new XmlReaderSettings { Async = true });
-            var feedReader = new AtomFeedReader(xmlReader);
-
-            return await ToResources(feedReader);
         }
     }
 }
