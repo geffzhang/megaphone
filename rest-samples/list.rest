@@ -1,0 +1,50 @@
+@list-service = 127.0.0.1:5200
+@list-service-daprhttp = 127.0.0.1:5280 
+######### https://azure.microsoft.com/en-us/roadmap/feed/ 
+
+### post resource feed update event (reset)
+POST http://{{list-service-daprhttp}}/v1.0/publish/resource-feed-updates
+Content-Type: application/json
+
+{
+    "url":"/api/resources/740f3d2f-2eb2-50e4-b695-aeed86dfe674",
+    "id":"740f3d2f-2eb2-50e4-b695-aeed86dfe674",
+    "lastCrawled":"2020-06-16T20:36:52.515943+00:00",
+    "lastStatusCode":200,
+    "type":1,
+    "event":"update"
+}
+
+
+### Get Watch List
+GET http://{{list-service}}/api/list
+
+### Add Azure roadmap
+POST http://{{list-service}}/api/list
+Content-Type: application/json
+
+{
+    "url": "https://azure.microsoft.com/en-us/roadmap/feed/"
+}
+
+### Get item from Watch List
+GET http://{{list-service}}/api/list/740f3d2f-2eb2-50e4-b695-aeed86dfe674
+
+### Remove item from Watch List
+DELETE http://{{list-service}}/api/list/740f3d2f-2eb2-50e4-b695-aeed86dfe674
+
+######### https://devblogs.microsoft.com/dotnet/feed/
+
+### Get item from Watch List
+GET http://{{list-service}}/api/list/c50f7543-6b69-5e46-ae5e-bf0b82dede0e
+
+### Add item to Watch List
+POST http://{{list-service}}/api/list
+Content-Type: application/json
+
+{
+    "url": "https://devblogs.microsoft.com/dotnet/feed/"
+}
+
+### Remove item from Watch List
+DELETE http://{{list-service}}/api/list/c50f7543-6b69-5e46-ae5e-bf0b82dede0e

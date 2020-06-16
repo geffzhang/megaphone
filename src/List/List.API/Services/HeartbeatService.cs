@@ -39,7 +39,7 @@ namespace List.API.Services
                       },
                       null,
                       TimeSpan.Zero,
-                      TimeSpan.FromSeconds(60));
+                      TimeSpan.FromSeconds(60*15));
 
             return Task.CompletedTask;
         }
@@ -50,7 +50,7 @@ namespace List.API.Services
             await c.ApplyAsync(httpClient);
         }
 
-        private static bool IsDueForCrawl(Item i) => i.LastCrawled > DateTimeOffset.UtcNow.Subtract(TimeSpan.FromMinutes(15));
+        private static bool IsDueForCrawl(Item i) => i.LastCrawled < DateTimeOffset.UtcNow.Subtract(TimeSpan.FromMinutes(20));
 
         public Task StopAsync(CancellationToken stoppingToken)
         {

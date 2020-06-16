@@ -22,7 +22,8 @@ namespace List.API.Commands
 
         public async Task ApplyAsync(HttpClient model)
         {
-            var postResult = await model.PostAsync($"http://localhost:{port}/v1.0/publish/{topic}", new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, "application/json"));
+            var json = JsonSerializer.Serialize(content);
+            var postResult = await model.PostAsync($"http://localhost:{port}/v1.0/publish/{topic}", new StringContent(json, Encoding.UTF8, "application/json"));
             if (!postResult.IsSuccessStatusCode)
                 throw new Exception("Failed to publish");
         }

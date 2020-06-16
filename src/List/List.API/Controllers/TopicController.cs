@@ -19,24 +19,27 @@ namespace List.API.Controllers
             httpClient = httpClientFactory.CreateClient();
         }
 
-        [HttpPost("resource-events")]
+        [HttpPost("resource-feed-updates")]
         public async Task<IActionResult> PostAsync(CloudEvent cloudEvent)
         {
-            var e = ((JToken)cloudEvent.Data).ToObject<ResourceEvent>();
-
-            if (e.Type == ResourceType.Feed)
+            if (cloudEvent?.Data != null)
             {
-                var q = new GetListQuery();
-                var items = await q.ExecuteAsync(httpClient);
+                var e = ((JToken)cloudEvent.Data).ToObject<ResourceEvent>();
 
-                var i = items.Find(i => i.Id == e.Id);
-                if (IsNotDefault(i))
+                if (e.Type == ResourceType.Feed)
                 {
-                    i.LastCrawled = e.LastCrawled;
-                    i.LastHttpStatus = e.LastStatusCode;
+                    var q = new GetListQuery();
+                    var items = await q.ExecuteAsync(httpClient);
 
-                    var c = new PersistListCommand(items);
-                    await c.ApplyAsync(httpClient);
+                    var i = items.Find(i => i.Id == e.Id);
+                    if (IsNotDefault(i))
+                    {
+                        i.LastCrawled = e.LastCrawled;
+                        i.LastHttpStatus = e.LastStatusCode;
+
+                        var c = new PersistListCommand(items);
+                        await c.ApplyAsync(httpClient);
+                    }
                 }
             }
 
@@ -44,7 +47,7 @@ namespace List.API.Controllers
 
             static bool IsNotDefault(Models.Item i)
             {
-                return !string.IsNullOrEmpty(i.Id);
+                return i != null && !string.IsNullOrEmpty(i.Id);
             }
         }
     }

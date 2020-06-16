@@ -1,33 +1,9 @@
-@crawler-service = 127.0.0.1:5100
-@list-service = 127.0.0.1:5200
-@resources-service = 127.0.0.1:5300
+@crawl-service = 127.0.0.1:5100
 
-@url = https://devblogs.microsoft.com/dotnet/feed/
-
-@feed-id = c50f7543-6b69-5e46-ae5e-bf0b82dede0e
-
-### Add item to Watch List
-POST http://{{list-service}}/api/list
+### request Crawl
+POST http://{{crawl-service}}/v1.0/publish/crawl
 Content-Type: application/json
 
 {
-    "url": "{{url}}"
+    "url": "https://azure.microsoft.com/en-us/roadmap/feed/"
 }
-
-### Get resource
-GET http://{{resources-service}}/api/resources/07f7d8ee-db4f-5816-944c-5e360b63a41e
-
-
-### Get Watch List
-GET http://{{list-service}}/api/list
-
-### Get item from Watch List
-GET http://{{list-service}}/api/list/{{feed-id}}
-
-### Remove item from Watch List
-DELETE http://{{list-service}}/api/list/{{feed-id}}
-
-
-
-### Get Subscriptions
-GET http://{{list-service}}/dapr/subscribe

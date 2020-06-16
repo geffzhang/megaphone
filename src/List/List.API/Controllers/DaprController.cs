@@ -10,11 +10,11 @@ namespace List.API.Controllers
         public IActionResult GetTask()
         {
             return Ok(new[]
-            { "resource-events"
-                // new {
-                //     Topic = "order",
-                //     Route = "/order"
-                // }
+            { 
+                new {
+                    Topic = "resource-feed-updates",
+                    Route = "/resource-feed-updates"
+                }
                 });
         }
     }

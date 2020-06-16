@@ -1,0 +1,5 @@
+@resources-service = 127.0.0.1:5300
+@resource-id = c50f7543-6b69-5e46-ae5e-bf0b82dede0e
+
+### Get resource
+GET http://{{resources-service}}/api/resources/{{resource-id}}

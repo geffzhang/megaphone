@@ -10,11 +10,11 @@ namespace Crawler.API.Controllers
         public IActionResult GetTask()
         {
             return Ok(new[]
-            { "crawl"
-                // new {
-                //     Topic = "order",
-                //     Route = "/order"
-                // }
+            { 
+                new {
+                    Topic = "crawl",
+                    Route = "/crawl"
+                }
             });
         }        
     }

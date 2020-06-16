@@ -1,0 +1,17 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: topics
+  namespace: default
+spec:
+  type: pubsub.azure.servicebus
+  metadata:
+  - name: connectionString
+    secretKeyRef:
+      name: megaphone-servicebus-cs
+auth:
+    secretStore: azurekeyvault
+scopes:
+  - crawler-service
+  - list-service
+  - resources-service

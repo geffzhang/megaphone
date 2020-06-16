@@ -37,7 +37,7 @@ namespace Resources.API.Controllers
 
                 var c = new PersistResourceCommand(r, id);
                 await c.ApplyAsync(httpClient);
-
+                
                 var publish = new PublishEventCommand(new ResourceEvent
                 {
                     Event = "update",
@@ -47,7 +47,7 @@ namespace Resources.API.Controllers
                     Url = Url.Action("Get", new { id = resource.Id }),
                     Type = r.Type
 
-                }, "resource-events");
+                }, topic: GetTopic(r));
 
                 await publish.ApplyAsync(httpClient);
 
@@ -57,6 +57,24 @@ namespace Resources.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        private static string GetTopic(Resource r)
+        {
+            var topic = string.Empty;
+
+            switch (r.Type)
+            {
+                case ResourceType.Feed:
+                    topic = "resource-feed-updates";
+                    break;
+                case ResourceType.Page:
+                    topic = "resource-updates";
+                    break;
+                
+            }
+
+            return topic;
         }
 
         private async Task<Resource> GetResourceOrDefault(string id)
@@ -86,36 +104,8 @@ namespace Resources.API.Controllers
         [HttpGet]
         public async Task<JsonResult> GetAsync(string id)
         {
-            var q = new GetResourceQuery(id);
-            var r = await q.ExecuteAsync(httpClient);
+            var r = await GetResourceOrDefault(id);
             return new JsonResult(r);
         }
-
-        // [Route("{id}")]
-        // [HttpGet]
-        // public async Task<IActionResult> GetAsync(string id)
-        // {
-        //     var q = new GetListQuery("<id>");
-        //     var items = await q.ExecuteAsync(httpClient);
-
-        //     var item = items.FirstOrDefault(i => i.Id == id);
-
-        //     return new JsonResult(item);
-        // }
-
-        // [Route("{id}")]
-        // [HttpDelete]
-        // public async Task<IActionResult> DeleteAsync(string id)
-        // {
-        //     var q = new GetListQuery("<id>");
-        //     var items = await q.ExecuteAsync(httpClient);
-
-        //     items = items.Where(i => i.Id != id).ToList();
-
-        //     var c = new PersistResourceCommand(items, "<id>");
-        //     await c.ApplyAsync(httpClient);
-
-        //     return Ok();
-        // }
     }
 }

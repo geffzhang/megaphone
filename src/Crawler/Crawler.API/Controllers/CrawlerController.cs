@@ -23,9 +23,16 @@ namespace Crawler.API.Controllers
         public async Task<IActionResult> PostAsync(CloudEvent cloudEvent)
         {
             var e = ((JToken)cloudEvent.Data).ToObject<CrawlRequestEvent>();
-            
+
             var crawler = new WebResourceCrawler();
             var resource = await crawler.GetResourceAsync(new Uri(e.Url));
+
+            if (e.HasValues)
+            {
+                resource.Description = e.Description;
+                resource.Display = e.Display;
+                resource.Published = e.Published;
+            }
 
             await UpdateResource(resource);
 
@@ -33,11 +40,17 @@ namespace Crawler.API.Controllers
             {
                 var resources = await crawler.GetChildResourcesAsync(resource);
 
-                resources.AsParallel().ForAll(async r =>
-                {
-                    await GetCachedCopy(crawler, r);
-                    await UpdateResource(r);
-                });
+                foreach(var r in resources){
+                    var publish = new PublishEventCommand(
+                    new CrawlRequestEvent
+                    {
+                        Url = r.Self.ToString(),
+                        Published  = r.Published,
+                        Display = r.Display,
+                        Description = r.Description
+                    }, "crawl");
+                    await publish.ApplyAsync(httpClient);
+                }
             }
 
             return Ok();
@@ -46,14 +59,6 @@ namespace Crawler.API.Controllers
             {
                 var c = new UpdateResourceCommand(resource);
                 await c.ApplyAsync(httpClient);
-            }
-
-            static async Task GetCachedCopy(WebResourceCrawler crawler, Resource resource)
-            {
-                var source = await crawler.GetResourceAsync(resource.Self);
-                resource.StatusCode = source.StatusCode;
-                resource.Cache = source.Cache;
-                resource.IsActive = source.IsActive;
             }
         }
     }

@@ -1,0 +1,20 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: azurekeyvault
+  namespace: default
+spec:
+  type: secretstores.azure.keyvault
+  metadata:
+    - name: vaultName
+      value: megaphone-key-vault
+    - name: spnTenantId
+      value: "72f988bf-86f1-41af-91ab-2d7cd011db47"
+    - name: spnClientId
+      value: "7125c999-24a8-4b1c-b567-4607112aed09"
+    - name: spnCertificateFile
+      value: "./components/azure/megaphone-key-vault-megaphonekvcert-20200605.pfx"
+scopes:
+  - crawler-service
+  - list-service
+  - resources-service
