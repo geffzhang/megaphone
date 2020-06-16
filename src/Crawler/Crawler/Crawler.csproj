@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.23" />
     <PackageReference Include="Microsoft.SyndicationFeed.ReaderWriter" Version="1.0.2" />
-    <PackageReference Include="Standard" Version="1.0.1" />
+    <PackageReference Include="Standard" Version="1.0.3" />
   </ItemGroup>
 
 </Project>

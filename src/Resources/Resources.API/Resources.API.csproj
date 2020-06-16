@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="CloudNative.CloudEvents" Version="1.3.80" />
     <PackageReference Include="CloudNative.CloudEvents.AspNetcore" Version="1.3.80" />
-    <PackageReference Include="Standard" Version="1.0.1" />
+    <PackageReference Include="Standard" Version="1.0.3" />
   </ItemGroup>
 
 </Project>
