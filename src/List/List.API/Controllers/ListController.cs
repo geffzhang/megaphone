@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Dapr.Client;
 using List.API.Commands;
 using List.API.Events;
 using List.API.Models;
@@ -26,38 +27,38 @@ namespace List.API.Controllers
 
         [Route("")]
         [HttpPost]
-        public async Task<CreatedAtActionResult> PostAsync(Item item)
+        public async Task<CreatedAtActionResult> PostAsync(Item item, [FromServices] DaprClient daprClient)
         {
             var q = new GetListQuery();
-            var items = await q.ExecuteAsync(httpClient);
+            var items = await q.ExecuteAsync(daprClient);
 
             item.Id = new Uri(item.Url).ToGuid().ToString();
             items.Add(item);
 
             var c = new PersistListCommand(items);
-            await c.ApplyAsync(httpClient);
+            await c.ApplyAsync(daprClient);
 
             var publish = new PublishEventCommand(new CrawlRequestEvent { Url = item.Url }, "crawl");
-            await publish.ApplyAsync(httpClient);
+            await publish.ApplyAsync(daprClient);
 
             return new CreatedAtActionResult("Get", "List", new { id = item.Id }, item);
         }
 
         [Route("")]
         [HttpGet]
-        public async Task<JsonResult> GetAsync()
+        public async Task<JsonResult> GetAsync([FromServices] DaprClient daprClient)
         {
             var q = new GetListQuery();
-            var items = await q.ExecuteAsync(httpClient);
+            var items = await q.ExecuteAsync(daprClient);
             return new JsonResult(items);
         }
 
         [Route("{id}")]
         [HttpGet]
-        public async Task<IActionResult> GetAsync(string id)
+        public async Task<IActionResult> GetAsync(string id, [FromServices] DaprClient daprClient)
         {
             var q = new GetListQuery();
-            var items = await q.ExecuteAsync(httpClient);
+            var items = await q.ExecuteAsync(daprClient);
 
             var item = items.FirstOrDefault(i => i.Id == id);
 
@@ -66,15 +67,15 @@ namespace List.API.Controllers
 
         [Route("{id}")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(string id)
+        public async Task<IActionResult> DeleteAsync(string id, [FromServices] DaprClient daprClient)
         {
             var q = new GetListQuery();
-            var items = await q.ExecuteAsync(httpClient);
+            var items = await q.ExecuteAsync(daprClient);
 
             items = items.Where(i => i.Id != id).ToList();
 
             var c = new PersistListCommand(items);
-            await c.ApplyAsync(httpClient);
+            await c.ApplyAsync(daprClient);
 
             return Ok();
         }

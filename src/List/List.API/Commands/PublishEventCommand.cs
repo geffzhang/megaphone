@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Standard.Commands;
 using System.Text.Json;
 using System.Text;
+using Dapr.Client;
 
 namespace List.API.Commands
 {
-    class PublishEventCommand : ICommand<HttpClient>
+    class PublishEventCommand : ICommand<DaprClient>
     {
         private readonly object content;
         private readonly string topic;
@@ -15,16 +16,13 @@ namespace List.API.Commands
 
         public PublishEventCommand(object content, string topic)
         {
-            port = Environment.GetEnvironmentVariable("DAPR_HTTP_PORT");
             this.content = content;
             this.topic = topic;
         }
 
-        public async Task ApplyAsync(HttpClient model)
+        public async Task ApplyAsync(DaprClient model)
         {
-            var postResult = await model.PostAsync($"http://localhost:{port}/v1.0/publish/{topic}", new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, "application/json"));
-            if (!postResult.IsSuccessStatusCode)
-                throw new Exception("Failed to publish");
+            await model.PublishEventAsync(topic, content);
         }
     }
 }

@@ -19,18 +19,13 @@ namespace List.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddDapr();
             services.AddHttpClient();
 
             services.AddSingleton(new JsonSerializerOptions()
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 PropertyNameCaseInsensitive = true,
-            });
-
-            services.AddMvc(opts =>
-            {
-                opts.InputFormatters.Insert(0, new CloudNative.CloudEvents.CloudEventJsonInputFormatter());
             });
 
             services.AddCors(options =>
@@ -53,12 +48,14 @@ namespace List.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCloudEvents();
             app.UseRouting();
             app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapSubscribeHandler();
                 endpoints.MapControllers();
             });
         }

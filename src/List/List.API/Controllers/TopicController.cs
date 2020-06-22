@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
 using List.API.Events;
-using CloudNative.CloudEvents;
-using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
 using List.API.Queries;
 using List.API.Commands;
+using Dapr;
+using Dapr.Client;
 
 namespace List.API.Controllers
 {
@@ -13,33 +12,27 @@ namespace List.API.Controllers
     [Route("/")]
     public class TopicController : ControllerBase
     {
-        private readonly HttpClient httpClient;
-        public TopicController(IHttpClientFactory httpClientFactory) : base()
+        public TopicController() : base()
         {
-            httpClient = httpClientFactory.CreateClient();
         }
 
+        [Topic("resource-feed-updates")]
         [HttpPost("resource-feed-updates")]
-        public async Task<IActionResult> PostAsync(CloudEvent cloudEvent)
+        public async Task<IActionResult> PostAsync(ResourceEvent resourceEvent, [FromServices] DaprClient daprClient)
         {
-            if (cloudEvent?.Data != null)
+            if (resourceEvent.Type == ResourceType.Feed)
             {
-                var e = ((JToken)cloudEvent.Data).ToObject<ResourceEvent>();
+                var q = new GetListQuery();
+                var items = await q.ExecuteAsync(daprClient);
 
-                if (e.Type == ResourceType.Feed)
+                var i = items.Find(i => i.Id == resourceEvent.Id);
+                if (IsNotDefault(i))
                 {
-                    var q = new GetListQuery();
-                    var items = await q.ExecuteAsync(httpClient);
+                    i.LastCrawled = resourceEvent.LastCrawled;
+                    i.LastHttpStatus = resourceEvent.LastStatusCode;
 
-                    var i = items.Find(i => i.Id == e.Id);
-                    if (IsNotDefault(i))
-                    {
-                        i.LastCrawled = e.LastCrawled;
-                        i.LastHttpStatus = e.LastStatusCode;
-
-                        var c = new PersistListCommand(items);
-                        await c.ApplyAsync(httpClient);
-                    }
+                    var c = new PersistListCommand(items);
+                    await c.ApplyAsync(daprClient);
                 }
             }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -7,16 +6,18 @@ using List.API.Commands;
 using List.API.Events;
 using List.API.Models;
 using List.API.Queries;
+using Microsoft.AspNetCore.Mvc;
+using Dapr.Client;
 
 namespace List.API.Services
 {
     public class HeartbeatService : IHostedService, IDisposable
     {
         private Timer timer;
-        private readonly HttpClient httpClient;
-        public HeartbeatService(IHttpClientFactory httpClientFactory)
+        private readonly DaprClient daprClient;
+        public HeartbeatService([FromServices] DaprClient daprClient)
         {
-            httpClient = httpClientFactory.CreateClient();
+            this.daprClient = daprClient;
         }
 
         public Task StartAsync(CancellationToken stoppingToken)
@@ -26,7 +27,7 @@ namespace List.API.Services
                           try
                           {
                               var q = new GetListQuery();
-                              var items = await q.ExecuteAsync(httpClient);
+                              var items = await q.ExecuteAsync(daprClient);
 
                               foreach (var i in items)
                                   if (IsDueForCrawl(i))
@@ -47,7 +48,7 @@ namespace List.API.Services
         private async Task PublishCrawlRequest(Item i)
         {
             var c = new PublishEventCommand(new CrawlRequestEvent { Url = i.Url }, "crawl");
-            await c.ApplyAsync(httpClient);
+            await c.ApplyAsync(daprClient);
         }
 
         private static bool IsDueForCrawl(Item i) => i.LastCrawled < DateTimeOffset.UtcNow.Subtract(TimeSpan.FromMinutes(20));
