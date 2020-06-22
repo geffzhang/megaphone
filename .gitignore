@@ -331,3 +331,6 @@ ASALocalRun/
 
 # Certificates
 **/*.pfx
+
+# Local
+.deploy/.local
