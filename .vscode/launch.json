@@ -41,9 +41,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "Resources Build",
-            "program": "${workspaceFolder}/src/Resources/Resources.API/bin/Debug/netcoreapp3.1/Resources.API.dll",
+            "program": "${workspaceFolder}/src/Resources/Resource.Actor/bin/Debug/netcoreapp3.1/Resource.Actor.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/Resources/Resources.API/",
+            "cwd": "${workspaceFolder}/src/Resources/Resource.Actor/",
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",

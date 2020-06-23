@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using List.API.Commands;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Resources.API.Commands;
 using Resources.API.Events;
 using Resources.API.Models;
 using Resources.API.Queries;
-using Standard.Extensions;
 
 namespace Resources.API.Controllers
 {

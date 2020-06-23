@@ -1,0 +1,32 @@
+name: Standard Publish to Packages
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'src/Resources/Resource.Actor.Interface/**'
+      
+jobs:
+  build:
+    name: Resource Actor Interface - Build
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: Install dependencies
+      run: dotnet restore ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj
+    - name: Build
+      run: dotnet build ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj --configuration Release --no-restoreal
+    - name: Pack
+      run: dotnet pack ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj --configuration Release --no-restore
+    - name: Push Nupkg to GitHub Packages
+      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+      with:
+        nupkg-path:  'src/Resources/Resource.Actor.Interface/bin/Release/*.nupkg'
+        repo-owner:  'AlexandreBrisebois'
+        gh-user:  'AlexandreBrisebois'
+        token:  ${{ secrets.GITHUB_TOKEN }}

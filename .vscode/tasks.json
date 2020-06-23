@@ -5,7 +5,8 @@
             "label": "Build Solution",
             "dependsOn": [
                 "Crawler Build",
-                "List Build"
+                "List Build",
+                "Resources Build"
             ],
             "problemMatcher": [],
             "group": {

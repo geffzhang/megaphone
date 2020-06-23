@@ -5,7 +5,7 @@ using Standard.Commands;
 using System.Text.Json;
 using System.Text;
 
-namespace List.API.Commands
+namespace Resources.API.Commands
 {
     class PublishEventCommand : ICommand<HttpClient>
     {

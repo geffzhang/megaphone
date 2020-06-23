@@ -1,4 +1,4 @@
-namespace Resources.API.Models
+namespace Resource.Actor.Interface.Models
 {
     public enum ResourceType
     {

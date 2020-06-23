@@ -1,0 +1,23 @@
+name: Resource Actor Interface Build
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'src/Resources/Resource.Actor.Interface/**'
+      
+jobs:
+  build:
+    name: Resource Actor Interface - Build
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: Install dependencies
+      run: dotnet restore ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj
+    - name: Build
+      run: dotnet build ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj --configuration Release --no-restore
