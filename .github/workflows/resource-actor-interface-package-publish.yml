@@ -1,4 +1,4 @@
-name: Resource Actor Interface - Build & Publish Package
+name: Resource Actor Interface Publish to Packages
 
 on:
   push:
