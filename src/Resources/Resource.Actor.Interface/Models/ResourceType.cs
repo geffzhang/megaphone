@@ -1,8 +1,8 @@
 namespace Resource.Actor.Interface.Models
 {
-    public enum ResourceType
+    public static class ResourceType
     {
-        Page = 0,
-        Feed = 1
+        public readonly static string Page = "page";
+        public readonly static string Feed = "feed";
     }
 }

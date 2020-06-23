@@ -16,7 +16,7 @@ namespace Resource.Actor.Interface.Models
         [JsonPropertyName("isActive")]
         public bool IsActive { get; set; }
         [JsonPropertyName("type")]
-        public ResourceType Type { get; set; }
+        public string Type { get; set; }
         [JsonPropertyName("description")]
         public string Description { get; set; }
         [JsonPropertyName("self")]
