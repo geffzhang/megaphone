@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: dotnet restore ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj
     - name: Build
-      run: dotnet build ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj --configuration Release --no-restoreal
+      run: dotnet build ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj --configuration Release --no-restore
     - name: Pack
       run: dotnet pack ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj --configuration Release --no-restore
     - name: Push Nupkg to GitHub Packages
