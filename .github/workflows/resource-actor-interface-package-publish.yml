@@ -1,4 +1,4 @@
-name: Standard Publish to Packages
+name: Resource Actor Interface - Build & Publish Package
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       
 jobs:
   build:
-    name: Resource Actor Interface - Build
+    name: Resource Actor Interface - Build & Publish Package
     runs-on: ubuntu-latest
  
     steps:
