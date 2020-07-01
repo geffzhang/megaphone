@@ -17,6 +17,18 @@ namespace Standard.Events
             return this;
         }
 
+        public EventBuilder WithMetadata(string name, string value)
+        {
+            this.e.Metadata.Add(name, value);
+            return this;
+        }
+
+        public EventBuilder WithData(string name, object value)
+        {
+            this.e.Data.Add(name, value);
+            return this;
+        }
+
         public Event Make()
         {
             return this.e;
