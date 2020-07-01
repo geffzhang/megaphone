@@ -22,6 +22,6 @@ namespace Resource.Actor.Interface.Models
         [JsonPropertyName("self")]
         public Uri Self { get; set; }
         [JsonPropertyName("published")]
-        public DateTime Published { get; set; }
+        public DateTimeOffset Published { get; set; }
     }
 }
