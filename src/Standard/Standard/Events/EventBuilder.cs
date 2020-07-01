@@ -25,9 +25,12 @@ namespace Standard.Events
             return this;
         }
 
-        public EventBuilder WithData(string name, Dictionary<string, string> value)
+        public EventBuilder WithData(string group, string name, string value)
         {
-            this.e.Data.Add(name, value);
+            if (!this.e.Data.ContainsKey(group))
+                this.e.Data.Add(group, new Dictionary<string, string>());
+
+            this.e.Data[group].Add(name,value);
             return this;
         }
 
