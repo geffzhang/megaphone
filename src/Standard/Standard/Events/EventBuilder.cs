@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Standard.Events
 {
     public class EventBuilder
@@ -23,7 +25,7 @@ namespace Standard.Events
             return this;
         }
 
-        public EventBuilder WithData(string name, object value)
+        public EventBuilder WithData(string name, Dictionary<string, string> value)
         {
             this.e.Data.Add(name, value);
             return this;

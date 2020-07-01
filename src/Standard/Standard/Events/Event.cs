@@ -15,6 +15,6 @@ namespace Standard.Events
         [JsonPropertyName("metadata")]
         public Dictionary<string, string> Metadata { get; set; } = new Dictionary<string, string>();
         [JsonPropertyName("data")]
-        public Dictionary<string, object> Data { get; set; } = new Dictionary<string, object>();
+        public Dictionary<string, Dictionary<string, string>> Data { get; set; } = new Dictionary<string, Dictionary<string, string>>();
     }
 }
