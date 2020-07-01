@@ -10,7 +10,7 @@ namespace Standard.Events
         public string Name { get; set; }
         [JsonPropertyName("created")]
         public DateTimeOffset Created { get; set; } = DateTimeOffset.UtcNow;
-        [JsonPropertyName("params")]
+        [JsonPropertyName("parameters")]
         public Dictionary<string, string> Parameters { get; set; } = new Dictionary<string, string>();
         [JsonPropertyName("metadata")]
         public Dictionary<string, string> Metadata { get; set; } = new Dictionary<string, string>();
