@@ -18,14 +18,14 @@ The Dapr documendation provides a solid overview of the [concepts](https://githu
 
 - [Actors](https://github.com/dapr/docs/blob/master/concepts/actors/README.md)
   - [dotnet](https://github.com/dapr/dotnet-sdk/blob/master/docs/get-started-dapr-actor.md)
-- [Bindings](https://github.com/dapr/docs/blob/master/concepts/bindings/README.md) ([Azure Storage Queue](https://github.com/dapr/docs/blob/master/reference/specs/bindings/storagequeues.md)/ [RabbitMQ](https://github.com/dapr/docs/blob/master/reference/specs/bindings/rabbitmq.md))
-- [PubSub](https://github.com/dapr/docs/blob/master/concepts/publish-subscribe-messaging/README.md) (Redis/[Azure Service Bus Topics](https://github.com/dapr/docs/blob/master/howto/setup-pub-sub-message-broker/setup-azure-servicebus.md))
+- [Bindings](https://github.com/dapr/docs/blob/master/concepts/bindings/README.md) ([RabbitMQ](https://github.com/dapr/docs/blob/master/reference/specs/bindings/rabbitmq.md) (local env) / [Azure Storage Queue](https://github.com/dapr/docs/blob/master/reference/specs/bindings/storagequeues.md) (Azure env))
+- [PubSub](https://github.com/dapr/docs/blob/master/concepts/publish-subscribe-messaging/README.md) (Redis (local env) / [Azure Service Bus Topics](https://github.com/dapr/docs/blob/master/howto/setup-pub-sub-message-broker/setup-azure-servicebus.md) (Azure env))
   - [Cloud Events](https://github.com/cloudevents/spec/tree/v0.3)
-- [Secrets](https://github.com/dapr/docs/blob/master/concepts/secrets/README.md) ([Azure Keyvault](https://github.com/dapr/docs/blob/master/howto/setup-secret-store/azure-keyvault.md))
+- [Secrets](https://github.com/dapr/docs/blob/master/concepts/secrets/README.md) ([Azure Keyvault](https://github.com/dapr/docs/blob/master/howto/setup-secret-store/azure-keyvault.md) (Azure env))
 - [Service Invocation](https://github.com/dapr/docs/blob/master/concepts/service-invocation/README.md)
-- [State](https://github.com/dapr/docs/blob/master/concepts/state-management/README.md) ([Redis](https://github.com/dapr/docs/blob/master/howto/setup-state-store/setup-redis.md) / [Azure Cosmos DB](https://github.com/dapr/docs/blob/master/howto/setup-state-store/setup-azure-cosmosdb.md))
+- [State](https://github.com/dapr/docs/blob/master/concepts/state-management/README.md) ([Redis](https://github.com/dapr/docs/blob/master/howto/setup-state-store/setup-redis.md) (local env) / [Azure Cosmos DB](https://github.com/dapr/docs/blob/master/howto/setup-state-store/setup-azure-cosmosdb.md) (Azure env))
 - [Observability](https://github.com/dapr/docs/blob/master/concepts/observability/README.md) 
-  - Distributed Tracing ([Azure Application Insights](https://github.com/dapr/docs/blob/master/howto/diagnose-with-tracing/azure-monitor.md))
+  - Distributed Tracing ([Azure Application Insights](https://github.com/dapr/docs/blob/master/howto/diagnose-with-tracing/azure-monitor.md) (local & Azure env))
 - [Rate limiting an application](https://github.com/dapr/docs/tree/master/howto/control-concurrency)
 
 ### ASP .NET Core
