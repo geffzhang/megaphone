@@ -10,14 +10,36 @@ Dapr is language agnostic and provides a [RESTful HTTP API](https://github.com/d
 
 ### Application Flows
 
+#### Delete Feed
+
+- HTTP DELETE api/feeds/{id} on API Service
+  - API Service retreives Feed list view from Dapr state store
+  - API Service publishes Delete Feed event to queue
+
+- Feed service triggered by Dapr via queue Binding
+  - Feed Service acts on Delete Feed event. Deletes feed from Feed list and persists list in Dapr state store.
+
+- Feed Service Heart Beat Hosted Service triggers every 30 seconds
+  - If Feed list ETag is different, materialize Feed View and Invoke HTTP PUT method on API Service to publish external materialized view of Feed List.
+
+#### Update Feeds
+
+- HTTP PUT Feed list view to api/feeds on API Service
+  - API Service stores Feed list view in Dapr state store
+
+#### List Feeds
+
+- HTTP GET api/feeds on API Service
+  - API Service returns Feed list view stored in Dapr state store
+
 #### Add Feed
 
-- HTTP POST feed url to API Service
+- HTTP POST feed url to api/feeds on API Service
 
 - API Service publishes Add Feed event to queue
 
 - Feed service triggered by Dapr via queue Binding
-  - Feed Service acts on Add Feed event. Adds feed to list and persists list.
+  - Feed Service acts on Add Feed event. Adds feed to list and persists list in Dapr state store.
     - Feed Service publishes Crawl event to crawl PubSub topic
 
 - Crawl service triggered by Dapr via PubSub subscription
@@ -35,7 +57,6 @@ Dapr is language agnostic and provides a [RESTful HTTP API](https://github.com/d
 - Feed Service Heart Beat Hosted Service triggers every 30 seconds
   - If Feed list ETag is different, materialize Feed View and Invoke HTTP PUT method on API Service to publish external materialized view of Feed List.
 
-  
 ## Organic View genetated by Azure Application Insights
 
 ![megaphone organic view](./media/megaphone-organic-view-application-insights.jpg)
