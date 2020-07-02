@@ -2,6 +2,7 @@
 using Dapr.Client;
 using Megaphone.API.Events;
 using Megaphone.API.Models;
+using Megaphone.API.Models.Representations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Megaphone.API.Controllers
@@ -46,7 +47,10 @@ namespace Megaphone.API.Controllers
         public async Task<JsonResult> GetAsync([FromServices] DaprClient daprClient)
         {
             var view = await daprClient.GetStateAsync<FeedListView>("api-state-store", "list");
-            return new JsonResult(view);
+
+            var r = RepresentationFactory.MakeFeedListRepresentation(view);
+            
+            return new JsonResult(r);
         }
     }
 }

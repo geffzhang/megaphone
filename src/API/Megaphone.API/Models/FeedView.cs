@@ -9,5 +9,7 @@ namespace Megaphone.API.Models
 
         [JsonPropertyName("url")]
         public string Url { get; set; }
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
     }
 }

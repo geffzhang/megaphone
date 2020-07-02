@@ -1,6 +1,6 @@
 # Megaphone
 
-## Why Megaphone?
+## Why Megaphone
 
 This is a tool I use to help me keep track of all the updates and announcements.
 
@@ -8,7 +8,7 @@ Azure and the Dev world evolves at a terrying pace! Keeping up with it all takes
 
 ## Approach
 
-Megaphone is built as an exploration, to learn various technologies and act as a demoable solution. 
+Megaphone is built as an exploration, to learn various technologies and act as a demoable solution.
 
 The technologies explored so far are as follows:
 
@@ -24,7 +24,7 @@ The Dapr documendation provides a solid overview of the [concepts](https://githu
 - [Secrets](https://github.com/dapr/docs/blob/master/concepts/secrets/README.md) ([Azure Keyvault](https://github.com/dapr/docs/blob/master/howto/setup-secret-store/azure-keyvault.md) (Azure env))
 - [Service Invocation](https://github.com/dapr/docs/blob/master/concepts/service-invocation/README.md)
 - [State](https://github.com/dapr/docs/blob/master/concepts/state-management/README.md) ([Redis](https://github.com/dapr/docs/blob/master/howto/setup-state-store/setup-redis.md) (local env) / [Azure Cosmos DB](https://github.com/dapr/docs/blob/master/howto/setup-state-store/setup-azure-cosmosdb.md) (Azure env))
-- [Observability](https://github.com/dapr/docs/blob/master/concepts/observability/README.md) 
+- [Observability](https://github.com/dapr/docs/blob/master/concepts/observability/README.md)
   - Distributed Tracing ([Azure Application Insights](https://github.com/dapr/docs/blob/master/howto/diagnose-with-tracing/azure-monitor.md) (local & Azure env))
 - [Rate limiting an application](https://github.com/dapr/docs/tree/master/howto/control-concurrency)
 

@@ -31,6 +31,7 @@ namespace Megaphone.API
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 PropertyNameCaseInsensitive = true,
+                IgnoreNullValues = true
             });
 
             services.AddCors(options =>

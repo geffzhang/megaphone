@@ -40,7 +40,7 @@ namespace Feeds.API.Services
                                   if (s.Value != null)
                                   {
                                       var view = new FeedListView();
-                                      view.Feeds = s.Value.Select(f => new FeedView { Display = f.Display, Url = f.Url }).ToList();
+                                      view.Feeds = s.Value.Select(f => new FeedView { Display = f.Display, Url = f.Url, Id = f.Id }).ToList();
 
                                       await daprClient.InvokeMethodAsync("api-service", "api/feeds", view, new HTTPExtension { Verb = HTTPVerb.Put });
                                      
