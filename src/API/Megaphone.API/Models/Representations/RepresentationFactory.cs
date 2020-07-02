@@ -1,5 +1,4 @@
-﻿using Megaphone.API.Models.Representations.Links;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Megaphone.API.Models.Representations
 {

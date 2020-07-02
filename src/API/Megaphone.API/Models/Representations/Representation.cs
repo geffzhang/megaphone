@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -16,14 +17,13 @@ namespace Megaphone.API.Models.Representations
         [JsonPropertyName("links")]
         public IEnumerable<Link> Links { get { return links; } }
 
-        public void AddLink(Link link)
+        public void AddLink(string relation,string href)
         {
-            links.Add(link);
+            links.Add(Link.Make(relation,href));
         }
-
-        public void AddLinks(params Link[] links)
+        public void AddLink(string relation, string href, HttpMethod method)
         {
-            this.links.AddRange(links);
+            links.Add(Link.Make(relation, href, method));
         }
     }
 }

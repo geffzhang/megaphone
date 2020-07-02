@@ -9,8 +9,8 @@ namespace Megaphone.API.Models.Representations
     {
         public FeedRepresentation(string Id)
         {
-            base.AddLink(Link.Make(Relations.Self,$"api/feeds/{Id}"));
-            base.AddLink(Link.Make(Relations.Delete,$"api/feeds/{Id}", HttpMethod.Delete));
+            base.AddLink(Relations.Self, $"api/feeds/{Id}");
+            base.AddLink(Relations.Delete, $"api/feeds/{Id}", HttpMethod.Delete);
         }
         [JsonPropertyName("display")]
         public string Display { get; internal set; }
