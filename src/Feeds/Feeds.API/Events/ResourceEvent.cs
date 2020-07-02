@@ -1,8 +1,7 @@
-﻿using Resource.Actor.Interface.Models;
-using System;
+﻿using System;
 using System.Text.Json.Serialization;
 
-namespace Resource.Actor.Events
+namespace Feeds.API.Events
 {
     public class ResourceEvent
     {
@@ -15,7 +14,7 @@ namespace Resource.Actor.Events
         [JsonPropertyName("lastStatusCode")]
         public int LastStatusCode { get; set; }
         [JsonPropertyName("type")]
-        public ResourceType Type { get; set; }
+        public string Type { get; set; }
         [JsonPropertyName("event")]
         public string Event { get; set; }
     }

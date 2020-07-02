@@ -2,6 +2,7 @@ apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
   name: resources-state-store
+  namespace: default
 spec:
   type: state.redis
   metadata:
@@ -11,5 +12,6 @@ spec:
     value: ""
   - name: actorStateStore
     value: "true"
-  scopes:
+scopes:
   - resources-service
+  - crawler-service

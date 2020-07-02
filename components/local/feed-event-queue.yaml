@@ -1,0 +1,21 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: feed-events
+  namespace: default
+spec:
+  type: bindings.rabbitmq
+  metadata:
+  - name: queueName
+    value: "feed-events"
+  - name: host
+    value: "amqp://dapr:dapr@localhost:5672"
+  - name: durable
+    value: true
+  - name: deleteWhenUnused
+    value: false
+  - name: ttlInSeconds
+    value: 600
+scopes:
+  - api-service
+  - feed-service

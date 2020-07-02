@@ -4,9 +4,10 @@
         {
             "label": "Build Solution",
             "dependsOn": [
+                "Resources Build",
                 "Crawler Build",
-                "List Build",
-                "Resources Build"
+                "Feeds Build",                
+                "API Build"
             ],
             "problemMatcher": [],
             "group": {
@@ -27,12 +28,24 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "List Build",
+            "label": "Feeds Build",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/List/List.sln",
+                "${workspaceFolder}/src/Feeds/Feeds.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "API Build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/API/Megaphone.API.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -53,18 +66,20 @@
         {
             "label": "Daprd (All 'local' Services)",
             "dependsOn": [
+                "Daprd Resources (local)",
                 "Daprd Crawler (local)",
-                "Daprd List (local)",
-                "Daprd Resources (local)"
+                "Daprd Feeds (local)",               
+                "Daprd API (local)"
             ],
             "problemMatcher": []
         },
         {
             "label": "Daprd (All 'azure' Services)",
             "dependsOn": [
+                "Daprd Resources (azure)",
                 "Daprd Crawler (azure)",
-                "Daprd List (azure)",
-                "Daprd Resources (azure)"
+                "Daprd Feeds (azure)",
+                "Daprd API (azure)"
             ],
             "problemMatcher": []
         },
@@ -82,6 +97,8 @@
                 "5101",
                 "-dapr-http-port",
                 "5180",
+                "-placement-address",
+                "localhost:6050",
                 "-metrics-port",
                 "5190",
                 "-config",
@@ -117,6 +134,8 @@
                 "5101",
                 "-dapr-http-port",
                 "5180",
+                "-placement-address",
+                "localhost:6050",
                 "-metrics-port",
                 "5190",
                 "-config",
@@ -152,6 +171,8 @@
                 "5301",
                 "-dapr-http-port",
                 "5380",
+                "-placement-address",
+                "localhost:6050",
                 "-metrics-port",
                 "5390",
                 "-config",
@@ -187,6 +208,8 @@
                 "5301",
                 "-dapr-http-port",
                 "5380",
+                "-placement-address",
+                "localhost:6050",
                 "-metrics-port",
                 "5390",
                 "-config",
@@ -209,11 +232,11 @@
             }
         },
         {
-            "label": "Daprd List (local)",
+            "label": "Daprd Feeds (local)",
             "command": "daprd",
             "args": [
                 "-app-id",
-                "list-service",
+                "feed-service",
                 "-components-path",
                 "${workspaceFolder}/components/local",
                 "-app-port",
@@ -222,8 +245,12 @@
                 "5201",
                 "-dapr-http-port",
                 "5280",
+                "-placement-address",
+                "localhost:6050",
                 "-metrics-port",
                 "5290",
+                "-max-concurrency",
+                "1",
                 "-config",
                 "${workspaceFolder}/components/local/configuration.tracing.yaml"
             ],
@@ -244,11 +271,11 @@
             }
         },
         {
-            "label": "Daprd List (azure)",
+            "label": "Daprd Feeds (azure)",
             "command": "daprd",
             "args": [
                 "-app-id",
-                "list-service",
+                "feed-service",
                 "-components-path",
                 "${workspaceFolder}/components/azure",
                 "-app-port",
@@ -257,8 +284,86 @@
                 "5201",
                 "-dapr-http-port",
                 "5280",
+                "-placement-address",
+                "localhost:6050",
                 "-metrics-port",
                 "5290",
+                "-max-concurrency",
+                "1",
+                "-config",
+                "${workspaceFolder}/components/azure/configuration.tracing.yaml"
+            ],
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": ".",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "beginsPattern": "^.*starting Dapr Runtime.*",
+                    "endsPattern": "^.*waiting on port.*"
+                }
+            }
+        },
+        {
+            "label": "Daprd API (local)",
+            "command": "daprd",
+            "args": [
+                "-app-id",
+                "api-service",
+                "-components-path",
+                "${workspaceFolder}/components/local",
+                "-app-port",
+                "5400",
+                "-dapr-grpc-port",
+                "5401",
+                "-dapr-http-port",
+                "5480",
+                "-placement-address",
+                "localhost:6050",
+                "-metrics-port",
+                "5490",
+                "-config",
+                "${workspaceFolder}/components/local/configuration.tracing.yaml"
+            ],
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": ".",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "beginsPattern": "^.*starting Dapr Runtime.*",
+                    "endsPattern": "^.*waiting on port.*"
+                }
+            }
+        },
+        {
+            "label": "Daprd API (azure)",
+            "command": "daprd",
+            "args": [
+                "-app-id",
+                "api-service",
+                "-components-path",
+                "${workspaceFolder}/components/azure",
+                "-app-port",
+                "5400",
+                "-dapr-grpc-port",
+                "5401",
+                "-dapr-http-port",
+                "5480",
+                "-placement-address",
+                "localhost:6050",
+                "-metrics-port",
+                "5490",
                 "-config",
                 "${workspaceFolder}/components/azure/configuration.tracing.yaml"
             ],

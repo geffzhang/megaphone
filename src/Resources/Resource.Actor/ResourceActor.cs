@@ -7,52 +7,17 @@ using Resource.Actor.Interface;
 using Resource.Actor.Interface.Models;
 using Resource.Actor.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Resource.Actor
 {
+    [Actor(TypeName = "Resource")]
     public class ResourceActor : Dapr.Actors.Runtime.Actor, IResourceActor, IRemindable
     {
         private DaprClient DaprClient;
         private ResourceActorState state;
         private string StateName;
-
-        protected async override Task OnActivateAsync()
-        {
-            StateName = this.Id.GetId();
-
-            state = await this.StateManager.GetStateAsync<ResourceActorState>(StateName);
-            if (state == null)
-            {
-                state = new ResourceActorState();
-                await this.StateManager.SetStateAsync<ResourceActorState>(StateName, state);
-            }
-
-            DaprClient = new DaprClientBuilder().Build();
-
-            await base.OnActivateAsync();
-        }
-
-        protected async override Task OnPreActorMethodAsync(ActorMethodContext actorMethodContext)
-        {
-            state = await this.StateManager.GetStateAsync<ResourceActorState>(StateName);
-
-            await base.OnPreActorMethodAsync(actorMethodContext);
-        }
-
-        protected async override Task OnPostActorMethodAsync(ActorMethodContext actorMethodContext)
-        {
-            await this.StateManager.SetStateAsync<ResourceActorState>(StateName, state);
-
-            await base.OnPostActorMethodAsync(actorMethodContext);
-        }
-
-        protected async override Task OnDeactivateAsync()
-        {
-            await this.SaveStateAsync();
-
-            await base.OnDeactivateAsync();
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResourceActor"/> class.
@@ -61,6 +26,49 @@ namespace Resource.Actor
         /// <param name="actorId">Actor Id.</param>
         public ResourceActor(ActorService service, ActorId actorId) : base(service, actorId)
         {
+        }
+
+        protected async override Task OnActivateAsync()
+        {
+            DaprClient = new DaprClientBuilder().Build();
+
+            StateName = this.Id.GetId();
+
+            try
+            {
+                state = await this.StateManager.GetStateAsync<ResourceActorState>(StateName);
+                if (state.Resource == null)
+                    state.Resource = new Models.Resource();
+            }
+            catch (KeyNotFoundException)
+            {
+                state = new ResourceActorState()
+                {
+                    Resource = new Models.Resource()
+                };
+
+                await this.StateManager.SetStateAsync<ResourceActorState>(StateName, state);
+            }
+
+            await base.OnActivateAsync();
+        }
+
+        protected async override Task OnPreActorMethodAsync(ActorMethodContext actorMethodContext)
+        {
+            await base.OnPreActorMethodAsync(actorMethodContext);
+        }
+
+        protected async override Task OnPostActorMethodAsync(ActorMethodContext actorMethodContext)
+        {
+            await this.StateManager.SetStateAsync<ResourceActorState>(StateName, state);
+            await base.OnPostActorMethodAsync(actorMethodContext);
+        }
+
+        protected async override Task OnDeactivateAsync()
+        {
+            await this.SaveStateAsync();
+
+            await base.OnDeactivateAsync();
         }
 
         private async Task RegisterCrawlReminder(CrawlStrategy strategy)
@@ -99,7 +107,7 @@ namespace Resource.Actor
         {
             this.state.CrawlCount++;
 
-            var c = new PublishCrawlRequestEventCommand(new CrawlRequestEvent { Url = this.state.Resource.Self.OriginalString });
+            var c = new PublishCrawlRequestEventCommand(EventFactory.MakeCrawlRequestEvent(this.state.Resource.Self.OriginalString));
             await c.ApplyAsync(this.DaprClient);
 
             await AdjustCrawlStrategy();
@@ -118,7 +126,7 @@ namespace Resource.Actor
                             break;
 
                         await UnregisterCrawlReminder();
-                        await RegisterCrawlReminder(CrawlStrategy.Realtime);                      
+                        await RegisterCrawlReminder(CrawlStrategy.Realtime);
                     }
                     break;
             }
@@ -164,7 +172,8 @@ namespace Resource.Actor
 
             if (changed)
             {
-                var c = MakeEventPublishCommand();
+                var e = EventFactory.MakeResourceUpdateEvent(state.Resource);
+                var c = new PublishResourceUpdateEventCommand(e);
                 await c.ApplyAsync(this.DaprClient);
             }
 
@@ -212,24 +221,6 @@ namespace Resource.Actor
             }
 
             return changed;
-        }
-
-        private PublishEventCommand<ResourceEvent> MakeEventPublishCommand()
-        {
-            var e = new ResourceEvent
-            {
-                Event = "update",
-                Id = state.Resource.Id,
-                LastCrawled = DateTimeOffset.UtcNow,
-                LastStatusCode = state.Resource.StatusCode,
-                Url = state.Resource.Self.AbsoluteUri,
-                Type = state.Resource.Type
-            };
-
-            if (e.Type == ResourceType.Page)
-                return new PublishPageUpdateEventCommand(e);
-            else
-                return new PublishFeedUpdateEventCommand(e);
         }
     }
 }

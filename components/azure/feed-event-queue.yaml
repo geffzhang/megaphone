@@ -1,0 +1,19 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: feed-events
+  namespace: default
+spec:
+  type: bindings.azure.storagequeues
+  metadata:
+  - name: storageAccount
+    value: "megaphonestorage"
+  - name: storageAccessKey
+    secretKeyRef:
+      name: megaphone-storage-key
+  - name: queue
+    value: "feed-events"
+  - name: ttlInSeconds
+    value: "86400"
+auth:
+    secretStore: azurekeyvault

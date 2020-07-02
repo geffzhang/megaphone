@@ -1,8 +1,8 @@
 namespace Crawler.Models
 {
-    public enum ResourceType
+    public static class ResourceType
     {
-        Page,
-        Feed
+        public readonly static string Page = "page";
+        public readonly static string Feed = "feed";
     }
 }

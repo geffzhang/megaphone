@@ -1,7 +1,8 @@
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: list-state-store
+  name: api-state-store
+  namespace: default
 spec:
   type: state.redis
   metadata:
@@ -9,5 +10,5 @@ spec:
     value: localhost:6379
   - name: redisPassword
     value: ""
-  scopes:
-  - list-service
+scopes:
+  - api-service

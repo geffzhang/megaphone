@@ -14,10 +14,10 @@ namespace Crawler.Models
         public int StatusCode { get; set; }
         public DateTimeOffset Created { get; set; } = DateTimeOffset.UtcNow;
         public bool IsActive { get ;set; }
-        public ResourceType Type { get; set; }
+        public string Type { get; set; }
         public string Description { get; set; }
         public Uri Self { get; set; }
-        public DateTime Published { get; set; }
+        public DateTimeOffset Published { get; set; }
         public string Cache { get; set; }
     }
 }

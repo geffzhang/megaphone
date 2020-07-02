@@ -1,0 +1,25 @@
+@feed-service = 127.0.0.1:5200
+@feed-service-daprhttp = 127.0.0.1:5280 
+
+### post resource feed update event (reset)
+POST http://{{feed-service-daprhttp}}/v1.0/publish/resource-feed-updates
+Content-Type: application/json
+
+{
+    "url":"/api/resources/740f3d2f-2eb2-50e4-b695-aeed86dfe674",
+    "id":"740f3d2f-2eb2-50e4-b695-aeed86dfe674",
+    "lastCrawled":"2020-06-16T20:36:52.515943+00:00",
+    "lastStatusCode":200,
+    "type":1,
+    "event":"update"
+}
+
+
+### Get Watch feed
+GET http://{{feed-service}}/api/feeds
+
+### Get item from Watch feed
+GET http://{{feed-service}}/api/feeds/740f3d2f-2eb2-50e4-b695-aeed86dfe674
+
+### Get item from Watch feed
+GET http://{{feed-service}}/api/feeds/c50f7543-6b69-5e46-ae5e-bf0b82dede0e

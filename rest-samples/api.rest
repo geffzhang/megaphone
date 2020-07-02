@@ -1,0 +1,26 @@
+@api-service = 127.0.0.1:5400
+
+### List Feeds
+GET http://{{api-service}}/api/feeds
+
+### Add Azure roadmap
+POST http://{{api-service}}/api/feeds
+Content-Type: application/json
+
+{
+    "url": "https://azure.microsoft.com/en-us/roadmap/feed/"
+}
+
+### Remove item from Watch feed
+DELETE http://{{api-service}}/api/feeds/740f3d2f-2eb2-50e4-b695-aeed86dfe674
+
+### Add item to Watch feed
+POST http://{{api-service}}/api/feeds
+Content-Type: application/json
+
+{
+    "url": "https://devblogs.microsoft.com/dotnet/feed/"
+}
+
+### Remove item from Watch feed
+DELETE http://{{api-service}}/api/feeds/c50f7543-6b69-5e46-ae5e-bf0b82dede0e

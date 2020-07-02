@@ -25,7 +25,8 @@ namespace Crawler.API.Commands
 
         public async Task ApplyAsync(HttpClient model)
         {
-            var putResult = await model.PutAsync($"http://localhost:{port}/v1.0/invoke/{service}/method/{path}", new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, "application/json"));
+            var jsonContent = JsonSerializer.Serialize(content);
+            var putResult = await model.PutAsync($"http://localhost:{port}/v1.0/invoke/{service}/method/{path}", new StringContent(jsonContent, Encoding.UTF8, "application/json"));
             if (!putResult.IsSuccessStatusCode)
                 throw new Exception("Failed");
         }

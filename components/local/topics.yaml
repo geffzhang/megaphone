@@ -2,6 +2,7 @@ apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
   name: topics
+  namespace: default
 spec:
   type: pubsub.redis
   metadata:
@@ -9,7 +10,7 @@ spec:
     value: localhost:6379
   - name: redisPassword
     value: ""
-  scopes:
+scopes:
   - crawler-service
-  - list-service
+  - feed-service
   - resources-service

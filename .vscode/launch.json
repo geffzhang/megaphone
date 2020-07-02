@@ -21,13 +21,13 @@
             }
         },
         {
-            "name": "Debug List",
+            "name": "Debug Feeds",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "List Build",
-            "program": "${workspaceFolder}/src/List/List.API/bin/Debug/netcoreapp3.1/List.API.dll",
+            "preLaunchTask": "Feeds Build",
+            "program": "${workspaceFolder}/src/Feeds/Feeds.API/bin/Debug/netcoreapp3.1/Feeds.API.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/List/List.API/",
+            "cwd": "${workspaceFolder}/src/Feeds/Feeds.API/",
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
@@ -51,15 +51,32 @@
                 "DAPR_HTTP_PORT": "5380",
                 "DAPR_GRPC_PORT": "5301"
             }
+        },
+        {
+            "name": "Debug API",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "API Build",
+            "program": "${workspaceFolder}/src/API/Megaphone.API/bin/Debug/netcoreapp3.1/Megaphone.API.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/API/Megaphone.API/",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://127.0.0.1:5400;",
+                "DAPR_HTTP_PORT": "5480",
+                "DAPR_GRPC_PORT": "5401"
+            }
         }       
     ],
     "compounds": [
         {
             "name": "Debug All Services",
             "configurations": [
+                "Debug Resources",
                 "Debug Crawler",
-                "Debug List",
-                "Debug Resources"
+                "Debug Feeds",                
+                "Debug API"
             ]
         }
     ]

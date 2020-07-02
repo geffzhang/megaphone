@@ -16,5 +16,6 @@ spec:
       value: "./components/azure/megaphone-key-vault-megaphonekvcert-20200605.pfx"
 scopes:
   - crawler-service
-  - list-service
+  - feed-service
   - resources-service
+  - api-service

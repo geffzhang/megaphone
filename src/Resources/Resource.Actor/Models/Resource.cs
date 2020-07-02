@@ -17,12 +17,12 @@ namespace Resource.Actor.Models
         [JsonPropertyName("isActive")]
         public bool IsActive { get; set; }
         [JsonPropertyName("type")]
-        public ResourceType Type { get; set; }
+        public string Type { get; set; }
         [JsonPropertyName("description")]
         public string Description { get; set; }
         [JsonPropertyName("self")]
         public Uri Self { get; set; }
         [JsonPropertyName("published")]
-        public DateTime Published { get; set; }
+        public DateTimeOffset Published { get; set; }
     }
 }

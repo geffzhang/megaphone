@@ -13,5 +13,5 @@ auth:
     secretStore: azurekeyvault
 scopes:
   - crawler-service
-  - list-service
+  - feed-service
   - resources-service

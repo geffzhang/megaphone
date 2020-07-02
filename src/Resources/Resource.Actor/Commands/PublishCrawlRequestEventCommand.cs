@@ -1,10 +1,10 @@
-﻿using Resource.Actor.Events;
+﻿using Standard.Events;
 
 namespace Resource.Actor.Commands
 {
-    class PublishCrawlRequestEventCommand : PublishEventCommand<CrawlRequestEvent>
+    class PublishCrawlRequestEventCommand : PublishEventCommand<Event>
     {
-        public PublishCrawlRequestEventCommand(CrawlRequestEvent content) : base(content, "crawl")
+        public PublishCrawlRequestEventCommand(Event content) : base(content, "crawl")
         {
 
         }

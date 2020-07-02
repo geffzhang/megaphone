@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using Crawler.Models;
 using System.Net.Http;
 using System.Linq;
+using Standard.Events;
 
 namespace Crawler.API.Controllers
 {
@@ -22,16 +23,18 @@ namespace Crawler.API.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAsync(CloudEvent cloudEvent)
         {
-            var e = ((JToken)cloudEvent.Data).ToObject<CrawlRequestEvent>();
+            var e = ((JToken)cloudEvent.Data).ToObject<Event>();
 
             var crawler = new WebResourceCrawler();
-            var resource = await crawler.GetResourceAsync(new Uri(e.Url));
+            var resource = await crawler.GetResourceAsync(new Uri(e.Parameters["url"]));
 
-            if (e.HasValues)
+            if (e.Data.Any())
             {
-                resource.Description = e.Description;
-                resource.Display = e.Display;
-                resource.Published = e.Published;
+                var r = e.Data["resource"];
+
+                resource.Description = r["description"];
+                resource.Display = r["display"];
+                resource.Published = DateTimeOffset.Parse(r["published"]);
             }
 
             await UpdateResource(resource);
@@ -40,22 +43,16 @@ namespace Crawler.API.Controllers
             {
                 var resources = await crawler.GetChildResourcesAsync(resource);
 
-                foreach(var r in resources){
-                    var publish = new PublishEventCommand(
-                    new CrawlRequestEvent
-                    {
-                        Url = r.Self.ToString(),
-                        Published  = r.Published,
-                        Display = r.Display,
-                        Description = r.Description
-                    }, "crawl");
+                foreach (var r in resources)
+                {
+                    var publish = new PublishEventCommand(EventFactory.MakeCrawlRequestEvent(r), "crawl"); ;
                     await publish.ApplyAsync(httpClient);
                 }
             }
 
             return Ok();
 
-            async Task UpdateResource(Resource resource)
+            async Task UpdateResource(Crawler.Models.Resource resource)
             {
                 var c = new UpdateResourceCommand(resource);
                 await c.ApplyAsync(httpClient);
