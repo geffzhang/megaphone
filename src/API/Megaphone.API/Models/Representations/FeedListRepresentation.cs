@@ -9,7 +9,7 @@ namespace Megaphone.API.Models.Representations
     {        
         public FeedListRepresentation()
         {
-            base.AddLinks(new SelfLink("api/feeds"));
+            base.AddLinks(Link.Make(Relations.Self, "api/feeds"));
         }
 
         [JsonPropertyName("feeds")]

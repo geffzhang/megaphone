@@ -1,4 +1,6 @@
-﻿using Megaphone.API.Models.Representations.Links;
+﻿using Dapr.Client.Http;
+using Megaphone.API.Models.Representations.Links;
+using System.Net.Http;
 using System.Text.Json.Serialization;
 
 namespace Megaphone.API.Models.Representations
@@ -7,8 +9,8 @@ namespace Megaphone.API.Models.Representations
     {
         public FeedRepresentation(string Id)
         {
-            base.AddLink(new DeleteLink($"api/feeds/{Id}"));
-            base.AddLink(new SelfLink($"api/feeds/{Id}"));
+            base.AddLink(Link.Make(Relations.Self,$"api/feeds/{Id}"));
+            base.AddLink(Link.Make(Relations.Delete,$"api/feeds/{Id}", HttpMethod.Delete));
         }
         [JsonPropertyName("display")]
         public string Display { get; internal set; }
