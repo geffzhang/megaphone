@@ -8,8 +8,8 @@
     <Description />
     <RepositoryUrl>https://github.com/AlexandreBrisebois/megaphone/</RepositoryUrl>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
-    <Version>1.2.0</Version>
+    <FileVersion>1.2.1.0</FileVersion>
+    <Version>1.2.1</Version>
   </PropertyGroup>
 
 </Project>
