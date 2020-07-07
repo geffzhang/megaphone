@@ -1,15 +1,24 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Feeds.API.Models;
+using Feeds.API.Services;
+using Standard.Commands;
+using Standard.Services;
 
 namespace Feeds.API.Commands
 {
-    class PersistFeedListCommand : PersistCommand<List<Feed>>
+    class PersistFeedListCommand : ICommand<IPartionedStorageService<StorageEntry<List<Feed>>>>
     {
-        const string STORENAME = "feed-state-store";
-        const string STOREKEY = "feed-list";
+        readonly StorageEntry<List<Feed>> entry;
 
-        public PersistFeedListCommand(List<Feed> content) : base(content, STORENAME, STOREKEY)
+        public PersistFeedListCommand(StorageEntry<List<Feed>> entry)
         {
+            this.entry = entry;
+        }
+
+        public async Task ApplyAsync(IPartionedStorageService<StorageEntry<List<Feed>>> model)
+        {
+           await model.SetAsync("feed", "list.json", entry);
         }
     }
 }

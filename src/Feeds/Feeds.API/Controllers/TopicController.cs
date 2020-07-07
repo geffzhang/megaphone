@@ -1,64 +1,53 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Dapr;
+﻿using Dapr;
 using Dapr.Client;
 using Feeds.API.Commands;
-using Feeds.API.Queries;
-using Standard.Events;
-using System;
+using Feeds.API.Events;
 using Feeds.API.Models;
-using System.Collections.Generic;
+using Feeds.API.Services;
+using Microsoft.AspNetCore.Mvc;
+using Standard.Events;
+using System.Threading.Tasks;
 
 namespace Feeds.API.Controllers
 {
-
     [ApiController]
     [Route("/")]
     public class TopicController : ControllerBase
     {
-        public TopicController() : base()
+        private readonly ResourceStorageService resourceStorageService;
+
+        private readonly FeedStorageService feedStorageService;
+
+        public TopicController([FromServices] DaprClient daprClient)
         {
+            resourceStorageService = new ResourceStorageService(daprClient);
+            feedStorageService = new FeedStorageService(daprClient);
         }
 
         [Topic("resource-updates")]
         [HttpPost("resource-updates")]
-        public async Task<IActionResult> PostAsync(Event e, [FromServices] DaprClient daprClient)
+        public async Task<IActionResult> PostAsync(Event e)
         {
             if (e.Name == Events.Events.Resource.Update)
             {
-                if (e.Data.ContainsKey("resource"))
-                {
-                    var d = e.Data["resource"];
-
-                    if (d["type"] == ResourceType.Feed)
-                    {
-                        await UpdateFeed(e, daprClient, d);
-                    }
-                }
+                if (e.TryConvertToFeed(out var f))
+                    await UpdateFeed(f);
+                else if (e.TryConvertToResource(out var r))
+                    await UpsertResource(r);
             }
-
-            return Ok();                  
-        }
-        static bool IsNotDefault(Feed i)
-        {
-            return i != null && !string.IsNullOrEmpty(i.Id);
+            return Ok();
         }
 
-        static async Task UpdateFeed(Event e, DaprClient daprClient, Dictionary<string,string> d)
+        private async Task UpsertResource(Resource r)
         {
-            var q = new GetFeedListQuery();
-            var items = await q.ExecuteAsync(daprClient);
+            var c = new UpsertResourceListCommand(r);
+            await c.ApplyAsync(resourceStorageService);            
+        }
 
-            var i = items.Find(i => i.Id == d["id"]);
-            if (IsNotDefault(i))
-            {
-                i.LastCrawled = DateTimeOffset.Parse(e.Metadata["updated"]);
-                i.LastHttpStatus = Convert.ToInt32(e.Metadata["status"]);
-                i.Display = d["display"];
-
-                var c = new PersistFeedListCommand(items);
-                await c.ApplyAsync(daprClient);
-            }
+        private async Task UpdateFeed(Feed f)
+        {
+            var c = new UpdateFeedListCommand(f);
+            await c.ApplyAsync(feedStorageService);
         }
     }
 }

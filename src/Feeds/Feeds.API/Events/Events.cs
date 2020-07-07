@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Feeds.API.Events
+﻿namespace Feeds.API.Events
 {
+
     public static class Events
     {
         public static class Feed

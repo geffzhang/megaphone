@@ -10,6 +10,7 @@ using Feeds.API.Events;
 using Feeds.API.Models;
 using Feeds.API.Queries;
 using System.Linq;
+using Feeds.API.Services;
 
 namespace Feeds.API.Controllers
 {
@@ -17,10 +18,13 @@ namespace Feeds.API.Controllers
     [Route("/")]
     public class QueueController : ControllerBase
     {
-        DaprClient daprClient;
+        private readonly DaprClient daprClient;
+        private readonly FeedStorageService feedStorageService;
+
         public QueueController([FromServices] DaprClient daprClient) : base()
         {
             this.daprClient = daprClient;
+            feedStorageService = new FeedStorageService(daprClient);
         }
 
         [HttpPost("feed-events")]
@@ -41,31 +45,31 @@ namespace Feeds.API.Controllers
         private async Task DeleteFeed(Event e)
         {
             var q = new GetFeedListQuery();
-            var items = await q.ExecuteAsync(daprClient);
+            var entry = await q.ExecuteAsync(feedStorageService);
 
-            items = items.Where(i => i.Id != e.Parameters.GetValueOrDefault("id")).ToList();
+            entry.Value = entry.Value.Where(i => i.Id != e.Parameters.GetValueOrDefault("id")).ToList();
 
-            var c = new PersistFeedListCommand(items);
-            await c.ApplyAsync(daprClient);
+            var c = new PersistFeedListCommand(entry);
+            await c.ApplyAsync(feedStorageService);
         }
 
         private async Task AddFeed(Event e)
         {
             var q = new GetFeedListQuery();
-            var items = await q.ExecuteAsync(daprClient);
+            var entry = await q.ExecuteAsync(feedStorageService);
 
-            var item = new Feed
+            var feed = new Feed
             {
                 Url = e.Parameters.GetValueOrDefault("url")
             };
 
-            item.Id = new Uri(item.Url).ToGuid().ToString();
-            items.Add(item);
+            feed.Id = new Uri(feed.Url).ToGuid().ToString();
+            entry.Value.Add(feed);
 
-            var c = new PersistFeedListCommand(items);
-            await c.ApplyAsync(daprClient);
+            var c = new PersistFeedListCommand(entry);
+            await c.ApplyAsync(feedStorageService);
 
-            var publish = new PublishEventCommand(EventFactory.MakeCrawlRequestEvent(item.Url), "crawl");
+            var publish = new PublishEventCommand(EventFactory.MakeCrawlRequestEvent(feed.Url), "crawl");
             await publish.ApplyAsync(daprClient);
         }
     }

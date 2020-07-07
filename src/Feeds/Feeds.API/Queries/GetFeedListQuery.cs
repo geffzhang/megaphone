@@ -1,15 +1,18 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Feeds.API.Models;
+using Feeds.API.Services;
+using Standard.Queries;
+using Standard.Services;
 
 namespace Feeds.API.Queries
 {
-    class GetFeedListQuery : GetQuery<List<Feed>>
+    class GetFeedListQuery : IQuery<IPartionedStorageService<StorageEntry<List<Feed>>>, StorageEntry<List<Feed>>>
     {
-        const string STORENAME = "feed-state-store";
-        const string STOREKEY = "feed-list";
-
-        public GetFeedListQuery() : base(STORENAME, STOREKEY)
+        public async Task<StorageEntry<List<Feed>>> ExecuteAsync(IPartionedStorageService<StorageEntry<List<Feed>>> model)
         {
+            var entry = await model.GetAsync("feed", "list.json");
+            return entry;
         }
     }
 }

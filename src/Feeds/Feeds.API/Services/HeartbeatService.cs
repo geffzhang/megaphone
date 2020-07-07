@@ -1,58 +1,37 @@
-﻿using System;
+﻿using Dapr.Client;
+using Dapr.Client.Http;
+using Feeds.API.Models.Views;
+using Feeds.API.Queries;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
+using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Dapr.Client;
-using Feeds.API.Commands;
-using Feeds.API.Events;
-using Feeds.API.Models;
-using System.Collections.Generic;
-using System.Linq;
-using Dapr.Client.Http;
 
 namespace Feeds.API.Services
 {
     public class HeartbeatService : IHostedService, IDisposable
     {
-        const string STORENAME = "feed-state-store";
-        const string STOREKEY = "feed-list";
+        DateTimeOffset lastUpdated = DateTimeOffset.MinValue;
 
-        string feedListEtag = String.Empty;
+        private readonly FeedStorageService feedStorageService;
+        private readonly DaprClient daprClient;
 
         private Timer timer;
-        private readonly DaprClient daprClient;
 
         public HeartbeatService([FromServices] DaprClient daprClient)
         {
+            feedStorageService = new FeedStorageService(daprClient);
             this.daprClient = daprClient;
         }
 
         public Task StartAsync(CancellationToken stoppingToken)
         {
             timer = new Timer(async state =>
-                      {
-                          try
-                          {
-                              var s = await daprClient.GetStateEntryAsync<List<Feed>>(STORENAME, STOREKEY);
-                              if (this.feedListEtag != s.ETag)
-                              {
-                                  if (s.Value != null)
-                                  {
-                                      var view = new FeedListView();
-                                      view.Feeds = s.Value.Select(f => new FeedView { Display = f.Display, Url = f.Url, Id = f.Id }).ToList();
-
-                                      await daprClient.InvokeMethodAsync("api-service", "api/feeds", view, new HTTPExtension { Verb = HTTPVerb.Put });
-                                     
-                                      this.feedListEtag = s.ETag;
-                                  }
-                              }
-                          }
-                          catch
-                          {
-                              // nothing
-                          }
-                      },
+            {
+                await TryPushFeedUpdates();
+            },
                       null,
                       TimeSpan.Zero,
                       TimeSpan.FromSeconds(30));
@@ -60,13 +39,33 @@ namespace Feeds.API.Services
             return Task.CompletedTask;
         }
 
-        private async Task PublishCrawlRequest(Feed i)
+        private async Task TryPushFeedUpdates()
         {
-            var c = new PublishEventCommand(EventFactory.MakeCrawlRequestEvent(i.Url), "crawl");
-            await c.ApplyAsync(daprClient);
-        }
+            try
+            {
+                var q = new GetFeedListQuery();
+                var entry = await q.ExecuteAsync(feedStorageService);
 
-        private static bool IsDueForCrawl(Feed i) => i.LastCrawled < DateTimeOffset.UtcNow.Subtract(TimeSpan.FromMinutes(20));
+                if (this.lastUpdated != entry.Updated)
+                {
+                    if (entry.HasValue)
+                    {
+                        var view = new FeedListView
+                        {
+                            Feeds = entry.Value.Select(f => new FeedView { Display = f.Display, Url = f.Url, Id = f.Id }).ToList()
+                        };
+
+                        await daprClient.InvokeMethodAsync("api-service", "api/feeds", view, new HTTPExtension { Verb = HTTPVerb.Put });
+
+                        this.lastUpdated = entry.Updated;
+                    }
+                }
+            }
+            catch
+            {
+                // nothing
+            }
+        }
 
         public Task StopAsync(CancellationToken stoppingToken)
         {

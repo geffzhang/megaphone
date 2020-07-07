@@ -3,7 +3,6 @@ using System.Text.Json.Serialization;
 
 namespace Feeds.API.Models
 {
-
     public class Feed
     {
         [JsonPropertyName("url")]

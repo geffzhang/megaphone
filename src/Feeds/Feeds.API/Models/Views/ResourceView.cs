@@ -1,8 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Feeds.API.Models
+namespace Feeds.API.Models.Views
 {
-    public class FeedView
+
+    public class ResourceView
     {
         [JsonPropertyName("display")]
         public string Display { get; set; }

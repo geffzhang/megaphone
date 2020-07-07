@@ -1,9 +1,5 @@
-using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Standard.Commands;
-using System.Text.Json;
-using System.Text;
 using Dapr.Client;
 
 namespace Feeds.API.Commands

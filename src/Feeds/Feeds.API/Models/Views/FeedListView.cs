@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Feeds.API.Models
+namespace Feeds.API.Models.Views
 {
     public class FeedListView
     {

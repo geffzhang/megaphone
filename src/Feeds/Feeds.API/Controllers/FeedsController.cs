@@ -1,14 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Dapr.Client;
-using Feeds.API.Commands;
-using Feeds.API.Events;
-using Feeds.API.Models;
 using Feeds.API.Queries;
+using Feeds.API.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Standard.Extensions;
 
 namespace Feeds.API.Controllers
 {
@@ -17,25 +13,33 @@ namespace Feeds.API.Controllers
     [Route("/api/feeds")]
     public class FeedsController : ControllerBase
     {
+        private FeedStorageService feedStorageService;
+
+        public FeedsController([FromServices] DaprClient daprClient)
+        {
+            feedStorageService = new FeedStorageService(daprClient);
+        }
+
         [Route("")]
         [HttpGet]
-        public async Task<JsonResult> GetAsync([FromServices] DaprClient daprClient)
+        public async Task<JsonResult> GetAsync()
         {
             var q = new GetFeedListQuery();
-            var items = await q.ExecuteAsync(daprClient);
-            return new JsonResult(items);
+            var entry = await q.ExecuteAsync(feedStorageService);
+
+            return new JsonResult(entry.Value);
         }
 
         [Route("{id}")]
         [HttpGet]
-        public async Task<IActionResult> GetAsync(string id, [FromServices] DaprClient daprClient)
+        public async Task<IActionResult> GetAsync(string id)
         {
             var q = new GetFeedListQuery();
-            var items = await q.ExecuteAsync(daprClient);
+            var entry = await q.ExecuteAsync(feedStorageService);
 
-            var item = items.FirstOrDefault(i => i.Id == id);
+            var feed = entry.Value.FirstOrDefault(i => i.Id == id);
 
-            return new JsonResult(item);
+            return new JsonResult(feed);
         }
     }
 }
