@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Crawler.Models
 {
@@ -19,5 +20,6 @@ namespace Crawler.Models
         public Uri Self { get; set; }
         public DateTimeOffset Published { get; set; }
         public string Cache { get; set; }
+        public List<Resource> Resources { get; set; } = new List<Resource>();
     }
 }

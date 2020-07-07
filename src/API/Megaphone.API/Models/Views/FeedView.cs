@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Megaphone.API.Models
+namespace Megaphone.API.Models.Views
 {
     public class FeedView
     {

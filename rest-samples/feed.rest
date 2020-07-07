@@ -18,8 +18,12 @@ Content-Type: application/json
 ### Get Watch feed
 GET http://{{feed-service}}/api/feeds
 
-### Get item from Watch feed
-GET http://{{feed-service}}/api/feeds/740f3d2f-2eb2-50e4-b695-aeed86dfe674
 
-### Get item from Watch feed
-GET http://{{feed-service}}/api/feeds/c50f7543-6b69-5e46-ae5e-bf0b82dede0e
+### List Resources
+GET http://{{feed-service}}/api/resources/2020/06/30
+### List Resources
+GET http://{{feed-service}}/api/resources/2020/07/06
+### List Resources
+GET http://{{feed-service}}/api/resources/2020/07/07
+### List Resources
+GET http://{{feed-service}}/api/resources/2020/07/08

@@ -8,7 +8,7 @@ namespace Feeds.API.Events
     {
         public static bool TryConvertToFeed(this Event e, out Feed feed)
         {
-            if (!e.Data.ContainsKey("resource") && e.Data["resource"]["type"] != ResourceType.Feed)
+            if (!e.Data.ContainsKey("resource") || e.Data["resource"]["type"] != ResourceType.Feed)
             {
                 feed = null;
                 return false;
@@ -28,7 +28,7 @@ namespace Feeds.API.Events
 
         public static bool TryConvertToResource(this Event e, out Resource resource)
         {
-            if (!e.Data.ContainsKey("resource") && e.Data["resource"]["type"] != ResourceType.Page)
+            if (!e.Data.ContainsKey("resource") || e.Data["resource"]["type"] != ResourceType.Page)
             {
                 resource = null;
                 return false;

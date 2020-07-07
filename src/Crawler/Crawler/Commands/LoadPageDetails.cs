@@ -5,7 +5,7 @@ using Standard.Commands;
 
 namespace Crawler.Command
 {
-    internal class LoadPageDetails : ICommand<Models.Resource>
+    internal class LoadPageDetails : ICommand<Resource>
     {
         private readonly string content;
 
@@ -14,7 +14,7 @@ namespace Crawler.Command
             this.content = content;
         }
 
-        public async Task ApplyAsync(Models.Resource model)
+        public async Task ApplyAsync(Resource model)
         {
             model.Type = ResourceType.Page;
 

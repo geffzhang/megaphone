@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,25 +21,19 @@ namespace Crawler.XUnitTest
         [Fact]
         public void CreateWebCrawler()
         {
-            ResourceCrawler crawler = new WebResourceCrawler();
-        }
+            _ = new WebResourceCrawler();
+        }       
 
         [Fact]
-        public async Task WebCrawlerCanGetResource()
+        public async Task WebCrawlerCanGetChildResources()
         {
             ResourceCrawler crawler = new WebResourceCrawler();
 
             var uri = "https://channel9.msdn.com/Shows/Azure-Friday/feed".ToUri();
-            var resource = new Resource(uri.ToGuid().ToString())
-            {
-                Self = uri,
-                Description = string.Empty
-            };
+         
+            var resource = await crawler.GetResourceAsync(uri).ConfigureAwait(false);
 
-            var resources = await crawler.GetChildResourcesAsync(resource).ConfigureAwait(false);
-
-            Assert.IsAssignableFrom<IEnumerable<Resource>>(resources);
-            Assert.True(resources.Any());
+            Assert.True(resource.Resources.Any());
         }
     }
 }

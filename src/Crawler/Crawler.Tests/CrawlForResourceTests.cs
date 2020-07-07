@@ -60,7 +60,7 @@ namespace Crawler.XUnitTest
         }
         
         [Fact]
-        public async Task WebCrawlerGetResourceHasStatusCode202()
+        public async Task WebCrawlerGetResourceHasStatusCode200()
         {
             ResourceCrawler crawler = new WebResourceCrawler();
             var resource = await crawler.GetResourceAsync("https://www.google.com".ToUri()).ConfigureAwait(false);
@@ -104,7 +104,7 @@ namespace Crawler.XUnitTest
         public async Task WebCrawlerGetAzureBlogResourceAsFeed()
         {
             ResourceCrawler crawler = new WebResourceCrawler();
-            var resource = await crawler.GetResourceAsync("https://azure.microsoft.com/en-us/blog/feed/".ToUri()).ConfigureAwait(false);
+            var resource = await crawler.GetResourceAsync("https://azure.microsoft.com/en-us/blog/feed/".ToUri());
             Assert.True(String.CompareOrdinal(resource.Display, "Microsoft Azure Blog") == 0);
             Assert.True(resource.Type == ResourceType.Feed);
         } 
@@ -117,6 +117,25 @@ namespace Crawler.XUnitTest
             Assert.True(String.CompareOrdinal(resource.Display, "Azure Friday  - Channel 9") == 0);
             Assert.True(resource.Type == ResourceType.Feed);
             Assert.False(string.IsNullOrEmpty(resource.Description));
+        }
+
+        [Fact]
+        public async Task WebCrawlerGetAzureFridayResourceAsFeedWithAllFields()
+        {
+            ResourceCrawler crawler = new WebResourceCrawler();
+
+            var uri = "https://channel9.msdn.com/Shows/Azure-Friday/feed".ToUri();
+
+            var resource = await crawler.GetResourceAsync(uri).ConfigureAwait(false);
+
+            Assert.False(string.IsNullOrEmpty(resource.Cache), "Empty Cache");
+            Assert.False(string.IsNullOrEmpty(resource.Description), "Empty Description");
+            Assert.False(string.IsNullOrEmpty(resource.Display),  "Empty Display");
+            Assert.False(resource.Created == DateTimeOffset.MinValue, $"Created Date : {resource.Published}");
+            Assert.False(resource.Published == DateTimeOffset.MinValue, $"Publish Date : {resource.Published}");
+            Assert.False(resource.StatusCode > 399);
+            Assert.True(resource.IsActive);
+            Assert.False(resource.Type == ResourceType.Page);
         }
     }
 }

@@ -1,7 +1,9 @@
+using System.Linq;
 using System.Threading.Tasks;
+using CodeHollow.FeedReader;
 using Crawler.Models;
-using HtmlAgilityPack;
 using Standard.Commands;
+using Standard.Extensions;
 
 namespace Crawler.Command
 {
@@ -18,23 +20,23 @@ namespace Crawler.Command
         {
             model.Type = ResourceType.Feed;
 
-            var document = new HtmlDocument();
-            document.LoadHtml(content);
+            var feed = FeedReader.ReadFromString(model.Cache);
 
-            SetTitle(model, document);
-            SetDescription(model, document);
+            model.Published = feed.LastUpdatedDate.GetValueOrDefault();
+            model.Display = feed.Title;
+            model.Description = feed.Description;
 
-            await Task.CompletedTask;
-        }
-        private static void SetTitle(Resource model, HtmlDocument document)
-        {
-            var title = document.DocumentNode.SelectSingleNode("//rss/channel/title");
-            model.Display = title.InnerText;
-        }
-        private static void SetDescription(Resource model, HtmlDocument document)
-        {
-            var description = document.DocumentNode.SelectSingleNode("//rss/channel/description");
-            model.Description = description.InnerText;
+            model.Resources.AddRange(feed.Items.Select(i =>
+            {
+                var uri = i.Link.ToUri();
+                return new Resource(uri.ToGuid().ToString())
+                {
+                    Published = i.PublishingDate.GetValueOrDefault(),
+                    Display = i.Title,
+                    Description = i.Description,
+                    Self = uri
+                };
+            }));
         }
     }
 }

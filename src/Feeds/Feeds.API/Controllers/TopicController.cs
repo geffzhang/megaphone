@@ -15,13 +15,16 @@ namespace Feeds.API.Controllers
     public class TopicController : ControllerBase
     {
         private readonly ResourceStorageService resourceStorageService;
-
+        private readonly ResourceListChangeTracker resourceTracker;
         private readonly FeedStorageService feedStorageService;
 
-        public TopicController([FromServices] DaprClient daprClient)
+        public TopicController([FromServices] DaprClient daprClient, 
+                               [FromServices] ResourceListChangeTracker resourceTracker)
         {
             resourceStorageService = new ResourceStorageService(daprClient);
             feedStorageService = new FeedStorageService(daprClient);
+
+            this.resourceTracker = resourceTracker;
         }
 
         [Topic("resource-updates")]
@@ -41,7 +44,9 @@ namespace Feeds.API.Controllers
         private async Task UpsertResource(Resource r)
         {
             var c = new UpsertResourceListCommand(r);
-            await c.ApplyAsync(resourceStorageService);            
+            await c.ApplyAsync(resourceStorageService);
+
+            resourceTracker.AddDate(r.Published);
         }
 
         private async Task UpdateFeed(Feed f)

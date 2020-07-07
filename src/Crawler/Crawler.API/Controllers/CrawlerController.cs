@@ -20,6 +20,7 @@ namespace Crawler.API.Controllers
         {
             httpClient = httpClientFactory.CreateClient();
         }
+
         [HttpPost]
         public async Task<IActionResult> PostAsync(CloudEvent cloudEvent)
         {
@@ -41,9 +42,7 @@ namespace Crawler.API.Controllers
 
             if (resource.Type == ResourceType.Feed)
             {
-                var resources = await crawler.GetChildResourcesAsync(resource);
-
-                foreach (var r in resources)
+                foreach (var r in resource.Resources)
                 {
                     var publish = new PublishEventCommand(EventFactory.MakeCrawlRequestEvent(r), "crawl"); ;
                     await publish.ApplyAsync(httpClient);
@@ -52,7 +51,7 @@ namespace Crawler.API.Controllers
 
             return Ok();
 
-            async Task UpdateResource(Crawler.Models.Resource resource)
+            async Task UpdateResource(Models.Resource resource)
             {
                 var c = new UpdateResourceCommand(resource);
                 await c.ApplyAsync(httpClient);

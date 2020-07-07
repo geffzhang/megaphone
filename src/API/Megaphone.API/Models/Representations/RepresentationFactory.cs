@@ -1,28 +1,50 @@
-﻿using System.Linq;
+﻿using Megaphone.API.Models.Views;
+using System.Linq;
 
 namespace Megaphone.API.Models.Representations
 {
-    public static class RepresentationFactory
+    public partial class RepresentationFactory
     {
-        public static FeedListRepresentation MakeFeedListRepresentation(FeedListView view)
+        public static ResourceListRepresentation MakeResourceListRepresentation(ResourceListView view)
         {
-            var r = new FeedListRepresentation
+            ResourceListRepresentation rlv = new ResourceListRepresentation(view.Date)
             {
                 Updated = view.Updated
             };
 
-            r.feeds.AddRange(view.Feeds.Select(f => MakeFeedRepresentation(f)));
-            return r;
+            rlv.Resources.AddRange(view.Resources.Select(r => MakeResourceRepresentation(r)));
+            return rlv;
         }
 
-        public static FeedRepresentation MakeFeedRepresentation(FeedView view)
+        public static ResourceRepresentation MakeResourceRepresentation(ResourceView view)
         {
-            var r = new FeedRepresentation(view.Id)
+            var r = new ResourceRepresentation
             {
                 Display = view.Display,
                 Url = view.Url
             };
             return r;
+        }
+
+        public static FeedListRepresentation MakeFeedListRepresentation(FeedListView view)
+        {
+            var flv = new FeedListRepresentation
+            {
+                Updated = view.Updated
+            };
+
+            flv.Feeds.AddRange(view.Feeds.Select(f => MakeFeedRepresentation(f)));
+            return flv;
+        }
+
+        public static FeedRepresentation MakeFeedRepresentation(FeedView view)
+        {
+            var fv = new FeedRepresentation(view.Id)
+            {
+                Display = view.Display,
+                Url = view.Url
+            };
+            return fv;
         }
     }
 }

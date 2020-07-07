@@ -6,11 +6,11 @@ using System.Text.Json;
 
 namespace Crawler.API.Queries
 {
-    class GetQuery<TContent> : IQuery<HttpClient, TContent> where TContent : new()
+    internal class GetQuery<TContent> : IQuery<HttpClient, TContent> where TContent : new()
     {
         private readonly string storeName;
         private readonly string storeKey;
-        string port;
+        private readonly string port;
 
         public GetQuery(string storeName, string storeKey)
         {

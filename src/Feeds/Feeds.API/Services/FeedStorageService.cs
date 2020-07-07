@@ -25,21 +25,22 @@ namespace Feeds.API.Services
             var (value, etag) = await this.client.GetStateAndETagAsync<StorageEntry<List<Feed>>>(STATE_STORE, $"{partitionKey}/{contentKey}");
             trackedEtag = etag;
 
-            return value;
+            return value ?? new StorageEntry<List<Feed>>();
         }
 
         public async Task SetAsync(string partitionKey, string contentKey, StorageEntry<List<Feed>> content)
         {
+            content.Updated = DateTimeOffset.UtcNow;
             if (string.IsNullOrEmpty(trackedEtag))
             {
                 var stateSaved = await this.client.TrySaveStateAsync(STATE_STORE, $"{partitionKey}/{contentKey}", content, trackedEtag);
                 if (stateSaved)
                     return;
-                throw new Exception($"failed to save state for {contentKey}");
+                throw new Exception($"failed to save state for {partitionKey}/{contentKey}");
             }
             else
             {
-                await this.client.SaveStateAsync(STATE_STORE, contentKey, content);
+                await this.client.SaveStateAsync(STATE_STORE, $"{partitionKey}/{contentKey}", content);
             }
         }
     }

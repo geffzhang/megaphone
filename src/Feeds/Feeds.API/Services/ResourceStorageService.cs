@@ -25,12 +25,15 @@ namespace Feeds.API.Services
             var (value, etag) = await this.client.GetStateAndETagAsync<StorageEntry<List<Resource>>>(STATE_STORE, key);
             trackedEtags[key] = etag;
 
-            return value;
+            return value ?? new StorageEntry<List<Resource>>();
         }
 
         public async Task SetAsync(string partitionKey, string contentKey, StorageEntry<List<Resource>> content)
         {
             string key = $"resources/{partitionKey}/{contentKey}";
+            
+            content.Updated = DateTimeOffset.UtcNow;
+
             if (trackedEtags.ContainsKey(key))
             {
                 var stateSaved = await this.client.TrySaveStateAsync<StorageEntry<List<Resource>>>(STATE_STORE, key, content, trackedEtags[key]);

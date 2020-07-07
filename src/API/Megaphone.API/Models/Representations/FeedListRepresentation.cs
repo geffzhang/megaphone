@@ -13,7 +13,7 @@ namespace Megaphone.API.Models.Representations
         }
 
         [JsonPropertyName("feeds")]
-        public List<FeedRepresentation> feeds { get; set; } = new List<FeedRepresentation>();
+        public List<FeedRepresentation> Feeds { get; set; } = new List<FeedRepresentation>();
 
         [JsonPropertyName("updated")]
         public DateTimeOffset Updated { get; internal set; }

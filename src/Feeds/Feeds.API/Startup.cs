@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Feeds.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +27,8 @@ namespace Feeds.API
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 PropertyNameCaseInsensitive = true,
             });
+
+            services.AddSingleton(new ResourceListChangeTracker());
 
             services.AddCors(options =>
             {

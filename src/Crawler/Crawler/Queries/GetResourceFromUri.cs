@@ -39,10 +39,9 @@ namespace Crawler.Queries
             await LoadResourceDetails(response, resource);
 
             return resource;
-
         }
 
-        private static async Task LoadResourceDetails(HttpResponseMessage response, Models.Resource resource)
+        private static async Task LoadResourceDetails(HttpResponseMessage response, Resource resource)
         {
             var content = await response.Content.ReadAsStringAsync();
             resource.Cache = content;
@@ -50,18 +49,18 @@ namespace Crawler.Queries
             switch (response.Content.Headers.ContentType.MediaType)
             {
                 case MediaTypeNames.Text.Html:
-                {
-                    var loadPageDetails = new LoadPageDetails(content);
-                    await loadPageDetails.ApplyAsync(resource);
-                }
+                    {
+                        var loadPageDetails = new LoadPageDetails(content);
+                        await loadPageDetails.ApplyAsync(resource);
+                    }
                     break;
                 case "application/rss+xml":
                 case "application/xml":
                 case MediaTypeNames.Text.Xml:
-                {
-                    var loadFeedDetails = new LoadFeedDetails(content);
-                    await loadFeedDetails.ApplyAsync(resource);
-                }
+                    {
+                        var loadFeedDetails = new LoadFeedDetails(content);
+                        await loadFeedDetails.ApplyAsync(resource);
+                    }
                     break;
             }
         }

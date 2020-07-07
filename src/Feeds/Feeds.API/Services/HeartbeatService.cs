@@ -5,6 +5,7 @@ using Feeds.API.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,27 +17,71 @@ namespace Feeds.API.Services
         DateTimeOffset lastUpdated = DateTimeOffset.MinValue;
 
         private readonly FeedStorageService feedStorageService;
+        private readonly ResourceStorageService resourceStorageService;
+        private readonly ResourceListChangeTracker resourceTracker;
+
         private readonly DaprClient daprClient;
 
         private Timer timer;
 
-        public HeartbeatService([FromServices] DaprClient daprClient)
+        public HeartbeatService([FromServices] DaprClient daprClient,
+                                [FromServices] ResourceListChangeTracker resourceTracker)
         {
             feedStorageService = new FeedStorageService(daprClient);
+            resourceStorageService = new ResourceStorageService(daprClient);
+
             this.daprClient = daprClient;
+            this.resourceTracker = resourceTracker;
         }
 
         public Task StartAsync(CancellationToken stoppingToken)
         {
             timer = new Timer(async state =>
             {
-                await TryPushFeedUpdates();
+                var tasks = new[] { TryPushFeedUpdates(), TryPushResourceListUpdates() };
+                await Task.WhenAll(tasks);
             },
                       null,
                       TimeSpan.Zero,
                       TimeSpan.FromSeconds(30));
 
             return Task.CompletedTask;
+        }
+
+        private async Task TryPushResourceListUpdates()
+        {
+            List<DateTime> dates = GetDates();
+
+            foreach (var d in dates)
+            {
+                var q = new GetResourceListQuery(d);
+                var entry = await q.ExecuteAsync(resourceStorageService);
+
+                var view = new ResourceListView
+                {
+                    Date = d,
+                    Resources = entry.Value.Select(r => new ResourceView
+                    {
+                        Display = r.Display,
+                        Url = r.Url,
+                        Id = r.Id
+                    }).ToList()
+                };
+
+                await daprClient.InvokeMethodAsync("api-service", "api/resources", view, new HTTPExtension { Verb = HTTPVerb.Put });
+            }
+        }
+
+        private List<DateTime> GetDates()
+        {
+            List<DateTime> dates = new List<DateTime>();
+            while (resourceTracker.TryRemoveDate(out DateTime date))
+            {
+                dates.Add(date.Date);
+            }
+
+            dates = dates.Distinct().ToList();
+            return dates;
         }
 
         private async Task TryPushFeedUpdates()
@@ -46,7 +91,7 @@ namespace Feeds.API.Services
                 var q = new GetFeedListQuery();
                 var entry = await q.ExecuteAsync(feedStorageService);
 
-                if (this.lastUpdated != entry.Updated)
+                if (this.lastUpdated != entry?.Updated)
                 {
                     if (entry.HasValue)
                     {

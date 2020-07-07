@@ -47,7 +47,13 @@ namespace Feeds.API.Controllers
             var q = new GetFeedListQuery();
             var entry = await q.ExecuteAsync(feedStorageService);
 
+            if (!entry.HasValue)
+            {
+                entry.Value = new List<Feed>();
+            }
+
             entry.Value = entry.Value.Where(i => i.Id != e.Parameters.GetValueOrDefault("id")).ToList();
+
 
             var c = new PersistFeedListCommand(entry);
             await c.ApplyAsync(feedStorageService);
@@ -57,6 +63,11 @@ namespace Feeds.API.Controllers
         {
             var q = new GetFeedListQuery();
             var entry = await q.ExecuteAsync(feedStorageService);
+            
+            if (!entry.HasValue)
+            {
+                entry.Value = new List<Feed>();
+            }
 
             var feed = new Feed
             {

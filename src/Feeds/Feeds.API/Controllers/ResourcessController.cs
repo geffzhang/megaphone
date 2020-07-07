@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapr.Client;
 using Feeds.API.Queries;
@@ -11,7 +12,7 @@ namespace Feeds.API.Controllers
     [ApiController]
     [EnableCors]
     [Route("/api/resources")]
-    public class ResourcessController : ControllerBase
+    public class ResourcesController : ControllerBase
     {
         [Route("{year}/{month}/{day}")]
         [HttpGet]
@@ -22,7 +23,7 @@ namespace Feeds.API.Controllers
             var q = new GetResourceListQuery(new DateTime(year, month, day));
             var entry = await q.ExecuteAsync(storage);
 
-            return new JsonResult(entry.Value);
+            return new JsonResult(entry.Value ?? new List<Models.Resource>());
         }
     }
 }
