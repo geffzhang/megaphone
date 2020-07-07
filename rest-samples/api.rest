@@ -59,3 +59,11 @@ Content-Type: application/json
 {
     "url": "https://azure.microsoft.com/en-us/blog/feed/"
 }
+
+### Add item to Watch feed
+POST http://{{api-service}}/api/feeds
+Content-Type: application/json
+
+{
+    "url": "https://cloudblogs.microsoft.com/opensource/feed/"
+}
