@@ -1,8 +1,8 @@
-# Setting up your dev environment in Visual Studio Code (& Visual Studio Codespaces)
+# Setting Up Your Environment (& Codespace)
 
 When using [Visual Studio Codespaces](https://visualstudio.microsoft.com/services/visual-studio-codespaces/) (linux) there are a few things that need to get taken care of to get up and running.
 
-## 1) Setting up GitHub as a NuGet package source
+## 1) Setting Up GitHub as a NuGet package source
 
 GitHub Packages [documentation](https://docs.github.com/en/packages).
 
