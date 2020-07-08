@@ -1,8 +1,8 @@
-# Setting Up Your Environment (& Codespace)
+# Setup Your Environment (& Codespace)
 
 When using [Visual Studio Codespaces](https://visualstudio.microsoft.com/services/visual-studio-codespaces/) (linux) there are a few things that need to get taken care of to get up and running.
 
-## 1) Setting Up GitHub as a NuGet package source
+## 1) Setup Up GitHub as a NuGet package source
 
 GitHub Packages [documentation](https://docs.github.com/en/packages).
 
@@ -30,7 +30,7 @@ With your GitHub **personal access token**, you need to configure **NuGet.Config
 
 User-level file, **%appdata%\NuGet\NuGet.Config** on Windows, **~/.config/NuGet/NuGet.Config** on Mac/Linux
 
-## 2) Setting up Dapr
+## 2) Setup Dapr
 
 > See this documentation for details about [setting up your local environment](https://github.com/dapr/docs/blob/master/getting-started/environment-setup.md)
 
@@ -54,7 +54,7 @@ Install and Initialize Dapr
 dapr init
 ```
 
-## 3) Setting up RabbitMQ
+## 3) Setup RabbitMQ
 
 RabbitMQ is used as a Queue Binding between Megaphone.API and Feeds.API
 
@@ -73,7 +73,7 @@ docker run -d --name rabbit-mq rabbitmq:3-management
 
 ## **optional** 5) Setting up Azure Application Insights
 
-### deploy local App Insights Agent
+### Deploy Local App Insights Agent
 
 > See [Set up Application Insights for distributed tracing](https://github.com/dapr/docs/blob/master/howto/diagnose-with-tracing/azure-monitor.md)
 
