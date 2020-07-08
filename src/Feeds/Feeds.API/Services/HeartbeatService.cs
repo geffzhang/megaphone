@@ -18,6 +18,7 @@ namespace Feeds.API.Services
 
         private readonly FeedStorageService feedStorageService;
         private readonly ResourceStorageService resourceStorageService;
+
         private readonly ResourceListChangeTracker resourceTracker;
 
         private readonly DaprClient daprClient;
