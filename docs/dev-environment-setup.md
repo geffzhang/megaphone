@@ -2,13 +2,15 @@
 
 When using [Visual Studio Codespaces](https://visualstudio.microsoft.com/services/visual-studio-codespaces/) (linux) there are a few things that need to get taken care of to get up and running.
 
-## Setting up GitHub as a NuGet package source
+## 1) Setting up GitHub as a NuGet package source
 
 GitHub Packages [documentation](https://docs.github.com/en/packages).
 
-In order to build these services, you need to install packaged that are published to this GitHub Repo. The following is the GitHub documentation on [installing packages](https://docs.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-dotnet-cli-for-use-with-github-packages).
+In order to build these services, you need to [install packages](https://docs.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-dotnet-cli-for-use-with-github-packages) from this GitHub Repo. 
 
-With your GitHub personal access token, you need to configure NuGet.Config:
+> See this GitHub documentation on [Creating a personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+
+With your GitHub **personal access token**, you need to configure **NuGet.Config**:
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -27,3 +29,6 @@ With your GitHub personal access token, you need to configure NuGet.Config:
 ```
 
 User-level file, **%appdata%\NuGet\NuGet.Config** on Windows, **~/.config/NuGet/NuGet.Config** on Mac/Linux
+
+## OPTIONAL 2) Setting up Azure Application Insights
+
