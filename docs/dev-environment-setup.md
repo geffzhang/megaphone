@@ -28,7 +28,7 @@ With your GitHub **personal access token**, you need to configure **NuGet.Config
 </configuration>
 ```
 
-User-level file, **%appdata%\NuGet\NuGet.Config** on Windows, **~/.config/NuGet/NuGet.Config** on Mac/Linux
+User-level file, **%appdata%\NuGet\NuGet.Config** on Windows, **~/.nuget/NuGet/NuGet.Config** on Mac/Linux
 
 ## 2) Setup Dapr
 
