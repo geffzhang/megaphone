@@ -107,27 +107,27 @@ docker run -e APPINSIGHTS_INSTRUMENTATIONKEY=<Your Instrumentation Key> -e APPIN
 #### Resources/Resource.Actor
 
 ```bash
-./src/Resources/Resource.Actor/dotnet user-secrets init
-./src/Resources/Resource.Actor/dotnet user-secrets set "APPINSIGHTS_INSTRUMENTATIONKEY" "<Your Instrumentation Key>"
+dotnet user-secrets -p "src/Resources/Resource.Actor/Resource.Actor.csproj" init
+dotnet user-secrets -p "src/Resources/Resource.Actor/Resource.Actor.csproj" set "APPINSIGHTS_INSTRUMENTATIONKEY" "<Your Instrumentation Key>"
 ```
 
 #### Feeds/Feeds.API
 
 ```bash
-./src/Feeds/Feeds.API/dotnet user-secrets init
-./src/Feeds/Feeds.API/dotnet user-secrets set "APPINSIGHTS_INSTRUMENTATIONKEY" "<Your Instrumentation Key>"
+dotnet user-secrets -p "src/Feeds/Feeds.API/Feeds.API.csproj" init
+dotnet user-secrets -p "src/Feeds/Feeds.API/Feeds.API.csproj" set "APPINSIGHTS_INSTRUMENTATIONKEY" "<Your Instrumentation Key>"
 ```
 
 #### Crawler/Crawler.API
 
 ```bash
-./src/Crawler/Crawler.API/dotnet user-secrets init
-./src/Crawler/Crawler.API/dotnet user-secrets set "APPINSIGHTS_INSTRUMENTATIONKEY" "<Your Instrumentation Key>"
+dotnet user-secrets -p "src/Crawler/Crawler.API/Crawler.API.csproj" init
+dotnet user-secrets -p "src/Crawler/Crawler.API/Crawler.API.csproj" set "APPINSIGHTS_INSTRUMENTATIONKEY" "<Your Instrumentation Key>"
 ```
 
 #### API/Megaphone.API
 
 ```bash
-./src/API/Megaphone.API/dotnet user-secrets init
-./src/API/Megaphone.API/dotnet user-secrets set "APPINSIGHTS_INSTRUMENTATIONKEY" "<Your Instrumentation Key>"
+dotnet user-secrets -p "src/API/Megaphone.API/Megaphone.API.csproj" init
+dotnet user-secrets -p "src/API/Megaphone.API/Megaphone.API.csproj" set "APPINSIGHTS_INSTRUMENTATIONKEY" "<Your Instrumentation Key>"
 ```

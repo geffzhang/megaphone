@@ -15,7 +15,7 @@
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://127.0.0.1:5100;",
+                "ASPNETCORE_URLS": "http://*:5100",
                 "DAPR_HTTP_PORT": "5180",
                 "DAPR_GRPC_PORT": "5101"
             }
@@ -31,7 +31,7 @@
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://127.0.0.1:5200;",
+                "ASPNETCORE_URLS": "http://*:5200;",
                 "DAPR_HTTP_PORT": "5280",
                 "DAPR_GRPC_PORT": "5201"
             }
@@ -47,7 +47,7 @@
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://127.0.0.1:5300;",
+                "ASPNETCORE_URLS": "http://*:5300;",
                 "DAPR_HTTP_PORT": "5380",
                 "DAPR_GRPC_PORT": "5301"
             }
@@ -63,7 +63,7 @@
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://127.0.0.1:5400;",
+                "ASPNETCORE_URLS": "http://*:5400;",
                 "DAPR_HTTP_PORT": "5480",
                 "DAPR_GRPC_PORT": "5401"
             }
