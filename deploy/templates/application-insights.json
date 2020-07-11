@@ -3,20 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location": {
-            "type": "string",
-            "metadata": {
-                "description": "description"
-            },
-            "allowedValues": [
-                "EastUS",
-                "WestUS"
-            ]
+            "type": "string"
         }, 
         "prefix": {
-            "type": "string",
-            "metadata": {
-                "description": "description"
-            }
+            "type": "string"
         }
     },
     "functions": [],
