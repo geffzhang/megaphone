@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location": {
@@ -12,7 +12,8 @@
     "functions": [],
     "variables": {
         "rg-name": "[concat(parameters('prefix'), '-rg')]",
-        "app-insights-deployment-name" :"[concat(parameters('prefix'),'-application-insights-deployment')]"
+        "app-insights-deployment-name" :"[concat(parameters('prefix'),'-application-insights-deployment')]",
+        "keyvault-deployment-name" :"[concat(parameters('prefix'),'-keyvault-deployment')]"
     },
     "resources": [
         {
@@ -34,6 +35,26 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/application-insights.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location" :  {"value": "[parameters('location')]"},
+                    "prefix" :  {"value": "[parameters('prefix')]"}
+                }
+            }
+        },
+        {
+            "name": "[variables('keyvault-deployment-name')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup" : "[variables('rg-name')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/resourceGroups/', variables('rg-name'))]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/azure-keyvault.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
