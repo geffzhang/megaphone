@@ -23,11 +23,12 @@
                 "enabledForTemplateDeployment": true,
                 "enabledForDiskEncryption": true,
                 "tenantId": "[subscription().tenantId]",
+                "accessPolicies": [],
                 "sku": {
                     "name": "standard",
                     "family": "A"
                 }
-            }
+            },
         }
     ],
     "outputs": {}
