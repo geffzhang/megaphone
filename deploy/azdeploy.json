@@ -1,0 +1,52 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string"
+        }, 
+        "prefix": {
+            "type": "string"
+        }
+    },
+    "functions": [],
+    "variables": {
+        "rg-name": "[concat(parameters('prefix'), '-rg')]",
+        "app-insights-deployment-name" :"[concat(parameters('prefix'),'-application-insights-deployment')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2018-05-01",
+            "location": "[parameters('location')]",
+            "name": "[variables('rg-name')]",
+            "properties": {}
+        },
+        {
+            "name": "[variables('app-insights-deployment-name')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup" : "[variables('rg-name')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/resourceGroups/', variables('rg-name'))]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/application-insights.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location" :  {"value": "[parameters('location')]"},
+                    "prefix" :  {"value": "[parameters('prefix')]"}
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "instrumentationKey": {
+            "type": "string",
+            "value":"[reference(variables('app-insights-deployment-name')).outputs.instrumentationKey.value]"
+        }
+    }
+}
