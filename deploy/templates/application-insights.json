@@ -8,8 +8,8 @@
                 "description": "description"
             },
             "allowedValues": [
-                "East US",
-                "West US"
+                "EastUS",
+                "WestUS"
             ]
         }, 
         "prefix": {
