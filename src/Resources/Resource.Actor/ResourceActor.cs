@@ -136,20 +136,6 @@ namespace Resource.Actor
         {
             switch (state.CrawlStrategy)
             {
-                case CrawlStrategy.Hourly:
-                    if (state.CrawlCount > 23)
-                    {
-                        await UnregisterCrawlReminder();
-                        await RegisterCrawlReminder(CrawlStrategy.Daily);
-                    }
-                    break;
-                case CrawlStrategy.Daily:
-                    if (state.CrawlCount > 6)
-                    {
-                        await UnregisterCrawlReminder();
-                        await RegisterCrawlReminder(CrawlStrategy.Weekly);
-                    }
-                    break;
                 case CrawlStrategy.Weekly:
                     if (state.CrawlCount > 3)
                     {

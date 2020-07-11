@@ -1,0 +1,67 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            },
+            "allowedValues": [
+                "East US",
+                "West US"
+            ]
+        }, 
+        "prefix": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {
+        "app-insights-name": "[concat(parameters('prefix'),'-app-insights')]",
+        "app-insights-resourceId": "[resourceId('microsoft.insights/components', variables('app-insights-name'))]",
+        "app-insights-apiVersion": "[providers('Microsoft.Insights', 'components').apiVersions[0]]",
+        "workspace-logs-name": "[concat(parameters('prefix'),'-workspace-logs')]"
+    },
+    "resources": [
+        {
+            "type": "microsoft.operationalinsights/workspaces",
+            "apiVersion": "2020-03-01-preview",
+            "name": "[variables('workspace-logs-name')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "sku": {
+                    "name": "pergb2018"
+                },
+                "retentionInDays": 30,
+                "publicNetworkAccessForIngestion": "Enabled",
+                "publicNetworkAccessForQuery": "Enabled"
+            }
+        },
+        {
+            "type": "microsoft.insights/components",
+            "apiVersion": "2020-02-02-preview",
+            "name": "[variables('app-insights-name')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('microsoft.operationalinsights/workspaces', variables('workspace-logs-name'))]"
+            ],
+            "kind": "web",
+            "properties": {
+                "Application_Type": "web",
+                "WorkspaceResourceId": "[resourceId('microsoft.operationalinsights/workspaces', variables('workspace-logs-name'))]",
+                "publicNetworkAccessForIngestion": "Enabled",
+                "publicNetworkAccessForQuery": "Enabled"
+            }
+        }
+    ],
+    "outputs": {
+        "instrumentation-key": {
+            "type": "string",
+            "value": "[reference(variables('app-insights-resourceId'),variables('app-insights-apiVersion')).instrumentationKey]"
+        }
+    }
+}
