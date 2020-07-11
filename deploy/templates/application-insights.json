@@ -59,7 +59,7 @@
         }
     ],
     "outputs": {
-        "instrumentation-key": {
+        "instrumentationKey": {
             "type": "string",
             "value": "[reference(variables('app-insights-resourceId'),variables('app-insights-apiVersion')).instrumentationKey]"
         }
