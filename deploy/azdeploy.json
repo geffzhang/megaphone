@@ -92,11 +92,11 @@
         },
         "storageAccountName": {
             "type": "string",
-            "value":"[reference(variables('app-insights-deployment-name')).outputs.storageAccountName.value]"
+            "value":"[reference(variables('storage-deployment-name')).outputs.storageAccountName.value]"
         },
         "storageAccountPrimaryKey": {
             "type": "string",
-            "value":"[reference(variables('app-insights-deployment-name')).outputs.storageAccountPrimaryKey.value]"
+            "value":"[reference(variables('storage-deployment-name')).outputs.storageAccountPrimaryKey.value]"
         }
     }
 }

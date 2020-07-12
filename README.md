@@ -1,5 +1,9 @@
 # Megaphone
 
+> Deployment is being built and is partial at this time.
+
+[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAlexandreBrisebois%2Fmegaphone%2Fmaster%2Fdeploy%2Fazdeploy.json)
+
 ## Why Megaphone
 
 This is a tool I use to help me keep track of all the updates and announcements.
