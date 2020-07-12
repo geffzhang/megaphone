@@ -14,7 +14,8 @@
         "rg-name": "[concat(parameters('prefix'), '-rg')]",
         "app-insights-deployment-name" :"[concat(parameters('prefix'),'-application-insights-deployment')]",
         "keyvault-deployment-name" :"[concat(parameters('prefix'),'-keyvault-deployment')]",
-        "storage-deployment-name" :"[concat(parameters('prefix'),'-storage-deployment')]"
+        "storage-deployment-name" :"[concat(parameters('prefix'),'-storage-deployment')]",
+        "servicebus-deployment-name" :"[concat(parameters('prefix'),'-servicebus-deployment')]"
     },
     "resources": [
         {
@@ -76,6 +77,26 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/azure-storage.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location" :  {"value": "[parameters('location')]"},
+                    "prefix" :  {"value": "[parameters('prefix')]"}
+                }
+            }
+        },
+        {
+            "name": "[variables('servicebus-deployment-name')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup" : "[variables('rg-name')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/resourceGroups/', variables('rg-name'))]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/azure-servicebus.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
