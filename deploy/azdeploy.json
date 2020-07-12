@@ -118,6 +118,10 @@
         "storageAccountPrimaryKey": {
             "type": "string",
             "value":"[reference(variables('storage-deployment-name')).outputs.storageAccountPrimaryKey.value]"
+        },
+        "serviceBusNamespacePrimaryConnectionString": {
+            "type": "string",
+            "value":"[reference(variables('servicebus-deployment-name')).outputs.serviceBusNamespacePrimaryConnectionString.value]"
         }
     }
 }
