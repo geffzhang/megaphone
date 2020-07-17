@@ -1,3 +1,6 @@
+GET https://6cf39337225e.ngrok.io/v1.0/invoke/api-service/method/api/feeds
+
+
 ### List Feeds
 GET https://megaphone.azure-api.net/api/feeds
 

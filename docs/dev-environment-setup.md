@@ -61,8 +61,10 @@ RabbitMQ is used as a Queue Binding between Megaphone.API and Feeds.API
 I use the image with the management plugin installed and enabled by default, which is available on the standard management port of 15672, with the default username and password of guest / guest:
 
 ```bash
-docker run -d --name rabbit-mq rabbitmq:3-management
+docker run -d --hostname rabbitmq --name some-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
 ```
+
+Management Portal : http://127.0.0.1:15672/ 
 
 ## 4) Recommended Useful Visual Studio Code Extensions
 

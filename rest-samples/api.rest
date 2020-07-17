@@ -1,43 +1,43 @@
-@api-service = 127.0.0.1:5400
+@api-service = 127.0.0.1:5480
 
 ### List Resources for Today
-GET http://{{api-service}}/api/resources/
+GET http://{{api-service}}/v1.0/invoke/api-service/method/api/resources/
 
 
 ### List Resources by Month
-GET http://{{api-service}}/api/resources/2020/07
+GET http://{{api-service}}/v1.0/invoke/api-service/method/api/resources/2020/07
 
 ### List Resources by Month
-GET http://{{api-service}}/api/resources/2020/06
+GET http://{{api-service}}/v1.0/invoke/api-service/method/api/resources/2020/06
 
 
 
 ### List Resources by Specific Date
-GET http://{{api-service}}/api/resources/2020/06/30
+GET http://{{api-service}}/v1.0/invoke/api-service/method/api/resources/2020/06/30
 
 ### List Resources by Specific Date
-GET http://{{api-service}}/api/resources/2020/07/06
+GET http://{{api-service}}/v1.0/invoke/api-service/method/api/resources/2020/07/06
 
 ### List Resources by Specific Date
-GET http://{{api-service}}/api/resources/2020/07/07
+GET http://{{api-service}}/v1.0/invoke/api-service/method/api/resources/2020/07/07
 
 
 
 ### List Feeds
-GET http://{{api-service}}/api/feeds
+GET http://{{api-service}}/v1.0/invoke/api-service/method/api/feeds
 
 
 
 ### Remove item from Watch feed
-DELETE http://{{api-service}}/api/feeds/740f3d2f-2eb2-50e4-b695-aeed86dfe674
+DELETE http://{{api-service}}/v1.0/invoke/api-service/method/api/feeds/740f3d2f-2eb2-50e4-b695-aeed86dfe674
 
 ### Remove item from Watch feed
-DELETE http://{{api-service}}/api/feeds/c50f7543-6b69-5e46-ae5e-bf0b82dede0e
+DELETE http://{{api-service}}/v1.0/invoke/api-service/method/api/feeds/c50f7543-6b69-5e46-ae5e-bf0b82dede0e
 
 
 
 ### Add Azure roadmap
-POST http://{{api-service}}/api/feeds
+POST http://{{api-service}}/v1.0/invoke/api-service/method/api/feeds
 Content-Type: application/json
 
 {
@@ -45,7 +45,7 @@ Content-Type: application/json
 }
 
 ### Add item to Watch feed
-POST http://{{api-service}}/api/feeds
+POST http://{{api-service}}/v1.0/invoke/api-service/method/api/feeds
 Content-Type: application/json
 
 {
@@ -53,7 +53,7 @@ Content-Type: application/json
 }
 
 ### Add item to Watch feed
-POST http://{{api-service}}/api/feeds
+POST http://{{api-service}}/v1.0/invoke/api-service/method/api/feeds
 Content-Type: application/json
 
 {
@@ -61,7 +61,7 @@ Content-Type: application/json
 }
 
 ### Add item to Watch feed
-POST http://{{api-service}}/api/feeds
+POST http://{{api-service}}/v1.0/invoke/api-service/method/api/feeds
 Content-Type: application/json
 
 {
