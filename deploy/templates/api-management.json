@@ -29,6 +29,9 @@
             "metadata": {
                 "description": "The instance size of this API Management service."
             }
+        },
+        "instrumentationKey": {
+            "type": "string"
         }
     },
     "functions": [],
@@ -39,7 +42,7 @@
         {
             "type": "Microsoft.ApiManagement/service",
             "apiVersion": "2019-12-01",
-            "name": "[concat(parameters('prefix'),'-api')]",
+            "name": "[variables('apim-name')]",
             "location": "[parameters('location')]",
             "sku": {
                 "name": "[parameters('sku')]",
@@ -67,6 +70,22 @@
                 },
                 "virtualNetworkType": "None",
                 "apiVersionConstraint": {}
+            }
+        },
+        {
+            "type": "Microsoft.ApiManagement/service/loggers",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(variables('apim-name'), '/', variables('apim-name'), '-ai')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]"
+            ],
+            "properties": {
+                "loggerType": "applicationInsights",
+                "credentials": {
+                    "instrumentationKey": "[parameters('instrumentationKey')]"
+                },
+                "isBuffered": true,
+                "resourceId": "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]"
             }
         }
     ],

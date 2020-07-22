@@ -4,6 +4,9 @@
     "parameters": {
         "prefix": {
             "value": "megaphone"
+        },
+        "instrumentationKey": {
+            "value": "< INSTRUMENTATION KEY >"
         }
     }
 }
