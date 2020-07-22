@@ -1,0 +1,25 @@
+name: Crawler Build
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'src/Crawler/**'
+      
+jobs:
+  build:
+    name: Crawler - Build & Test
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: Install dependencies
+      run: dotnet restore ./src/Crawler/Crawler.sln
+    - name: Build
+      run: dotnet build ./src/Crawler/Crawler.sln --configuration Release --no-restore
+    - name: Test
+      run: dotnet test ./src/Crawler/Crawler.Tests/Crawler.Tests.csproj --no-restore --verbosity normal

@@ -1,0 +1,23 @@
+name: Feeds Build
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'src/Feeds/**'
+      
+jobs:
+  build:
+    name: Feeds - Build
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: Install dependencies
+      run: dotnet restore ./src/Feeds/Feeds.sln
+    - name: Build
+      run: dotnet build ./src/Feeds/Feeds.sln --configuration Release --no-restore
