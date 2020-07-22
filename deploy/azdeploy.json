@@ -113,7 +113,7 @@
             "resourceGroup" : "[variables('rg-name')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/resourceGroups/', variables('rg-name'))]",
-                "[resourceId('Microsoft.Resources/deployments/', variables('app-insights-deployment-name'))]"
+                "[concat('Microsoft.Resources/deployments/', variables('app-insights-deployment-name'))]"
             ],
             "properties": {
                 "mode": "Incremental",
