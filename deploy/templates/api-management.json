@@ -1,0 +1,74 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+             "defaultValue": "[resourceGroup().location]"
+        },
+        "prefix": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "string",
+            "allowedValues": [
+                "Basic",
+                "Consumption",
+                "Developer",
+                "Standard",
+                "Premium"
+            ],
+            "defaultValue": "Consumption",
+            "metadata": {
+                "description": "The pricing tier of this API Management service"
+            }
+        },
+        "skuCount": {
+            "type": "int",
+            "defaultValue": 0,
+            "metadata": {
+                "description": "The instance size of this API Management service."
+            }
+        }
+    },
+    "functions": [],
+    "variables": {
+        "apim-name": "[concat(parameters('prefix'),'-api')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.ApiManagement/service",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('prefix'),'-api')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "[parameters('sku')]",
+                "capacity": "[parameters('skuCount')]"
+            },
+            "properties": {
+                "publisherEmail": "albriseb@microsoft.com",
+                "publisherName": "Microsoft",
+                "notificationSenderEmail": "apimgmt-noreply@mail.windowsazure.com",
+                "hostnameConfigurations": [
+                    {
+                        "type": "Proxy",
+                        "hostName": "[concat(variables('apim-name'), '.azure-api.net')]",
+                        "negotiateClientCertificate": false,
+                        "defaultSslBinding": true
+                    }
+                ],
+                "customProperties": {
+                    "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls10": "False",
+                    "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls11": "False",
+                    "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls10": "False",
+                    "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls11": "False",
+                    "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Ssl30": "False",
+                    "Microsoft.WindowsAzure.ApiManagement.Gateway.Protocols.Server.Http2": "False"
+                },
+                "virtualNetworkType": "None",
+                "apiVersionConstraint": {}
+            }
+        }
+    ],
+    "outputs": {}
+}
