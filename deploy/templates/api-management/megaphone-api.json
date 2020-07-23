@@ -13,15 +13,20 @@
     "variables": {},
     "resources": [
         {
-            "type": "Microsoft.ApiManagement/service/products",
+            "type": "Microsoft.ApiManagement/service/apis",
             "apiVersion": "2019-12-01",
-            "name": "[concat(parameters('apim-service-name'), '/', parameters('apim-prefix'), '-product')]",
+            "name": "[concat(parameters('apim-service-name'), '/', parameters('apim-prefix'), '-api')]",
             "dependsOn": [],
             "properties": {
-                "displayName": "Megaphone APIs",
-                "description": "Get access to curated official Microsoft news, announcements, updates and blogs.",
+                "displayName": "Megaphone API",
+                "apiRevision": "1",
                 "subscriptionRequired": false,
-                "state": "published"
+                "serviceUrl": "https://823390d9d609.ngrok.io",
+                "protocols": [
+                    "https"
+                ],
+                "isCurrent": true,
+                "path": "/"
             }
         }
     ],
