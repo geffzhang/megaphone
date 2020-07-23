@@ -87,6 +87,25 @@
                 "isBuffered": true,
                 "resourceId": "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]"
             }
+        },
+        {
+            "name": "[concat(variables('apim-name'),'-product-deployment')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup" : "[resourceGroup().name]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/api-management/megaphone-api-product.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "apim-service-name" :  {"value": "[variables('apim-name')]"}
+                }
+            }
         }
     ],
     "outputs": {}

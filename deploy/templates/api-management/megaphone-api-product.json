@@ -1,0 +1,28 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+         "apim-service-name": {
+            "type": "string"
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.ApiManagement/service/products",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('apim-service-name'), '/', parameters('apim-service-name'), '-product')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service', parameters('apim-service-name'))]"
+            ],
+            "properties": {
+                "displayName": "Megaphone API",
+                "description": "Get access to curated official Microsoft news, announcements, updates and blogs.",
+                "subscriptionRequired": false,
+                "state": "published"
+            }
+        }
+    ],
+    "outputs": {}
+}

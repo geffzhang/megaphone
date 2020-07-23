@@ -42,3 +42,4 @@ updates:
     directory: "src/Resources/Resource.Actor.Interface"
     schedule:
       interval: "daily"
+      
