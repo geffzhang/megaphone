@@ -173,7 +173,8 @@
                     "api-name" :  {"value": "[variables('api-name')]"},
                     "apim-service-name" :  {"value": "[variables('apim-name')]"},
                     "backend-service-url" : {"value": "[parameters('backend-service-url')]"},
-                    "logger-name" : {"value": "[variables('logger-name')]"}
+                    "logger-name" : {"value": "[variables('logger-name')]"},
+                    "api-version-set-id" : { "value": "[resourceId('Microsoft.ApiManagement/service/api-version-sets', variables('apim-name'),'megaphone-api-version-set')]"}
                 }
             }
         }

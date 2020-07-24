@@ -13,6 +13,9 @@
         },
         "logger-name": {
             "type": "string"
+        },
+        "api-version-set-id" : {
+            "type": "string"
         }
     },
     "functions": [],
@@ -33,7 +36,7 @@
                 ],
                 "apiRevisionDescription": "Version 1 : Megaphone API",
                 "apiVersion": "v1",
-                "apiVersionSetId": "[concat('/api-version-sets/', 'megaphone-api-version-set')]",
+                "apiVersionSetId": "[parameters('api-version-set-id')]",
                 "isCurrent": true,
                 "path": "/"
             }
