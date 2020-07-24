@@ -115,7 +115,7 @@
             ],
             "properties": {
                 "value": "https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy/templates/api-management/apim-base-policies.xml",
-                "format": "rawxml-link"
+                "format": "xml-link"
             }
         },
         {
