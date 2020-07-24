@@ -33,7 +33,7 @@
                 ],
                 "apiRevisionDescription": "Version 1 : Megaphone API",
                 "apiVersion": "v1",
-                "apiVersionSetId": "[resourceId('Microsoft.ApiManagement/service/apiVersionSets', parameters('apim-service-name'), 'megaphone-api-version-set')]",
+                "apiVersionSetId": "[concat('/api-version-sets/', 'megaphone-api-version-set')]",
                 "isCurrent": true,
                 "path": "/"
             }
