@@ -141,7 +141,7 @@
             }
         },
         {
-            "type": "Microsoft.ApiManagement/service/api-version-sets",
+            "type": "Microsoft.ApiManagement/service/apiVersionSets",
             "apiVersion": "2019-12-01",
             "name": "[concat(variables('apim-name'), '/megaphone-api-version-set')]",
             "dependsOn": [
