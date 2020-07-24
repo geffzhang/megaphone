@@ -10,6 +10,9 @@
         },
         "backend-service-url": {
             "type": "string"
+        },
+        "logger-name": {
+            "type": "string"
         }
     },
     "functions": [],
@@ -28,6 +31,9 @@
                 "protocols": [
                     "https"
                 ],
+                "apiRevisionDescription": "Version 1 : Megaphone API",
+                "apiVersion": "v1",
+                "apiVersionSetId": "[resourceId('Microsoft.ApiManagement/service/apiVersionSets', parameters('apim-service-name'), 'megaphone-api-version-set')]",
                 "isCurrent": true,
                 "path": "/"
             }
@@ -188,6 +194,52 @@
                         "headers": []
                     }
                 ]
+            }
+        },{
+            "type": "Microsoft.ApiManagement/service/apis/diagnostics",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'),'/applicationinsights')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]"   
+            ],
+            "properties": {
+                "alwaysLog": "allErrors",
+                "httpCorrelationProtocol": "W3C",
+                "verbosity": "information",
+                "logClientIp": true,
+                "loggerId": "[resourceId('Microsoft.ApiManagement/service/loggers', parameters('apim-service-name'), concat(parameters('logger-name')))]",
+                "sampling": {
+                    "samplingType": "fixed",
+                    "percentage": 100
+                },
+                "frontend": {
+                    "request": {
+                        "headers": [],
+                        "body": {
+                            "bytes": 0
+                        }
+                    },
+                    "response": {
+                        "headers": [],
+                        "body": {
+                            "bytes": 0
+                        }
+                    }
+                },
+                "backend": {
+                    "request": {
+                        "headers": [],
+                        "body": {
+                            "bytes": 0
+                        }
+                    },
+                    "response": {
+                        "headers": [],
+                        "body": {
+                            "bytes": 0
+                        }
+                    }
+                }
             }
         }
     ],

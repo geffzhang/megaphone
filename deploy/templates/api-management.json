@@ -40,7 +40,8 @@
     "functions": [],
     "variables": {
         "apim-name": "[concat(parameters('prefix'),'-apim')]",
-        "api-name": "[concat(parameters('prefix'), '-api')]"
+        "api-name": "[concat(parameters('prefix'), '-api-v1')]",
+        "logger-name" : "[concat(variables('apim-name'), '/', variables('apim-name'), '-ai')]"
     },
     "resources": [
         {
@@ -79,7 +80,7 @@
         {
             "type": "Microsoft.ApiManagement/service/loggers",
             "apiVersion": "2019-12-01",
-            "name": "[concat(variables('apim-name'), '/', variables('apim-name'), '-ai')]",
+            "name": "[variables('logger-name')]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]"
             ],
@@ -106,6 +107,18 @@
             }
         },
         {
+            "type": "Microsoft.ApiManagement/service/policies",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(variables('apim-name'), '/policy')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]"
+            ],
+            "properties": {
+                "policyContent": "https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy/templates/api-management/apim-base-policies.xml')]",
+                "contentFormat": "rawxml-link"
+            }
+        },
+        {
             "name": "[concat(variables('apim-name'),'-product-deployment')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -128,6 +141,19 @@
             }
         },
         {
+            "type": "Microsoft.ApiManagement/service/api-version-sets",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(variables('apim-name'), '/megaphone-api-version-set')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]"
+            ],
+            "properties": {
+                "displayName": "Megaphone API",
+                "versioningScheme": "Header",
+                "versionHeaderName": "Api-Version"
+            }
+        },
+        {
             "name": "[concat(variables('apim-name'),'-api-deployment')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -144,7 +170,8 @@
                 "parameters": {
                     "api-name" :  {"value": "[variables('api-name')]"},
                     "apim-service-name" :  {"value": "[variables('apim-name')]"},
-                    "backend-service-url" : {"value": "[parameters('backend-service-url')]"}
+                    "backend-service-url" : {"value": "[parameters('backend-service-url')]"},
+                    "logger-name" : {"value": "[variables('logger-name')]"}
                 }
             }
         }
