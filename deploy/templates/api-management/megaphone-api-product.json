@@ -24,7 +24,7 @@
                 "displayName": "Megaphone APIs",
                 "description": "Get access to curated official Microsoft news, announcements, updates and blogs.",
                 "terms": "",
-                "subscriptionRequired": false,
+                "subscriptionRequired": true,
                 "approvalRequired": false,
                 "subscriptionsLimit": 1,
                 "state": "published"
