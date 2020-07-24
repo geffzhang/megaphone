@@ -32,6 +32,9 @@
         },
         "instrumentationKey": {
             "type": "string"
+        },
+        "backend-service-url": {
+            "type": "string"
         }
     },
     "functions": [],
@@ -137,7 +140,8 @@
                 },
                 "parameters": {
                     "apim-prefix" :  {"value": "[parameters('prefix')]"},
-                    "apim-service-name" :  {"value": "[variables('apim-name')]"}
+                    "apim-service-name" :  {"value": "[variables('apim-name')]"},
+                    "backend-service-url" : {"value": "[parameters('backend-service-url')]"}
                 }
             }
         }

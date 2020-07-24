@@ -7,6 +7,9 @@
         },
         "apim-service-name": {
             "type": "string"
+        },
+        "backend-service-url": {
+            "type": "string"
         }
     },
     "functions": [],
@@ -23,7 +26,7 @@
                 "displayName": "Megaphone API",
                 "apiRevision": "1",
                 "subscriptionRequired": false,
-                "serviceUrl": "https://823390d9d609.ngrok.io",
+                "serviceUrl": "[parameters('backend-service-url')]",
                 "protocols": [
                     "https"
                 ],
