@@ -36,7 +36,7 @@
             "apiVersion": "2019-12-01",
             "name": "[concat(variables('api-name'),'/list-feeds')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', variables('api-name'))]"
+                "[variables('api-name')]"
             ],
             "properties": {
                 "displayName": "List Feeds",
@@ -64,7 +64,7 @@
             "apiVersion": "2019-12-01",
             "name": "[concat(variables('api-name'), '/list-resources-by-date')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', variables('api-name'))]"
+                 "[variables('api-name')]"
             ],
             "properties": {
                 "displayName": "List Resources by Date",
@@ -111,7 +111,7 @@
             "apiVersion": "2019-12-01",
             "name": "[concat(variables('api-name'), '/list-resources-by-month')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', variables('api-name'))]"
+                "[variables('api-name')]"
             ],
             "properties": {
                 "displayName": "List Resources by Month",
@@ -153,7 +153,7 @@
             "apiVersion": "2019-12-01",
             "name": "[concat(variables('api-name'), '/list-todays-resources')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', variables('api-name'))]"
+                 "[variables('api-name')]"
             ],
             "properties": {
                 "displayName": "List Today's Resources",
