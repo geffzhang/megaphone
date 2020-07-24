@@ -114,8 +114,8 @@
                 "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]"
             ],
             "properties": {
-                "policyContent": "https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy/templates/api-management/apim-base-policies.xml')]",
-                "contentFormat": "xml-link"
+                "value": "https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy/templates/api-management/apim-base-policies.xml')]",
+                "format": "rawxml-link"
             }
         },
         {
