@@ -207,7 +207,7 @@
                 "httpCorrelationProtocol": "W3C",
                 "verbosity": "information",
                 "logClientIp": true,
-                "loggerId": "[resourceId('Microsoft.ApiManagement/service/loggers', parameters('apim-service-name'), concat(parameters('logger-name')))]",
+                "loggerId": "[resourceId('Microsoft.ApiManagement/service/loggers', parameters('apim-service-name'), parameters('logger-name'))]",
                 "sampling": {
                     "samplingType": "fixed",
                     "percentage": 100

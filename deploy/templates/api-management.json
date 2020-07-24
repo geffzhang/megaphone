@@ -159,7 +159,9 @@
             "apiVersion": "2019-10-01",
             "resourceGroup" : "[resourceGroup().name]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]"
+                "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]",
+                "[resourceId('Microsoft.ApiManagement/service/api-version-sets', concat(variables('apim-name'), '/megaphone-api-version-set'))]",
+                "[resourceId('Microsoft.ApiManagement/service/loggers', variables('logger-name'))]"
             ],
             "properties": {
                 "mode": "Incremental",
