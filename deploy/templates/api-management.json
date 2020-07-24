@@ -41,7 +41,7 @@
     "variables": {
         "apim-name": "[concat(parameters('prefix'),'-apim')]",
         "api-name": "[concat(parameters('prefix'), '-api-v1')]",
-        "logger-name" : "[concat(variables('apim-name'), '/', variables('apim-name'), '-ai')]"
+        "logger-name" : "[concat(variables('apim-name'), '-ai')]"
     },
     "resources": [
         {
@@ -80,7 +80,7 @@
         {
             "type": "Microsoft.ApiManagement/service/loggers",
             "apiVersion": "2019-12-01",
-            "name": "[variables('logger-name')]",
+            "name": "[concat(variables('apim-name'), '/',variables('logger-name'))]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]"
             ],
@@ -160,8 +160,8 @@
             "resourceGroup" : "[resourceGroup().name]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]",
-                "[concat(variables('apim-name'), '/megaphone-api-version-set')]",
-                "[variables('logger-name')]"
+                "[resourceId('Microsoft.ApiManagement/service/api-version-sets', variables('apim-name'),'megaphone-api-version-set')]",
+                "[resourceId('Microsoft.ApiManagement/service/loggers', variables('apim-name'), concat(variables('apim-name'), '-ai'))]"
             ],
             "properties": {
                 "mode": "Incremental",
