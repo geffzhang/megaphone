@@ -11,7 +11,7 @@
     },
     "functions": [],
     "variables": {
-        "api-name" : "[concat(parameters('apim-prefix'), '-api')]",
+        "api-name" : "[concat(parameters('apim-prefix'), '-api')]"
     },
     "resources": [
         {
@@ -111,7 +111,7 @@
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('apim-service-name'), '/', variables('api-name'), '/list-resources-by-month')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis',parameters('apim-service-name'),variables('api-name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), variables('api-name'))]"
             ],
             "properties": {
                 "displayName": "List Resources by Month",
