@@ -16,7 +16,8 @@
         "keyvault-deployment-name" :"[concat(parameters('prefix'),'-keyvault-deployment')]",
         "storage-deployment-name" :"[concat(parameters('prefix'),'-storage-deployment')]",
         "servicebus-deployment-name" :"[concat(parameters('prefix'),'-servicebus-deployment')]",
-        "apim-deployment-name" :"[concat(parameters('prefix'),'-apim-deployment')]"
+        "apim-deployment-name" :"[concat(parameters('prefix'),'-apim-deployment')]",
+        "backend-service-url" : "https://id.ngrok.com"
     },
     "resources": [
         {
@@ -124,7 +125,8 @@
                 "parameters": {
                     "location" :  {"value": "[parameters('location')]"},
                     "prefix" :  {"value": "[parameters('prefix')]"},
-                    "instrumentationKey" : { "value" : "[reference(variables('app-insights-deployment-name')).outputs.instrumentationKey.value]"}
+                    "instrumentationKey" : { "value" : "[reference(variables('app-insights-deployment-name')).outputs.instrumentationKey.value]"},
+                    "backend-service-url" : { "value" : "[variables('backend-service-url')]"}
                 }
             }
         }
