@@ -7,6 +7,9 @@
         },
         "apim-service-name": {
             "type": "string"
+        },
+        "api-name": {
+            "type": "string"
         }
     },
     "functions": [],
@@ -20,9 +23,17 @@
             "properties": {
                 "displayName": "Megaphone APIs",
                 "description": "Get access to curated official Microsoft news, announcements, updates and blogs.",
+                "terms": "",
                 "subscriptionRequired": false,
+                "approvalRequired": false,
+                "subscriptionsLimit": 1,
                 "state": "published"
             }
+        },
+        {
+            "type": "Microsoft.ApiManagement/service/products/apis",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('apim-service-name'), '/', parameters('apim-prefix'), '-product/', parameters('api-name'))]"
         }
     ],
     "outputs": {}

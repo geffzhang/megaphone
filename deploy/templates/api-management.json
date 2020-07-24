@@ -39,7 +39,8 @@
     },
     "functions": [],
     "variables": {
-        "apim-name": "[concat(parameters('prefix'),'-apim')]"
+        "apim-name": "[concat(parameters('prefix'),'-apim')]",
+        "api-name": "[concat(parameters('prefix'), '-api')]"
     },
     "resources": [
         {
@@ -110,7 +111,8 @@
             "apiVersion": "2019-10-01",
             "resourceGroup" : "[resourceGroup().name]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]"
+                "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]",
+                "[concat('Microsoft.Resources/deployments/', concat(variables('apim-name'),'-api-deployment'))]"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -120,7 +122,8 @@
                 },
                 "parameters": {
                     "apim-prefix" :  {"value": "[parameters('prefix')]"},
-                    "apim-service-name" :  {"value": "[variables('apim-name')]"}
+                    "apim-service-name" :  {"value": "[variables('apim-name')]"},
+                    "api-name" :  {"value": "[variables('api-name')]"}
                 }
             }
         },
@@ -139,7 +142,7 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "apim-prefix" :  {"value": "[parameters('prefix')]"},
+                    "api-name" :  {"value": "[variables('api-name')]"},
                     "apim-service-name" :  {"value": "[variables('apim-name')]"},
                     "backend-service-url" : {"value": "[parameters('backend-service-url')]"}
                 }

@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "apim-prefix": {
+        "api-name": {
             "type": "string"
         },
         "apim-service-name": {
@@ -13,14 +13,12 @@
         }
     },
     "functions": [],
-    "variables": {
-        "api-name" : "[concat(parameters('apim-prefix'), '-api')]"
-    },
+    "variables": {},
     "resources": [
         {
             "type": "Microsoft.ApiManagement/service/apis",
             "apiVersion": "2019-12-01",
-            "name": "[concat(parameters('apim-service-name'), '/', variables('api-name'))]",
+            "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'))]",
             "dependsOn": [],
             "properties": {
                 "displayName": "Megaphone API",
@@ -37,9 +35,9 @@
         {
             "type": "Microsoft.ApiManagement/service/apis/schemas",
             "apiVersion": "2019-12-01",
-            "name": "[concat(parameters('apim-service-name'), '/', variables('api-name'), '/schema-components-json')]",
+            "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/schema-components-json')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis',parameters('apim-service-name'),variables('api-name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]"
             ],
             "properties": {
                 "contentType": "application/vnd.oai.openapi.components+json",
@@ -49,9 +47,9 @@
         {
             "type": "Microsoft.ApiManagement/service/apis/operations",
             "apiVersion": "2019-12-01",
-            "name": "[concat(parameters('apim-service-name'), '/', variables('api-name'),'/list-feeds')]",
+            "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'),'/list-feeds')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis',parameters('apim-service-name'),variables('api-name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]"
             ],
             "properties": {
                 "displayName": "List Feeds",
@@ -77,9 +75,9 @@
         {
             "type": "Microsoft.ApiManagement/service/apis/operations",
             "apiVersion": "2019-12-01",
-            "name": "[concat(parameters('apim-service-name'), '/', variables('api-name'), '/list-resources-by-date')]",
+            "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/list-resources-by-date')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis',parameters('apim-service-name'),variables('api-name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]"
             ],
             "properties": {
                 "displayName": "List Resources by Date",
@@ -124,9 +122,9 @@
         {
             "type": "Microsoft.ApiManagement/service/apis/operations",
             "apiVersion": "2019-12-01",
-            "name": "[concat(parameters('apim-service-name'), '/', variables('api-name'), '/list-resources-by-month')]",
+            "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/list-resources-by-month')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), variables('api-name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]"
             ],
             "properties": {
                 "displayName": "List Resources by Month",
@@ -166,9 +164,9 @@
         {
             "type": "Microsoft.ApiManagement/service/apis/operations",
             "apiVersion": "2019-12-01",
-            "name": "[concat(parameters('apim-service-name'), '/', variables('api-name'), '/list-todays-resources')]",
+            "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/list-todays-resources')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis',parameters('apim-service-name'),variables('api-name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]"
             ],
             "properties": {
                 "displayName": "List Today's Resources",

@@ -7,6 +7,9 @@
         },
         "instrumentationKey": {
             "value": "< INSTRUMENTATION KEY >"
+        },
+        "backend-service-url": {
+            "value": "https://ID.ngrok.io"
         }
     }
 }
