@@ -30,6 +30,18 @@
                 "isCurrent": true,
                 "path": "/"
             }
+        },    
+        {
+            "type": "Microsoft.ApiManagement/service/apis/schemas",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('apim-service-name'), '/', variables('api-name'), '/schema-components-json')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/apis',parameters('apim-service-name'),variables('api-name'))]"
+            ],
+            "properties": {
+                "contentType": "application/vnd.oai.openapi.components+json",
+                "document": {}
+            }
         },
         {
             "type": "Microsoft.ApiManagement/service/apis/operations",
@@ -50,7 +62,7 @@
                             {
                                 "contentType": "application/json",
                                 "sample": "{\r\n    \"feeds\": [{\r\n        \"display\": \"Azure service updates\",\r\n        \"url\": \"https://azure.microsoft.com/en-us/roadmap/feed/\",\r\n        \"links\": [{\r\n            \"rel\": \"self\",\r\n            \"href\": \"api/feeds/740f3d2f-2eb2-50e4-b695-aeed86dfe674\",\r\n            \"method\": \"GET\"\r\n        }, {\r\n            \"rel\": \"delete\",\r\n            \"href\": \"api/feeds/740f3d2f-2eb2-50e4-b695-aeed86dfe674\",\r\n            \"method\": \"DELETE\"\r\n        }]\r\n    }, {\r\n        \"display\": \".NET Blog\",\r\n        \"url\": \"https://devblogs.microsoft.com/dotnet/feed/\",\r\n        \"links\": [{\r\n            \"rel\": \"self\",\r\n            \"href\": \"api/feeds/c50f7543-6b69-5e46-ae5e-bf0b82dede0e\",\r\n            \"method\": \"GET\"\r\n        }, {\r\n            \"rel\": \"delete\",\r\n            \"href\": \"api/feeds/c50f7543-6b69-5e46-ae5e-bf0b82dede0e\",\r\n            \"method\": \"DELETE\"\r\n        }]\r\n    }, {\r\n        \"display\": \"Microsoft Azure Blog\",\r\n        \"url\": \"https://azure.microsoft.com/en-us/blog/feed/\",\r\n        \"links\": [{\r\n            \"rel\": \"self\",\r\n            \"href\": \"api/feeds/466ca634-f0b6-5d29-9e8c-e04ab08a9a22\",\r\n            \"method\": \"GET\"\r\n        }, {\r\n            \"rel\": \"delete\",\r\n            \"href\": \"api/feeds/466ca634-f0b6-5d29-9e8c-e04ab08a9a22\",\r\n            \"method\": \"DELETE\"\r\n        }]\r\n    }, {\r\n        \"display\": \"Open Source Blog\",\r\n        \"url\": \"https://cloudblogs.microsoft.com/opensource/feed/\",\r\n        \"links\": [{\r\n            \"rel\": \"self\",\r\n            \"href\": \"api/feeds/013f232c-b274-56fe-8feb-a037535d2dd4\",\r\n            \"method\": \"GET\"\r\n        }, {\r\n            \"rel\": \"delete\",\r\n            \"href\": \"api/feeds/013f232c-b274-56fe-8feb-a037535d2dd4\",\r\n            \"method\": \"DELETE\"\r\n        }]\r\n    }],\r\n    \"updated\": \"2020-07-08T01:20:07.1715189+00:00\",\r\n    \"links\": [{\r\n        \"rel\": \"self\",\r\n        \"href\": \"api/feeds\",\r\n        \"method\": \"GET\"\r\n    }]\r\n}",
-                                "schemaId": "1594171763596",
+                                "schemaId": "schema-components-json",
                                 "typeName": "feed-list"
                             }
                         ],
@@ -97,7 +109,7 @@
                             {
                                 "contentType": "application/json",
                                 "sample": "{\r\n    \"resources\": [{\r\n        \"display\": \"Azure Load Balancer support for IP-based backend pool management is in preview\",\r\n        \"url\": \"https://azure.microsoft.com/en-us/updates/previewlbip/\",\r\n        \"links\": []\r\n    }, {\r\n        \"display\": \"Azure Stream Analytics tools for Visual Studio Code now supports Visual Studio Codespaces\",\r\n        \"url\": \"https://azure.microsoft.com/en-us/updates/azure-stream-analyitcs-tools-for-vscode-supports-visual-studio-codespaces/\",\r\n        \"links\": []\r\n    }, {\r\n        \"display\": \"Upcoming changes to JSON flattening and storage for new Azure Time Series Insights deployments\",\r\n        \"url\": \"https://azure.microsoft.com/en-us/updates/azure-tsi-ingestion-rule-changes/\",\r\n        \"links\": []\r\n    }],\r\n    \"updated\": \"2020-07-08T01:29:11.4061331+00:00\",\r\n    \"date\": \"2020-07-07T00:00:00-04:00\",\r\n    \"links\": [{\r\n        \"rel\": \"self\",\r\n        \"href\": \"api/resources2020/7/7\",\r\n        \"method\": \"GET\"\r\n    }, {\r\n        \"rel\": \"prev\",\r\n        \"href\": \"api/resources2020/7/6\",\r\n        \"method\": \"GET\"\r\n    }, {\r\n        \"rel\": \"next\",\r\n        \"href\": \"api/resources2020/7/8\",\r\n        \"method\": \"GET\"\r\n    }]\r\n}",
-                                "schemaId": "1594171763596",
+                                "schemaId": "schema-components-json",
                                 "typeName": "resource-list"
                             }
                         ],
