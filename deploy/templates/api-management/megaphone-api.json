@@ -14,7 +14,7 @@
         "logger-name": {
             "type": "string"
         },
-        "api-version-set-id" : {
+        "api-version-set-name" : {
             "type": "string"
         }
     },
@@ -36,7 +36,7 @@
                 ],
                 "apiRevisionDescription": "Version 1 : Megaphone API",
                 "apiVersion": "v1",
-                "apiVersionSetId": "[parameters('api-version-set-id')]",
+                "apiVersionSetId": "[resourceId('Microsoft.ApiManagement/service/apiVersionSets', parameters('apim-service-name'),parameters('api-version-set-name'))]",
                 "isCurrent": true,
                 "path": "/"
             }

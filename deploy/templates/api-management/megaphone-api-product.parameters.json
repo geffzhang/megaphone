@@ -2,8 +2,14 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "prefix": {
+        "apim-prefix": {
             "value": "megaphone2"
+        },
+        "apim-service-name": {
+            "value": "megaphone2-apim"
+        },
+        "api-name": {
+            "value": "megaphone2-api-v1"
         }
     }
 }

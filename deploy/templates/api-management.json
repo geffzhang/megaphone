@@ -41,7 +41,8 @@
     "variables": {
         "apim-name": "[concat(parameters('prefix'),'-apim')]",
         "api-name": "[concat(parameters('prefix'), '-api-v1')]",
-        "logger-name" : "[concat(variables('apim-name'), '-ai')]"
+        "logger-name" : "[concat(parameters('prefix'), '-ai')]",
+        "api-version-set-name" : "[concat(parameters('prefix'), '-api-version-set')]"
     },
     "resources": [
         {
@@ -121,7 +122,7 @@
         {
             "type": "Microsoft.ApiManagement/service/apiVersionSets",
             "apiVersion": "2019-12-01",
-            "name": "[concat(variables('apim-name'), '/megaphone-api-version-set')]",
+            "name": "[concat(variables('apim-name'), '/', variables('api-version-set-name'))]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]"
             ],
@@ -138,8 +139,8 @@
             "resourceGroup" : "[resourceGroup().name]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]",
-                "[resourceId('Microsoft.ApiManagement/service/apiVersionSets', variables('apim-name'),'megaphone-api-version-set')]",
-                "[resourceId('Microsoft.ApiManagement/service/loggers', variables('apim-name'), concat(variables('apim-name'), '-ai'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apiVersionSets', variables('apim-name'),variables('api-version-set-name'))]",
+                "[resourceId('Microsoft.ApiManagement/service/loggers', variables('apim-name'), variables('logger-name'))]"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -152,7 +153,7 @@
                     "apim-service-name" :  {"value": "[variables('apim-name')]"},
                     "backend-service-url" : {"value": "[parameters('backend-service-url')]"},
                     "logger-name" : {"value": "[variables('logger-name')]"},
-                    "api-version-set-id" : { "value": "[resourceId('Microsoft.ApiManagement/service/apiVersionSets', variables('apim-name'),'megaphone-api-version-set')]"}
+                    "api-version-set-name" : { "value": "[variables('api-version-set-name')]"}
                 }
             }
         },
