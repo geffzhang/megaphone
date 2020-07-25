@@ -36,7 +36,10 @@
             "type": "Microsoft.ApiManagement/service/products/apis",
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('apim-service-name'), '/', variables('product-name'), '/', parameters('api-name'))]",
-            "properties": {}            
+            "properties": {},     
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/products',parameters('apim-service-name'), variables('product-name'))]"
+            ]      
         }
     ],
     "outputs": {}
