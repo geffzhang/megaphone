@@ -58,7 +58,8 @@
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'),'/list-feeds')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]",
+                "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/schema-components-json')]"
             ],
             "properties": {
                 "displayName": "List Feeds",
@@ -86,7 +87,8 @@
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/list-resources-by-date')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]",
+                "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/schema-components-json')]"
             ],
             "properties": {
                 "displayName": "List Resources by Date",
@@ -133,7 +135,8 @@
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/list-resources-by-month')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]",
+                "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/schema-components-json')]"
             ],
             "properties": {
                 "displayName": "List Resources by Month",
@@ -175,7 +178,8 @@
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/list-todays-resources')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]"
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]",
+                "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/schema-components-json')]"
             ],
             "properties": {
                 "displayName": "List Today's Resources",
@@ -203,7 +207,7 @@
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'),'/applicationinsights')]",
             "dependsOn": [
-                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]"   
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]" 
             ],
             "properties": {
                 "alwaysLog": "allErrors",

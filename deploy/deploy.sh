@@ -30,4 +30,4 @@ az deployment group create --resource-group 'megaphone2-rg' --template-file "./d
 
 
 # deploy full solution
-az deployment sub create --location eastus --template-file "./deploy/azdeploy.json" --parameters "./deploy/azdeploy.parameters.json" --confirm-with-what-if --verbose
+az deployment sub create --location eastus --template-file "./deploy/azdeploy.json" --parameters "./deploy/azdeploy.parameters.json" --verbose

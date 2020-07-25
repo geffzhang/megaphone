@@ -35,6 +35,10 @@
         },
         "backend-service-url": {
             "type": "string"
+        },
+        "mode": {
+            "type": "string",
+            "defaultValue": "Incremental"
         }
     },
     "functions": [],
@@ -143,7 +147,7 @@
                 "[resourceId('Microsoft.ApiManagement/service/loggers', variables('apim-name'), variables('logger-name'))]"
             ],
             "properties": {
-                "mode": "Incremental",
+                "mode": "[parameters('mode')]",
                 "templateLink": {
                     "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/api-management/megaphone-api.json')]",
                     "contentVersion": "1.0.0.0"
@@ -167,7 +171,7 @@
                 "[concat('Microsoft.Resources/deployments/', concat(variables('apim-name'),'-api-deployment'))]"
             ],
             "properties": {
-                "mode": "Incremental",
+                "mode": "[parameters('mode')]",
                 "templateLink": {
                     "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/api-management/megaphone-api-product.json')]",
                     "contentVersion": "1.0.0.0"
