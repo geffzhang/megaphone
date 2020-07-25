@@ -28,6 +28,8 @@
             "dependsOn": [],
             "properties": {
                 "displayName": "Megaphone API",
+                "description" : "Get access to curated official Microsoft news, announcements, updates and blogs.",
+                "apiType": "http",
                 "apiRevision": "1",
                 "subscriptionRequired": false,
                 "serviceUrl": "[parameters('backend-service-url')]",
@@ -59,7 +61,7 @@
             "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'),'/list-feeds')]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]",
-                "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/schema-components-json')]"
+                "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('apim-service-name'), parameters('api-name'),'schema-components-json')]"
             ],
             "properties": {
                 "displayName": "List Feeds",
@@ -88,7 +90,7 @@
             "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/list-resources-by-date')]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]",
-                "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/schema-components-json')]"
+                "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('apim-service-name'), parameters('api-name'),'schema-components-json')]"
             ],
             "properties": {
                 "displayName": "List Resources by Date",
@@ -136,7 +138,7 @@
             "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/list-resources-by-month')]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]",
-                "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/schema-components-json')]"
+                "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('apim-service-name'), parameters('api-name'),'schema-components-json')]"
             ],
             "properties": {
                 "displayName": "List Resources by Month",
@@ -179,7 +181,7 @@
             "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/list-todays-resources')]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]",
-                "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/schema-components-json')]"
+                "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('apim-service-name'), parameters('api-name'),'schema-components-json')]"
             ],
             "properties": {
                 "displayName": "List Today's Resources",

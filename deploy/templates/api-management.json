@@ -132,6 +132,7 @@
             ],
             "properties": {
                 "displayName": "Megaphone API",
+                "description": "Get access to curated official Microsoft news, announcements, updates and blogs.",
                 "versioningScheme": "Header",
                 "versionHeaderName": "Api-Version"
             }
