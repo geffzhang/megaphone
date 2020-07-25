@@ -7,19 +7,25 @@ az account show -o table
 az account set --subscription <SUBSCRIPTION_ID>
 
 # test deploy Applicaiton Insights
-az deployment group create --resource-group 'megaphone-rg' --template-file "./deploy/templates/application-insights.json" --parameters "./deploy/templates/application-insights.parameters.json" --verbose
+az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/application-insights.json" --parameters "./deploy/templates/application-insights.parameters.json" --verbose
 
 # test deplou Azure KeyVault
-az deployment group create --resource-group 'megaphone-rg' --template-file "./deploy/templates/azure-keyvault.json" --parameters "./deploy/templates/azure-keyvault.parameters.json" --verbose
+az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/azure-keyvault.json" --parameters "./deploy/templates/azure-keyvault.parameters.json" --verbose
 
 # test deploy Azure Storage
-az deployment group create --resource-group 'megaphone-rg' --template-file "./deploy/templates/azure-storage.json" --parameters "./deploy/templates/azure-storage.parameters.json" --verbose
+az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/azure-storage.json" --parameters "./deploy/templates/azure-storage.parameters.json" --verbose
 
 # test deploy Azure Service Bus Namespace
-az deployment group create --resource-group 'megaphone-rg' --template-file "./deploy/templates/azure-servicebus.json" --parameters "./deploy/templates/azure-servicebus.parameters.json" --verbose
+az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/azure-servicebus.json" --parameters "./deploy/templates/azure-servicebus.parameters.json" --verbose
 
 # test deploy Azure API Management
-az deployment group create --resource-group 'megaphone-rg' --template-file "./deploy/templates/api-management.json" --parameters "./deploy/templates/api-management.json" --verbose
+az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/api-management.json" --parameters "./deploy/templates/api-management.parameters.json" --verbose
+
+# test deploy Azure API Management API
+az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/api-management/megaphone-api.json" --parameters "./deploy/templates/api-management/megaphone-api.parameters.json" --verbose
+
+# test deploy Azure API Management Product
+az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/api-management/megaphone-api-product.json" --parameters "./deploy/templates/api-management/megaphone-api-product.parameters.json" --verbose
 
 
 
