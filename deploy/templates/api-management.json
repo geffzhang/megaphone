@@ -160,7 +160,7 @@
             "resourceGroup" : "[resourceGroup().name]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]",
-                "[resourceId('Microsoft.ApiManagement/service/api-version-sets', variables('apim-name'),'megaphone-api-version-set')]",
+                "[resourceId('Microsoft.ApiManagement/service/apiVersionSets', variables('apim-name'),'megaphone-api-version-set')]",
                 "[resourceId('Microsoft.ApiManagement/service/loggers', variables('apim-name'), concat(variables('apim-name'), '-ai'))]"
             ],
             "properties": {
@@ -174,7 +174,7 @@
                     "apim-service-name" :  {"value": "[variables('apim-name')]"},
                     "backend-service-url" : {"value": "[parameters('backend-service-url')]"},
                     "logger-name" : {"value": "[variables('logger-name')]"},
-                    "api-version-set-id" : { "value": "[resourceId('Microsoft.ApiManagement/service/api-version-sets', variables('apim-name'),'megaphone-api-version-set')]"}
+                    "api-version-set-id" : { "value": "[resourceId('Microsoft.ApiManagement/service/apiVersionSets', variables('apim-name'),'megaphone-api-version-set')]"}
                 }
             }
         }
