@@ -16,6 +16,9 @@
         },
         "api-version-set-name" : {
             "type": "string"
+        },
+        "repo-url": {
+            "type" : "string"
         }
     },
     "functions": [],

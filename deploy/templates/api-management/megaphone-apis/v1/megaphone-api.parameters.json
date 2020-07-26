@@ -16,6 +16,9 @@
         },
         "api-version-set-name": {
             "value": "megaphone2-api-version-set"
+        },
+        "repo-url": {
+            "value": "https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy"
         }
     }
 }

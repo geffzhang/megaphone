@@ -9,13 +9,16 @@
             "value": "megaphone2-apim"
         },
         "backend-service-url": {
-            "value": "https://ID.ngrok.io"
+            "value": ""
         },
         "logger-name": {
             "value": "megaphone2-ai"
         },
         "api-version-set-name": {
             "value": "megaphone2-api-version-set"
+        },
+        "repo-url": {
+            "value": "https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy"
         }
     }
 }
