@@ -7,6 +7,12 @@
         },
         "prefix": {
             "value": "megaphone2"
+        },
+        "mode": {
+            "value": "Incremental"
+        },
+        "repo-url": {
+            "value": "https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy"
         }
     }
 }

@@ -39,12 +39,16 @@
         "mode": {
             "type": "string",
             "defaultValue": "Incremental"
+        },
+        "repo-url": {
+            "type": "string"
         }
     },
     "functions": [],
     "variables": {
         "apim-name": "[concat(parameters('prefix'),'-apim')]",
         "api-name": "[concat(parameters('prefix'), '-api-v1')]",
+        "mock-api-name": "[concat(parameters('prefix'), '-api-v1-mock')]",
         "logger-name" : "[concat(parameters('prefix'), '-ai')]",
         "api-version-set-name" : "[concat(parameters('prefix'), '-api-version-set')]"
     },
@@ -119,7 +123,7 @@
                 "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]"
             ],
             "properties": {
-                "value": "https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy/templates/api-management/apim-base-policies.xml",
+                "value": "[concat(parameters('repo-url'),'/templates/api-management/apim-base-policies.xml')]",
                 "format": "rawxml-link"
             }
         },
@@ -138,7 +142,7 @@
             }
         },
         {
-            "name": "[concat(variables('apim-name'),'-api-deployment')]",
+            "name": "[concat(variables('apim-name'),'-api-v1-deployment')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "resourceGroup" : "[resourceGroup().name]",
@@ -150,11 +154,36 @@
             "properties": {
                 "mode": "[parameters('mode')]",
                 "templateLink": {
-                    "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/api-management/megaphone-api.json')]",
+                    "uri": "[concat(parameters('repo-url'), '/templates/api-management/megaphone-apis/v1/megaphone-api.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "api-name" :  {"value": "[variables('api-name')]"},
+                    "apim-service-name" :  {"value": "[variables('apim-name')]"},
+                    "backend-service-url" : {"value": "[parameters('backend-service-url')]"},
+                    "logger-name" : {"value": "[variables('logger-name')]"},
+                    "api-version-set-name" : { "value": "[variables('api-version-set-name')]"}
+                }
+            }
+        },
+        {
+            "name": "[concat(variables('apim-name'),'-api-v1-mock-deployment')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup" : "[resourceGroup().name]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]",
+                "[resourceId('Microsoft.ApiManagement/service/apiVersionSets', variables('apim-name'),variables('api-version-set-name'))]",
+                "[resourceId('Microsoft.ApiManagement/service/loggers', variables('apim-name'), variables('logger-name'))]"
+            ],
+            "properties": {
+                "mode": "[parameters('mode')]",
+                "templateLink": {
+                    "uri": "[concat(parameters('repo-url'), '/templates/api-management/megaphone-apis/v1-mock/megaphone-api.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "api-name" :  {"value": "[variables('mock-api-name')]"},
                     "apim-service-name" :  {"value": "[variables('apim-name')]"},
                     "backend-service-url" : {"value": "[parameters('backend-service-url')]"},
                     "logger-name" : {"value": "[variables('logger-name')]"},
@@ -169,12 +198,12 @@
             "resourceGroup" : "[resourceGroup().name]",
             "dependsOn": [
                 "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]",
-                "[concat('Microsoft.Resources/deployments/', concat(variables('apim-name'),'-api-deployment'))]"
+                "[concat('Microsoft.Resources/deployments/', concat(variables('apim-name'),'-api-v1-deployment'))]"
             ],
             "properties": {
                 "mode": "[parameters('mode')]",
                 "templateLink": {
-                    "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/api-management/megaphone-api-product.json')]",
+                    "uri": "[concat(parameters('repo-url'), '/templates/api-management/megaphone-products/megaphone-api-product.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {

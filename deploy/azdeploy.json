@@ -11,6 +11,9 @@
         "mode": {
             "type": "string",
             "defaultValue" : "Incremental"
+        },
+        "repo-url": {
+            "type": "string"
         }
     },
     "functions": [],
@@ -42,7 +45,7 @@
             "properties": {
                 "mode": "[parameters('mode')]",
                 "templateLink": {
-                    "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/application-insights.json')]",
+                    "uri": "[concat(parameters('repo-url'), '/templates/application-insights.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -62,7 +65,7 @@
             "properties": {
                 "mode": "[parameters('mode')]",
                 "templateLink": {
-                    "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/key-vault.json')]",
+                    "uri": "[concat(parameters('repo-url'), '/templates/key-vault.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -82,7 +85,7 @@
             "properties": {
                 "mode": "[parameters('mode')]",
                 "templateLink": {
-                    "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/storage.json')]",
+                    "uri": "[concat(parameters('repo-url'), '/templates/storage.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -102,7 +105,7 @@
             "properties": {
                 "mode": "[parameters('mode')]",
                 "templateLink": {
-                    "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/service-bus.json')]",
+                    "uri": "[concat(parameters('repo-url'), '/templates/service-bus.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -123,14 +126,15 @@
             "properties": {
                 "mode": "[parameters('mode')]",
                 "templateLink": {
-                    "uri": "[concat('https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy', '/templates/api-management.json')]",
+                    "uri": "[concat(parameters('repo-url'), '/templates/api-management.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "location" :  {"value": "[parameters('location')]"},
                     "prefix" :  {"value": "[parameters('prefix')]"},
                     "instrumentationKey" : { "value" : "[reference(variables('app-insights-deployment-name')).outputs.instrumentationKey.value]"},
-                    "backend-service-url" : { "value" : "[variables('backend-service-url')]"}
+                    "backend-service-url" : { "value" : "[variables('backend-service-url')]"},
+                    "repo-url" : { "value": "[parameters('repo-url')]"}
                 }
             }
         }
