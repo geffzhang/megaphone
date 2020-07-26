@@ -45,6 +45,18 @@
                 "isCurrent": true,
                 "path": "/"
             }
+        },
+        {
+            "type": "Microsoft.ApiManagement/service/apis/policies",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('apim-service-name'),'/', parameters('api-name'),'/policy')]",
+            "dependsOn": [
+                 "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apim-service-name'), parameters('api-name'))]"
+            ],
+            "properties": {
+                "value": "[concat(parameters('repo-url'),'/templates/api-management/megaphone-apis/v1/api-policy.xml')]",
+                "format": "rawxml-link"
+            }
         },    
         {
             "type": "Microsoft.ApiManagement/service/apis/schemas",
