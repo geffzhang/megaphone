@@ -10,6 +10,9 @@
         },
         "api-name": {
             "type": "string"
+        },
+        "repo-url": {
+            "type": "string"
         }
     },
     "functions": [],
@@ -30,6 +33,18 @@
                 "approvalRequired": false,
                 "subscriptionsLimit": 1,
                 "state": "published"
+            }
+        },
+        {
+            "type": "Microsoft.ApiManagement/service/products/policies",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('apim-service-name'),'/', parameters('api-name'),'/policy')]",
+            "dependsOn": [
+                  "[resourceId('Microsoft.ApiManagement/service/products',parameters('apim-service-name'), variables('product-name'))]"
+            ],
+            "properties": {
+                "value": "[concat(parameters('repo-url'),'/templates/api-management/megaphone-products/megaphone-api-product-policy.xml')]",
+                "format": "rawxml-link"
             }
         },
         {

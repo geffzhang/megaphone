@@ -211,7 +211,8 @@
                 "parameters": {
                     "apim-prefix" :  {"value": "[parameters('prefix')]"},
                     "apim-service-name" :  {"value": "[variables('apim-name')]"},
-                    "api-name" :  {"value": "[variables('api-name')]"}
+                    "api-name" :  {"value": "[variables('api-name')]"},
+                    "repo-url" : { "value": "[parameters('repo-url')]"}
                 }
             }
         }
