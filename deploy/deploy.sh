@@ -22,12 +22,16 @@ az deployment group create --resource-group 'megaphone2-rg' --template-file "./d
 az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/api-management.json" --parameters "./deploy/templates/api-management.parameters.json" --verbose
 
 # test deploy Azure API Management API
-az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/api-management/megaphone-api.json" --parameters "./deploy/templates/api-management/megaphone-api.parameters.json" --verbose
+az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/api-management/megaphone-apis/v1/api.json" --parameters "./deploy/templates/api-management/megaphone-apis/v1/api.parameters.json" --verbose
+
+# test deploy Azure API Management API
+az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/api-management/megaphone-apis/v1-mock/api.json" --parameters "./deploy/templates/api-management/megaphone-apis/v1-mock/api.parameters.json" --verbose
 
 # test deploy Azure API Management Product
-az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/api-management/megaphone-api-product.json" --parameters "./deploy/templates/api-management/megaphone-api-product.parameters.json" --verbose
+az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/api-management/megaphone-products/megaphone-api/product.json" --parameters "./deploy/templates/api-management/megaphone-products/megaphone-api/product.parameters.json" --verbose
 
-
+# test deploy Azure API Management Dev Product
+az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/templates/api-management/megaphone-products/megaphone-dev-api/product.json" --parameters "./deploy/templates/api-management/megaphone-products/megaphone-dev-api/product.parameters.json" --verbose
 
 # deploy full solution
 az deployment sub create --location eastus --template-file "./deploy/azdeploy.json" --parameters "./deploy/azdeploy.parameters.json" --verbose
