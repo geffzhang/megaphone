@@ -205,13 +205,36 @@
             "properties": {
                 "mode": "[parameters('mode')]",
                 "templateLink": {
-                    "uri": "[concat(parameters('repo-url'), '/templates/api-management/megaphone-products/megaphone-api-product.json')]",
+                    "uri": "[concat(parameters('repo-url'), '/templates/api-management/megaphone-products/megaphone-api/product.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "apim-prefix" :  {"value": "[parameters('prefix')]"},
                     "apim-service-name" :  {"value": "[variables('apim-name')]"},
                     "api-name" :  {"value": "[variables('api-name')]"},
+                    "repo-url" : { "value": "[parameters('repo-url')]"}
+                }
+            }
+        },
+        {
+            "name": "[concat(variables('apim-name'),'-dev-product-deployment')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup" : "[resourceGroup().name]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service', variables('apim-name'))]",
+                "[concat('Microsoft.Resources/deployments/', concat(variables('apim-name'),'-api-v1-deployment'))]"
+            ],
+            "properties": {
+                "mode": "[parameters('mode')]",
+                "templateLink": {
+                    "uri": "[concat(parameters('repo-url'), '/templates/api-management/megaphone-products/megaphone-dev-api/product.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "apim-prefix" :  {"value": "[parameters('prefix')]"},
+                    "apim-service-name" :  {"value": "[variables('apim-name')]"},
+                    "api-name" :  {"value": "[variables('mock-api-name')]"},
                     "repo-url" : { "value": "[parameters('repo-url')]"}
                 }
             }

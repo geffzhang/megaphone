@@ -17,7 +17,7 @@
     },
     "functions": [],
     "variables": {
-        "product-name" : "[concat(parameters('apim-prefix'), '-product')]"
+        "product-name" : "[concat(parameters('apim-prefix'), '-dev-product')]"
     },
     "resources": [
         {
@@ -26,24 +26,22 @@
             "name": "[concat(parameters('apim-service-name'), '/', variables('product-name'))]",
             "dependsOn": [],
             "properties": {
-                "displayName": "Megaphone APIs",
+                "displayName": "Megaphone Dev APIs",
                 "description": "Get access to curated official Microsoft news, announcements, updates and blogs.",
                 "terms": "",
-                "subscriptionRequired": true,
-                "approvalRequired": false,
-                "subscriptionsLimit": 1,
+                "subscriptionRequired": false,
                 "state": "published"
             }
         },
         {
             "type": "Microsoft.ApiManagement/service/products/policies",
             "apiVersion": "2019-12-01",
-            "name": "[concat(parameters('apim-service-name'),'/', parameters('api-name'),'/policy')]",
+            "name": "[concat(parameters('apim-service-name'),'/', variables('product-name'),'/policy')]",
             "dependsOn": [
                   "[resourceId('Microsoft.ApiManagement/service/products',parameters('apim-service-name'), variables('product-name'))]"
             ],
             "properties": {
-                "value": "[concat(parameters('repo-url'),'/templates/api-management/megaphone-products/megaphone-api-product-policy.xml')]",
+                "value": "[concat(parameters('repo-url'),'/templates/api-management/megaphone-products/megaphone-dev-api/product-policy.xml')]",
                 "format": "rawxml-link"
             }
         },
