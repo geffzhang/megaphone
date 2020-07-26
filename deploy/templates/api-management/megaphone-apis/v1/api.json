@@ -88,6 +88,18 @@
             }
         },
         {
+            "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('apim-service-name'),'/', parameters('api-name'),'/list-feeds/policy')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('apim-service-name'), parameters('api-name'), 'list-feeds')]"
+            ],
+            "properties": {
+                "value": "[concat(parameters('repo-url'),'/templates/api-management/megaphone-apis/v1/api-list-feeds-policy.xml')]",
+                "format": "rawxml-link"
+            }
+        },
+        {
             "type": "Microsoft.ApiManagement/service/apis/operations",
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/list-resources-by-date')]",
@@ -136,6 +148,18 @@
             }
         },
         {
+            "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('apim-service-name'),'/', parameters('api-name'),'/list-resources-by-date/policy')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('apim-service-name'), parameters('api-name'), 'list-resources-by-date')]"
+            ],
+            "properties": {
+                "value": "[concat(parameters('repo-url'),'/templates/api-management/megaphone-apis/v1/api-list-resources-by-date-policy.xml')]",
+                "format": "rawxml-link"
+            }
+        },
+        {
             "type": "Microsoft.ApiManagement/service/apis/operations",
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/list-resources-by-month')]",
@@ -179,6 +203,18 @@
             }
         },
         {
+            "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('apim-service-name'),'/', parameters('api-name'),'/list-resources-by-month/policy')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('apim-service-name'), parameters('api-name'), 'list-resources-by-month')]"
+            ],
+            "properties": {
+                "value": "[concat(parameters('repo-url'),'/templates/api-management/megaphone-apis/v1/api-list-resources-by-month-policy.xml')]",
+                "format": "rawxml-link"
+            }
+        },
+        {
             "type": "Microsoft.ApiManagement/service/apis/operations",
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'), '/list-todays-resources')]",
@@ -207,7 +243,20 @@
                     }
                 ]
             }
-        },{
+        },
+        {
+            "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('apim-service-name'),'/', parameters('api-name'),'/list-todays-resources/policy')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('apim-service-name'), parameters('api-name'), 'list-todays-resources')]"
+            ],
+            "properties": {
+                "value": "[concat(parameters('repo-url'),'/templates/api-management/megaphone-apis/v1/api-list-todays-resources-policy.xml')]",
+                "format": "rawxml-link"
+            }
+        },
+        {
             "type": "Microsoft.ApiManagement/service/apis/diagnostics",
             "apiVersion": "2019-12-01",
             "name": "[concat(parameters('apim-service-name'), '/', parameters('api-name'),'/applicationinsights')]",
