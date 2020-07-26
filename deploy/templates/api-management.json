@@ -154,7 +154,7 @@
             "properties": {
                 "mode": "[parameters('mode')]",
                 "templateLink": {
-                    "uri": "[concat(parameters('repo-url'), '/templates/api-management/megaphone-apis/v1/megaphone-api.json')]",
+                    "uri": "[concat(parameters('repo-url'), '/templates/api-management/megaphone-apis/v1/api.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -180,7 +180,7 @@
             "properties": {
                 "mode": "[parameters('mode')]",
                 "templateLink": {
-                    "uri": "[concat(parameters('repo-url'), '/templates/api-management/megaphone-apis/v1-mock/megaphone-api.json')]",
+                    "uri": "[concat(parameters('repo-url'), '/templates/api-management/megaphone-apis/v1-mock/api.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
