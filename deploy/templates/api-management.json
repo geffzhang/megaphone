@@ -186,7 +186,7 @@
                 "parameters": {
                     "api-name" :  {"value": "[variables('mock-api-name')]"},
                     "apim-service-name" :  {"value": "[variables('apim-name')]"},
-                    "backend-service-url" : {"value": "[parameters('backend-service-url')]"},
+                    "backend-service-url" : {"value": ""},
                     "logger-name" : {"value": "[variables('logger-name')]"},
                     "api-version-set-name" : { "value": "[variables('api-version-set-name')]"},
                     "repo-url" : { "value": "[parameters('repo-url')]"}
