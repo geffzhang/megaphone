@@ -13,7 +13,8 @@
             "defaultValue" : "Incremental"
         },
         "repo-url": {
-            "type": "string"
+            "type": "string",
+             "defaultValue" : "https://github.com/AlexandreBrisebois/megaphone/tree/master/deploy"
         }
     },
     "functions": [],
