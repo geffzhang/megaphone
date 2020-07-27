@@ -12,7 +12,7 @@
             "value": "Incremental"
         },
         "repo-url": {
-            "value": "https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy"
+            "value": "https://raw.githubusercontent.com/AlexandreBrisebois/megaphone/master/deploy/arm"
         }
     }
 }

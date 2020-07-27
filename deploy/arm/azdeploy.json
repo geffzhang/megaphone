@@ -14,7 +14,7 @@
         },
         "repo-url": {
             "type": "string",
-             "defaultValue" : "https://github.com/AlexandreBrisebois/megaphone/tree/master/deploy"
+             "defaultValue" : "https://github.com/AlexandreBrisebois/megaphone/tree/master/deploy/arm"
         }
     },
     "functions": [],
@@ -25,6 +25,7 @@
         "storage-deployment-name" :"[concat(parameters('prefix'),'-storage-deployment')]",
         "servicebus-deployment-name" :"[concat(parameters('prefix'),'-servicebus-deployment')]",
         "apim-deployment-name" :"[concat(parameters('prefix'),'-apim-deployment')]",
+        "cosmos-db-deployment-name" :"[concat(parameters('prefix'),'-cosmos-db-deployment')]",
         "backend-service-url" : "https://id.ngrok.com"
     },
     "resources": [
@@ -136,6 +137,26 @@
                     "instrumentationKey" : { "value" : "[reference(variables('app-insights-deployment-name')).outputs.instrumentationKey.value]"},
                     "backend-service-url" : { "value" : "[variables('backend-service-url')]"},
                     "repo-url" : { "value": "[parameters('repo-url')]"}
+                }
+            }
+        },
+        {
+            "name": "[variables('cosmos-db-deployment-name')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup" : "[variables('rg-name')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/resourceGroups/', variables('rg-name'))]"
+            ],
+            "properties": {
+                "mode": "[parameters('mode')]",
+                "templateLink": {
+                    "uri": "[concat(parameters('repo-url'), '/templates/cosmos-db.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location" :  {"value": "[parameters('location')]"},
+                    "prefix" :  {"value": "[parameters('prefix')]"}
                 }
             }
         }
