@@ -67,7 +67,7 @@
     },
     "functions": [],
     "variables": {
-        "accountName": "[toLower(concat(parameters('prefix'),'-sql-', uniqueString(resourceGroup().id)))]",
+        "accountName": "[toLower(concat(parameters('prefix'),'-sql-account'))]",
         "primaryRegion": "[resourceGroup().location]",
         "databaseName": "[toLower(concat(parameters('prefix'),'-db'))]",
         "consistencyPolicy": {

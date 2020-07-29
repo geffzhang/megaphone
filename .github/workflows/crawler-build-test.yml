@@ -21,5 +21,7 @@ jobs:
       run: dotnet restore ./src/Crawler/Crawler.sln
     - name: Build
       run: dotnet build ./src/Crawler/Crawler.sln --configuration Release --no-restore
-    - name: Test
+    - name: Test Crawler
       run: dotnet test ./src/Crawler/Crawler.Tests/Crawler.Tests.csproj --no-restore --verbosity normal
+    - name: Test Crawler API
+      run: dotnet test "./src/Crawler/Crawler.API.Tests/Crawler.Tests.API.csproj" --no-restore --verbosity normal

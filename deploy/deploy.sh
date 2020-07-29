@@ -34,4 +34,4 @@ az deployment group create --resource-group 'megaphone2-rg' --template-file "./d
 az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/arm/templates/api-management/megaphone-products/megaphone-dev-api/product.json" --parameters "./deploy/arm/templates/api-management/megaphone-products/megaphone-dev-api/product.parameters.json" --verbose
 
 # deploy full solution
-az deployment sub create --location eastus --template-file "./arm/deploy/azdeploy.json" --parameters "./deploy/arm/azdeploy.parameters.json" --verbose
+az deployment sub create --location eastus --template-file "./deploy/arm/azdeploy.json" --parameters "./deploy/arm/azdeploy.parameters.json" --verbose
