@@ -33,5 +33,8 @@ az deployment group create --resource-group 'megaphone2-rg' --template-file "./d
 # test deploy Azure API Management Dev Product
 az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/arm/templates/api-management/megaphone-products/megaphone-dev-api/product.json" --parameters "./deploy/arm/templates/api-management/megaphone-products/megaphone-dev-api/product.parameters.json" --verbose
 
+# test deploy Azure API Management Dev Product
+az deployment group create --resource-group 'megaphone2-rg' --template-file "./deploy/arm/templates/cosmos-db.json" --parameters "./deploy/arm/templates/cosmos-db.parameters.json" --verbose
+
 # deploy full solution
 az deployment sub create --location eastus --template-file "./deploy/arm/azdeploy.json" --parameters "./deploy/arm/azdeploy.parameters.json" --verbose
