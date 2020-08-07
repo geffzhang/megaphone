@@ -2,7 +2,7 @@ name: Standard Publish to Packages
 
 on:
   push:
-    branches: [ master ]
+    branches: [ trunk ]
     paths:
       - 'src/Standard/**'
       

@@ -1,8 +1,10 @@
 name: Crawler Build
 
 on:
+  push:
+    paths:
+      - 'src/Crawler/**'
   pull_request:
-    branches: [ master ]
     paths:
       - 'src/Crawler/**'
       

@@ -1,8 +1,10 @@
 name: Megaphone API Build
 
 on:
+  push:
+    paths:
+      - 'src/API/**'
   pull_request:
-    branches: [ master ]
     paths:
       - 'src/API/**'
       

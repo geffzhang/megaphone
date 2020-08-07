@@ -1,8 +1,10 @@
 name: Resource Actor Interface Build
 
 on:
+  push:
+    paths:
+      - 'src/Resources/Resource.Actor.Interface/**'
   pull_request:
-    branches: [ master ]
     paths:
       - 'src/Resources/Resource.Actor.Interface/**'
       

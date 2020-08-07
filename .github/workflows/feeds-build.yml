@@ -1,8 +1,10 @@
 name: Feeds Build
 
 on:
+  push:
+    paths:
+      - 'src/Feeds/**'
   pull_request:
-    branches: [ master ]
     paths:
       - 'src/Feeds/**'
       

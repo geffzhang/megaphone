@@ -2,7 +2,7 @@ name: Resource Actor Interface Publish to Packages
 
 on:
   push:
-    branches: [ master ]
+    branches: [ trunk ]
     paths:
       - 'src/Resources/Resource.Actor.Interface/**'
       

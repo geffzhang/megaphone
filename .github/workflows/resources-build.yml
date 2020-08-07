@@ -1,8 +1,10 @@
 name: Resources Build
 
 on:
+  push:
+    paths:
+      - 'src/Resources/**'
   pull_request:
-    branches: [ master ]
     paths:
       - 'src/Resources/**'
       
