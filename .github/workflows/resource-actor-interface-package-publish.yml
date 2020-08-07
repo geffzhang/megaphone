@@ -17,16 +17,15 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
+        source-url: https://nuget.pkg.github.com/AlexandreBrisebois/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Install dependencies
       run: dotnet restore ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj
     - name: Build
       run: dotnet build ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj --configuration Release --no-restore
     - name: Pack
       run: dotnet pack ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj --configuration Release --no-restore
-    - name: Push Nupkg to GitHub Packages
-      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
-      with:
-        nupkg-path:  'src/Resources/Resource.Actor.Interface/bin/Release/*.nupkg'
-        repo-owner:  'AlexandreBrisebois'
-        gh-user:  'AlexandreBrisebois'
-        token:  ${{ secrets.GITHUB_TOKEN }}
+    - name: Push generated package to GitHub registry
+      run: dotnet nuget push ./src/Resources/Resource.Actor.Interface/bin/Release/*.nupkg --skip-duplicate --no-symbols true
+      
