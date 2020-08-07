@@ -8,6 +8,7 @@ using Crawler.Models;
 using System.Net.Http;
 using System.Linq;
 using Standard.Events;
+using Microsoft.Extensions.Primitives;
 
 namespace Crawler.API.Controllers
 {
@@ -22,8 +23,13 @@ namespace Crawler.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAsync(CloudEvent cloudEvent)
+        public async Task<OkResult> PostAsync(CloudEvent cloudEvent)
         {
+            String Traceparent = string.Empty;
+
+            if (this.Request.Headers.TryGetValue("traceparent", out StringValues values))
+                Traceparent = values.FirstOrDefault();
+
             var e = ((JToken)cloudEvent.Data).ToObject<Event>();
 
             var crawler = new WebResourceCrawler();
@@ -44,18 +50,18 @@ namespace Crawler.API.Controllers
             {
                 foreach (var r in resource.Resources)
                 {
-                    var publish = new PublishEventCommand(EventFactory.MakeCrawlRequestEvent(r), "crawl"); ;
+                    var publish = new PublishEventCommand(EventFactory.MakeCrawlRequestEvent(r), "crawl", Traceparent);
                     await publish.ApplyAsync(httpClient);
                 }
             }
 
             return Ok();
-
-            async Task UpdateResource(Models.Resource resource)
-            {
-                var c = new UpdateResourceCommand(resource);
-                await c.ApplyAsync(httpClient);
-            }
+        }  
+        
+        async Task UpdateResource(Models.Resource resource)
+        {
+           var c = new UpdateResourceCommand(resource);
+           await c.ApplyAsync(httpClient);
         }
     }
 }

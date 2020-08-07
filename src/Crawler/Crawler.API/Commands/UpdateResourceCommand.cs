@@ -10,9 +10,9 @@ namespace Crawler.API.Commands
 {
     internal class UpdateResourceCommand : ICommand<HttpClient>
     {
-        private readonly Crawler.Models.Resource resource;
+        private readonly Models.Resource resource;
 
-        public UpdateResourceCommand(Crawler.Models.Resource resource)
+        public UpdateResourceCommand(Models.Resource resource)
         {
             this.resource = resource;
         }
