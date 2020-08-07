@@ -1,7 +1,10 @@
 ---
 name: Idea
 about: Ideas, feature requests, and wishes
-labels: idea
+title: ''
+labels: ''
+assignees: ''
+
 ---
 
 ### What should we add or change to make your life better?

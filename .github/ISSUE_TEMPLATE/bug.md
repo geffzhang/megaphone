@@ -1,7 +1,10 @@
 ---
 name: Bug report
 about: Create a report about something that is not working
+title: ''
 labels: bug
+assignees: ''
+
 ---
 
 ### Describe the bug
