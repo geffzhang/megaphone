@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
-    - name: Add GitHub Packages
+    - name: Add GitHub Package Source
       run: dotnet nuget add source 'https://nuget.pkg.github.com/AlexandreBrisebois/index.json' -n 'GitHub' -u 'AlexandreBrisebois' -p ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
     - name: Install dependencies
       run: dotnet restore ./src/Crawler/Crawler.sln
