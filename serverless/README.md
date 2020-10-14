@@ -41,7 +41,3 @@ The technologies explored so far are as follows:
 ## Design
 
 See [design docs](./docs/design.md) for more details.
-
-### Megaphone Organic View genetated by Azure Application Insights
-
-![megaphone organic view](./docs/media/megaphone-organic-view-application-insights.jpg)
