@@ -133,3 +133,31 @@ dotnet user-secrets -p "src/Crawler/Crawler.API/Crawler.API.csproj" set "APPINSI
 dotnet user-secrets -p "src/API/Megaphone.API/Megaphone.API.csproj" init
 dotnet user-secrets -p "src/API/Megaphone.API/Megaphone.API.csproj" set "APPINSIGHTS_INSTRUMENTATIONKEY" "<Your Instrumentation Key>"
 ```
+
+### Setup local access to Azure KeyVault
+See [Secret Store for Azure Key Vault](https://github.com/dapr/docs/blob/master/howto/setup-secret-store/azure-keyvault.md)
+
+```bash
+az ad sp create-for-rbac --name [your_service_principal_name] --create-cert --cert [certificate_name] --keyvault [your_keyvault] --skip-assignment --years 1
+
+{
+  "appId": "a4f90000-0000-0000-0000-00000011d000",
+  "displayName": "[your_service_principal_name]",
+  "name": "http://[your_service_principal_name]",
+  "password": null,
+  "tenant": "34f90000-0000-0000-0000-00000011d000"
+}
+
+az ad sp show --id [service_principal_app_id]
+
+{
+    ...
+    "objectId": "[your_service_principal_object_id]",
+    "objectType": "ServicePrincipal",
+    ...
+}
+
+az keyvault set-policy --name [your_keyvault] --object-id [your_service_principal_object_id] --secret-permissions get
+
+az keyvault secret download --vault-name [your_keyvault] --name [certificate_name] --encoding base64 --file [certificate_name].pfx
+```

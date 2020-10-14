@@ -13,7 +13,7 @@ spec:
     - name: spnClientId
       value: "7125c999-24a8-4b1c-b567-4607112aed09"
     - name: spnCertificateFile
-      value: "./components/azure/megaphone-key-vault-megaphonekvcert-20200605.pfx"
+      value: "./components/azure/megaphone-akv-cert.pfx"
 scopes:
   - crawler-service
   - feed-service
