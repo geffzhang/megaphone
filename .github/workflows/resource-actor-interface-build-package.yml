@@ -1,12 +1,12 @@
-name: Resource Actor Interface Build
+name: DAPR Resource Actor Interface Build
 
 on:
   push:
     paths:
-      - 'src/Resources/Resource.Actor.Interface/**'
+      - 'dapr/src/Resources/Resource.Actor.Interface/**'
   pull_request:
     paths:
-      - 'src/Resources/Resource.Actor.Interface/**'
+      - 'dapr/src/Resources/Resource.Actor.Interface/**'
       
 jobs:
   build:
@@ -23,6 +23,6 @@ jobs:
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Install dependencies
-      run: dotnet restore ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj
+      run: dotnet restore ./dapr/src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj
     - name: Build
-      run: dotnet build ./src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj --configuration Release --no-restore
+      run: dotnet build ./dapr/src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj --configuration Release --no-restore

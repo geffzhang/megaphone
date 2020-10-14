@@ -1,12 +1,12 @@
-name: Crawler Build
+name: DAPR Crawler Build
 
 on:
   push:
     paths:
-      - 'src/Crawler/**'
+      - 'dapr/src/Crawler/**'
   pull_request:
     paths:
-      - 'src/Crawler/**'
+      - 'dapr/src/Crawler/**'
       
 jobs:
   build:
@@ -23,8 +23,8 @@ jobs:
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Install dependencies
-      run: dotnet restore ./src/Crawler/Crawler.sln
+      run: dotnet restore ./dapr/src/Crawler/Crawler.sln
     - name: Build
-      run: dotnet build ./src/Crawler/Crawler.sln --configuration Release --no-restore
+      run: dotnet build ./dapr/src/Crawler/Crawler.sln --configuration Release --no-restore
     - name: Test Crawler
-      run: dotnet test ./src/Crawler/Crawler.Tests/Crawler.Tests.csproj --no-restore --verbosity normal
+      run: dotnet test ./dapr/src/Crawler/Crawler.Tests/Crawler.Tests.csproj --no-restore --verbosity normal

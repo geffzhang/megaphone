@@ -1,12 +1,12 @@
-name: Megaphone API Build
+name: DAPR Megaphone API Build
 
 on:
   push:
     paths:
-      - 'src/API/**'
+      - 'dapr/src/API/**'
   pull_request:
     paths:
-      - 'src/API/**'
+      - 'dapr/src/API/**'
       
 jobs:
   build:
@@ -23,6 +23,6 @@ jobs:
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Install dependencies
-      run: dotnet restore ./src/API/Megaphone.API.sln
+      run: dotnet restore ./dapr/src/API/Megaphone.API.sln
     - name: Build
-      run: dotnet build ./src/API/Megaphone.API.sln --configuration Release --no-restore
+      run: dotnet build ./dapr/src/API/Megaphone.API.sln --configuration Release --no-restore

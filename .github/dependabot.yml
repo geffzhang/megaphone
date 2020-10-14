@@ -15,31 +15,31 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "nuget"
-    directory: "src/API/Megaphone.API"
+    directory: "dapr/src/API/Megaphone.API"
     schedule:
       interval: "daily"
   - package-ecosystem: "nuget"
-    directory: "src/Crawler/Crawler"
+    directory: "dapr/src/Crawler/Crawler"
     schedule:
       interval: "daily"
   - package-ecosystem: "nuget"
-    directory: "src/Crawler/Crawler.API"
+    directory: "dapr/src/Crawler/Crawler.API"
     schedule:
       interval: "daily"
   - package-ecosystem: "nuget"
-    directory: "src/Crawler/Crawler.Tests"
+    directory: "dapr/src/Crawler/Crawler.Tests"
     schedule:
       interval: "daily"
   - package-ecosystem: "nuget"
-    directory: "src/Feeds/Feeds.API"
+    directory: "dapr/src/Feeds/Feeds.API"
     schedule:
       interval: "daily"
   - package-ecosystem: "nuget"
-    directory: "src/Resources/Resource.Actor"
+    directory: "dapr/src/Resources/Resource.Actor"
     schedule:
       interval: "daily"
   - package-ecosystem: "nuget"
-    directory: "src/Resources/Resource.Actor.Interface"
+    directory: "dapr/src/Resources/Resource.Actor.Interface"
     schedule:
       interval: "daily"
       

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <UserSecretsId>1c18c26a-b185-48ed-ba46-18d20645eac3</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/64668628-d5e6-4c5b-9be4-9e577d5b8fd0/resourceGroups/megaphone/providers/microsoft.insights/components/megaphone-ai</ApplicationInsightsResourceId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapr.Actors.AspNetCore" Version="0.11.0-preview01" />
+    <PackageReference Include="Dapr.Client" Version="0.11.0-preview01" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
+    <PackageReference Include="Standard" Version="1.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Resource.Actor.Interface\Resource.Actor.Interface.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
+</Project>

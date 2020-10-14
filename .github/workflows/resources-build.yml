@@ -1,12 +1,12 @@
-name: Resources Build
+name: DAPR Resources Build
 
 on:
   push:
     paths:
-      - 'src/Resources/**'
+      - 'dapr/src/Resources/**'
   pull_request:
     paths:
-      - 'src/Resources/**'
+      - 'dapr/src/Resources/**'
       
 jobs:
   build:
@@ -23,6 +23,6 @@ jobs:
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Install dependencies
-      run: dotnet restore ./src/Resources/Resources.sln
+      run: dotnet restore ./dapr/src/Resources/Resources.sln
     - name: Build
-      run: dotnet build ./src/Resources/Resources.sln --configuration Release --no-restore
+      run: dotnet build ./dapr/src/Resources/Resources.sln --configuration Release --no-restore

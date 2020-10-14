@@ -1,12 +1,12 @@
-name: Feeds Build
+name: DAPR Feeds Build
 
 on:
   push:
     paths:
-      - 'src/Feeds/**'
+      - 'dapr/src/Feeds/**'
   pull_request:
     paths:
-      - 'src/Feeds/**'
+      - 'dapr/src/Feeds/**'
       
 jobs:
   build:
@@ -23,6 +23,6 @@ jobs:
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Install dependencies
-      run: dotnet restore ./src/Feeds/Feeds.sln
+      run: dotnet restore ./dapr/src/Feeds/Feeds.sln
     - name: Build
-      run: dotnet build ./src/Feeds/Feeds.sln --configuration Release --no-restore
+      run: dotnet build ./dapr/src/Feeds/Feeds.sln --configuration Release --no-restore
