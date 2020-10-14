@@ -12,13 +12,8 @@ Azure and the Dev world evolves at a terrying pace! Keeping up with it all takes
 
 Megaphone is built as an exploration, to learn various technologies and act as a demoable solution.
 
-### Dapr
-
-    [dapr implementation](https://github.com/AlexandreBrisebois/megaphone/tree/trunk/dapr)
-
-### Serverless
-
-    [serverless implementation](https://github.com/AlexandreBrisebois/megaphone/tree/trunk/serverless)
+- [dapr implementation](https://github.com/AlexandreBrisebois/megaphone/tree/trunk/dapr)
+- [serverless implementation](https://github.com/AlexandreBrisebois/megaphone/tree/trunk/serverless)
 
 
 ### ASP .NET Core
