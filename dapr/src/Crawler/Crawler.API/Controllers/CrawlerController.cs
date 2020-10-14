@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Linq;
 using Standard.Events;
 using Microsoft.Extensions.Primitives;
+using Crawler.Models;
 
 namespace Crawler.API.Controllers
 {
