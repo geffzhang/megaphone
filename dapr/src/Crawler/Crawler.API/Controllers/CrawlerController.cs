@@ -4,7 +4,6 @@ using Crawler.API.Commands;
 using Microsoft.AspNetCore.Mvc;
 using CloudNative.CloudEvents;
 using Newtonsoft.Json.Linq;
-using Crawler.Models;
 using System.Net.Http;
 using System.Linq;
 using Standard.Events;
