@@ -1,0 +1,28 @@
+name: Serverless Crawler Build
+
+on:
+  push:
+    paths:
+      - 'serverless/src/Crawler/**'
+  pull_request:
+    paths:
+      - 'serverless/src/Crawler/**'
+      
+jobs:
+  build:
+    name: Crawler - Build & Test
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 3.1.101
+        source-url: https://nuget.pkg.github.com/AlexandreBrisebois/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - name: Install dependencies
+      run: dotnet restore ./serverless/src/Crawler/Crawler.sln
+    - name: Build
+      run: dotnet build ./serverless/src/Crawler/Crawler.sln --configuration Release --no-restore
