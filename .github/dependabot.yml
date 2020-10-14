@@ -42,4 +42,12 @@ updates:
     directory: "dapr/src/Resources/Resource.Actor.Interface"
     schedule:
       interval: "daily"
+  - package-ecosystem: "nuget"
+    directory: "serverless/src/Crawler/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "nuget"
+    directory: "serverless/src/Resources/"
+    schedule:
+      interval: "daily"
       
