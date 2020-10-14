@@ -7,9 +7,9 @@
     <Authors>Alexandre Brisebois</Authors>
     <Description />
     <RepositoryUrl>https://github.com/AlexandreBrisebois/megaphone/</RepositoryUrl>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <Version>1.0.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
