@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapr.Actors" Version="0.11.0-preview01" />
+    <PackageReference Include="Dapr.Actors" Version="0.11.0-preview02" />
   </ItemGroup>
 
 </Project>
