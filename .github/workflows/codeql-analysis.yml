@@ -66,7 +66,6 @@ jobs:
        dotnet build ./dapr/src/Crawler/Crawler.sln
        dotnet build ./dapr/src/Feeds/Feeds.sln
        dotnet build ./dapr/src/API/Megaphone.API.sln
-       dotnet build ./dapr/src/Resources/Resource.Actor.Interface/Resource.Actor.Interface.csproj
        dotnet build ./dapr/src/Resources/Resources.sln
        dotnet build ./serverless/src/Crawler/Crawler.sln
        dotnet build ./serverless/src/Resources/Resources.sln
