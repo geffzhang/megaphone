@@ -1,3 +1,5 @@
+![CodeQL](https://github.com/AlexandreBrisebois/megaphone/workflows/CodeQL/badge.svg)
+
 # Megaphone
 
 > Deployment is being built and is partial at this time.
