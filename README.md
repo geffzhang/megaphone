@@ -1,3 +1,4 @@
+[![Board Status](https://dev.azure.com/albriseb/d7923d92-187f-4389-bb56-de565b94591e/d3784736-da67-4e25-857c-ee31713c0e48/_apis/work/boardbadge/10514869-bce1-4d7e-abe9-9b5d44ff0af0)](https://dev.azure.com/albriseb/d7923d92-187f-4389-bb56-de565b94591e/_boards/board/t/d3784736-da67-4e25-857c-ee31713c0e48/Microsoft.RequirementCategory)
 ![CodeQL](https://github.com/AlexandreBrisebois/megaphone/workflows/CodeQL/badge.svg)
 
 # Megaphone
