@@ -1,11 +1,8 @@
 version: "3.9"
 networks:
-  megaphone-network:
-    name: megaphone-network
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.28.0.0/16
+  default:
+    external:
+      name: megaphone-network
 services:
   ############################
   # Resources + Dapr sidecar
@@ -26,8 +23,6 @@ services:
       - DOTNET_USE_POLLING_FILE_WATCHER=false
       - HOST_VERSION=3.0.15277
       - AzureFunctionsJobHost__Logupdateging__Console__IsEnabled=true
-    networks:
-      - megaphone-network
     ports:
       - "2002:80"
   resources-dapr:
@@ -68,8 +63,6 @@ services:
       - MEGAPHONE_RESOURCE_PUSH=true
       - MEGAPHONE_RESOURCE_API_URL=http://resources/api/resources
       - MEGAPHONE_CRAWL_MESSAGE_API_URL=http://crawler/api/crawl
-    networks:
-      - megaphone-network
     ports:
       - "2001:80"
   crawler-dapr:
@@ -96,5 +89,3 @@ services:
     command: ["./placement", "-port", "50006"]
     ports:
       - "50006:50006"
-    networks:
-      - megaphone-network

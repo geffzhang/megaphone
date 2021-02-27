@@ -7,7 +7,8 @@ networks:
       config:
         - subnet: 172.28.0.0/16
 volumes:
-  sqlserver:
+  sqlserver_volume:
+  rabbitmq_volume:
 services:
   ############################
   # SQL Server
@@ -16,12 +17,13 @@ services:
     container_name: sqlserver
     restart: always
     image: mcr.microsoft.com/mssql/server:2019-CU9-ubuntu-16.04
+    hostname: sqlserver
     environment:
     - ACCEPT_EULA=y
     - MSSQL_PID=Developer
     - MSSQL_SA_PASSWORD=Qwerty1!
     volumes:
-    - "sqlserver:/var/opt/mssql"
+    - "sqlserver_volume:/var/opt/mssql"
     networks:
       - megaphone-network
     ports:
@@ -61,4 +63,4 @@ services:
       - "5671:5671"
       - "5672:5672"
     volumes:
-      - "/volume2/docker/rabbitmq:/var/lib/rabbitmq"
+      - "rabbitmq_volume:/var/lib/rabbitmq"
