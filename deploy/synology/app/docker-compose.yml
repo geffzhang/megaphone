@@ -1,0 +1,100 @@
+version: "3.9"
+networks:
+  megaphone-network:
+    name: megaphone-network
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
+services:
+  ############################
+  # Resources + Dapr sidecar
+  ############################
+  resources:
+    container_name: resources
+    restart: always
+    image: ds1520plusregistry.azurecr.io/resources:1.0.0-preview-7
+    depends_on:
+      - placement
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - ASPNETCORE_URLS=http://+:80
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - AzureWebJobsScriptRoot=/home/site/wwwroot
+      - HOME=/home
+      - FUNCTIONS_WORKER_RUNTIME=dotnet
+      - DOTNET_USE_POLLING_FILE_WATCHER=false
+      - HOST_VERSION=3.0.15277
+      - AzureFunctionsJobHost__Logupdateging__Console__IsEnabled=true
+    networks:
+      - megaphone-network
+    ports:
+      - "2002:80"
+  resources-dapr:
+    container_name: resources-dapr
+    restart: always
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+     "-app-id", "resources",
+     "-app-port", "3000",
+     "-placement-host-address", "placement:50006",
+     "-dapr-grpc-port", "50002",
+     "-components-path", "/components"]
+    volumes:
+        - "./components/:/components"
+    depends_on:
+      - resources
+    network_mode: "service:resources" 
+  ############################
+  # Crawler + Dapr sidecar
+  ############################
+  crawler:
+    container_name: crawler
+    restart: always
+    image: ds1520plusregistry.azurecr.io/resources:1.0.0-preview-7
+    depends_on:
+      - placement
+      - resources
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - ASPNETCORE_URLS=http://+:80
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - AzureWebJobsScriptRoot=/home/site/wwwroot
+      - HOME=/home
+      - FUNCTIONS_WORKER_RUNTIME=dotnet
+      - DOTNET_USE_POLLING_FILE_WATCHER=false
+      - HOST_VERSION=3.0.15277
+      - AzureFunctionsJobHost__Logupdateging__Console__IsEnabled=true
+      - MEGAPHONE_RESOURCE_PUSH=true
+      - MEGAPHONE_RESOURCE_API_URL=http://resources/api/resources
+      - MEGAPHONE_CRAWL_MESSAGE_API_URL=http://crawler/api/crawl
+    networks:
+      - megaphone-network
+    ports:
+      - "2001:80"
+  crawler-dapr:
+    container_name: crawler-dapr
+    restart: always
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+     "-app-id", "crawler",
+     "-app-port", "3000",
+     "-placement-host-address", "placement:50006",
+     "-dapr-grpc-port", "50002",
+     "-components-path", "/components"]
+    volumes:
+        - "./components/:/components"
+    depends_on:
+      - crawler
+    network_mode: "service:crawler"
+  ############################
+  # Dapr placement service
+  ############################
+  placement:
+    image: "daprio/dapr"
+    container_name: placement
+    command: ["./placement", "-port", "50006"]
+    ports:
+      - "50006:50006"
+    networks:
+      - megaphone-network
