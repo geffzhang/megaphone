@@ -11,6 +11,6 @@ spec:
   - name: tableName
     value: resources
   - name: keyType 
-    value: "uuid"
+    value: "string"
 scope:
   -resources
