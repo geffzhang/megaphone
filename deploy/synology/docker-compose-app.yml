@@ -46,7 +46,7 @@ services:
   crawler:
     container_name: crawler
     restart: always
-    image: ds1520plusregistry.azurecr.io/crawler:1.0.0-preview-58
+    image: ds1520plusregistry.azurecr.io/crawler:1.0.0-preview-59
     depends_on:
       - placement
       - resources
