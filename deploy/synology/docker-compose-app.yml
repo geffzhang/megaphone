@@ -20,10 +20,12 @@ services:
       - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
       - DOTNET_VERSION=5.0.3
       - ASPNET_VERSION=5.0.3
+      - DAPR_HTTP_PORT=3500
+      - DAPR_GRPC_PORT=50001
     ports:
-      - "2002:80"
-      - "52001:50001"
-      - "52002:50002"
+      - "10000:80"
+      - "10001:50001"
+      - "10002:3500"
   resources-dapr:
     container_name: resources-dapr
     restart: always
@@ -32,7 +34,7 @@ services:
      "-app-id", "resources",
      "-app-port", "80",
      "-dapr-grpc-port", "50001",
-     "-dapr-http-port", "50002",
+     "-dapr-http-port", "3500",
      "-placement-host-address", "placement:50006",
      "-components-path", "/components"]
     volumes:
@@ -46,7 +48,7 @@ services:
   crawler:
     container_name: crawler
     restart: always
-    image: ds1520plusregistry.azurecr.io/crawler:1.0.0-preview-60
+    image: ds1520plusregistry.azurecr.io/crawler:1.0.0-preview-62
     depends_on:
       - placement
       - resources
@@ -57,10 +59,12 @@ services:
       - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
       - DOTNET_VERSION=5.0.3
       - ASPNET_VERSION=5.0.3
+      - DAPR_HTTP_PORT=3500
+      - DAPR_GRPC_PORT=50001
     ports:
-      - "2001:80"
-      - "51001:50001"
-      - "51002:50002"
+      - "20000:80"
+      - "20001:50001"
+      - "20002:3500"
   crawler-dapr:
     container_name: crawler-dapr
     restart: always
@@ -69,7 +73,7 @@ services:
      "-app-id", "crawler",
      "-app-port", "80",
      "-dapr-grpc-port", "50001",
-     "-dapr-http-port", "50002",
+     "-dapr-http-port", "3500",
      "-placement-host-address", "placement:50006",
      "-components-path", "/components"]
     volumes:
@@ -77,6 +81,44 @@ services:
     depends_on:
       - crawler
     network_mode: "service:crawler"
+  ############################
+  # Crawler + Dapr sidecar
+  ############################
+  feeds:
+    container_name: feeds
+    restart: always
+    image: ds1520plusregistry.azurecr.io/feeds:1.0.0-preview-3
+    depends_on:
+      - placement
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - ASPNETCORE_URLS=http://+:80
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
+      - DOTNET_VERSION=5.0.3
+      - ASPNET_VERSION=5.0.3
+      - DAPR_HTTP_PORT=3500
+      - DAPR_GRPC_PORT=50001
+    ports:
+      - "30000:80"
+      - "30001:50001"
+      - "30002:3500"
+  feeds-dapr:
+    container_name: feeds-dapr
+    restart: always
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+     "-app-id", "feeds",
+     "-app-port", "80",
+     "-dapr-grpc-port", "50001",
+     "-dapr-http-port", "3500",
+     "-placement-host-address", "placement:50006",
+     "-components-path", "/components"]
+    volumes:
+        - "./components/:/components"
+    depends_on:
+      - feeds
+    network_mode: "service:feeds"
   ############################
   # Dapr placement service
   ############################
