@@ -7,7 +7,7 @@ spec:
   type: bindings.rabbitmq
   metadata:
   - name: queueName
-    value: "crawl-queue"
+    value: "crawl-requests"
   - name: host
     value: "amqp://guest:guest@rabbitmq:5672"
   - name: durable

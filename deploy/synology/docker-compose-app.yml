@@ -46,7 +46,7 @@ services:
   crawler:
     container_name: crawler
     restart: always
-    image: ds1520plusregistry.azurecr.io/crawler:1.0.0-preview-59
+    image: ds1520plusregistry.azurecr.io/crawler:1.0.0-preview-60
     depends_on:
       - placement
       - resources
@@ -54,15 +54,9 @@ services:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - ASPNETCORE_URLS=http://+:80
       - DOTNET_RUNNING_IN_CONTAINER=true
-      - AzureWebJobsScriptRoot=/home/site/wwwroot
-      - HOME=/home
-      - FUNCTIONS_WORKER_RUNTIME=dotnet
-      - DOTNET_USE_POLLING_FILE_WATCHER=false
-      - HOST_VERSION=3.0.15277
-      - AzureFunctionsJobHost__Logupdateging__Console__IsEnabled=true
-      - MEGAPHONE_RESOURCE_PUSH=true
-      - MEGAPHONE_RESOURCE_API_URL=http://resources/api/resources
-      - MEGAPHONE_CRAWL_MESSAGE_API_URL=http://crawler/api/crawl
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
+      - DOTNET_VERSION=5.0.3
+      - ASPNET_VERSION=5.0.3
     ports:
       - "2001:80"
       - "51001:50001"
