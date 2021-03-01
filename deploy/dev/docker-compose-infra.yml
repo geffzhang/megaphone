@@ -9,6 +9,11 @@ services:
   ############################
   # RabbitMQ
   ############################
+  dapr_redis:
+    image: 'redis:latest'
+  ############################
+  # RabbitMQ
+  ############################
   rabbitmq:
     container_name: rabbitmq
     restart: always
@@ -29,14 +34,5 @@ services:
       - LANG=C.UTF-8
       - LANGUAGE=C.UTF-8
       - LC_ALL=C.UTF-8
-    # ports:
-    #   - "15671:15671"
-    #   - "15672:15672"
-    #   - "15691:15691"
-    #   - "15692:15692"
-    #   - "25672:25672"
-    #   - "4369:4369"
-    #   - "5671:5671"
-    #   - "5672:5672"
     volumes:
       - "rabbitmq_volume:/var/lib/rabbitmq"
