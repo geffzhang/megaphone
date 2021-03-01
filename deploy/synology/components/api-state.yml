@@ -1,0 +1,16 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: api-state
+spec:
+  type: state.sqlserver
+  version: v1
+  metadata:
+  - name: connectionString
+    value: "Server=sqlserver;Database=megaphone;User Id=sa;Password=Qwerty1!;"
+  - name: tableName
+    value: api-state
+  - name: keyType 
+    value: "string"
+scope:
+  -api

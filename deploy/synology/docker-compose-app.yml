@@ -90,6 +90,7 @@ services:
     image: ds1520plusregistry.azurecr.io/feeds:1.0.0-preview-3
     depends_on:
       - placement
+      - api
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - ASPNETCORE_URLS=http://+:80
@@ -119,6 +120,44 @@ services:
     depends_on:
       - feeds
     network_mode: "service:feeds"
+  ############################
+  # Crawler + Dapr sidecar
+  ############################
+  api:
+    container_name: api
+    restart: always
+    image: ds1520plusregistry.azurecr.io/api:1.0.0-preview-2
+    depends_on:
+      - placement
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - ASPNETCORE_URLS=http://+:80
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
+      - DOTNET_VERSION=5.0.3
+      - ASPNET_VERSION=5.0.3
+      - DAPR_HTTP_PORT=3500
+      - DAPR_GRPC_PORT=50001
+    ports:
+      - "40000:80"
+      - "40001:50001"
+      - "40002:3500"
+  api-dapr:
+    container_name: api-dapr
+    restart: always
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+     "-app-id", "api",
+     "-app-port", "80",
+     "-dapr-grpc-port", "50001",
+     "-dapr-http-port", "3500",
+     "-placement-host-address", "placement:50006",
+     "-components-path", "/components"]
+    volumes:
+        - "./components/:/components"
+    depends_on:
+      - api
+    network_mode: "service:api"
   ############################
   # Dapr placement service
   ############################
