@@ -12,5 +12,3 @@ spec:
     value: "api_state"
   - name: keyType 
     value: "string"
-scope:
-  -api

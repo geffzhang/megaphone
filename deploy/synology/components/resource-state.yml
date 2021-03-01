@@ -12,5 +12,3 @@ spec:
     value: "resource_state"
   - name: keyType 
     value: "string"
-scope:
-  -resources
