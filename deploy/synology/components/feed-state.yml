@@ -9,7 +9,7 @@ spec:
   - name: connectionString
     value: "Server=sqlserver;Database=megaphone;User Id=sa;Password=Qwerty1!;"
   - name: tableName
-    value: feeds
+    value: "feed_state"
   - name: keyType 
     value: "string"
 scope:
