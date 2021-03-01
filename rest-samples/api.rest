@@ -1,0 +1,69 @@
+@api = HD:40002
+
+### List Resources for Today
+GET http://{{api}}/v1.0/invoke/api/method/api/resources/
+
+
+### List Resources by Month
+GET http://{{api}}/v1.0/invoke/api/method/api/resources/2020/07
+
+### List Resources by Month
+GET http://{{api}}/v1.0/invoke/api/method/api/resources/2020/06
+
+
+
+### List Resources by Specific Date
+GET http://{{api}}/v1.0/invoke/api/method/api/resources/2020/06/30
+
+### List Resources by Specific Date
+GET http://{{api}}/v1.0/invoke/api/method/api/resources/2020/07/06
+
+### List Resources by Specific Date
+GET http://{{api}}/v1.0/invoke/api/method/api/resources/2020/07/07
+
+
+
+### List Feeds
+GET http://{{api}}/v1.0/invoke/api/method/api/feeds
+
+
+
+### Remove item from Watch feed
+DELETE http://{{api}}/v1.0/invoke/api/method/api/feeds/740f3d2f-2eb2-50e4-b695-aeed86dfe674
+
+### Remove item from Watch feed
+DELETE http://{{api}}/v1.0/invoke/api/method/api/feeds/c50f7543-6b69-5e46-ae5e-bf0b82dede0e
+
+
+
+### Add Azure roadmap
+POST http://{{api}}/v1.0/invoke/api/method/api/feeds
+Content-Type: application/json
+
+{
+    "url": "https://azure.microsoft.com/en-us/roadmap/feed/"
+}
+
+### Add item to Watch feed
+POST http://{{api}}/v1.0/invoke/api/method/api/feeds
+Content-Type: application/json
+
+{
+    "url": "https://devblogs.microsoft.com/dotnet/feed/"
+}
+
+### Add item to Watch feed
+POST http://{{api}}/v1.0/invoke/api/method/api/feeds
+Content-Type: application/json
+
+{
+    "url": "https://azure.microsoft.com/en-us/blog/feed/"
+}
+
+### Add item to Watch feed
+POST http://{{api}}/v1.0/invoke/api/method/api/feeds
+Content-Type: application/json
+
+{
+    "url": "https://cloudblogs.microsoft.com/opensource/feed/"
+}

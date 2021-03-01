@@ -1,0 +1,4 @@
+@list-service-daprhttp = 127.0.0.1:5480 
+
+### dapr secrets   
+GET http://{{list-service-daprhttp}}/v1.0/secrets/azurekeyvault/megaphone-servicebus-cs

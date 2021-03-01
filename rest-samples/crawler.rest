@@ -1,0 +1,9 @@
+@crawl-service = 127.0.0.1:5180
+
+### request Crawl
+POST http://{{crawl-service}}/v1.0/publish/crawl
+Content-Type: application/json
+
+{
+    "url": "https://azure.microsoft.com/en-us/roadmap/feed/"
+}
