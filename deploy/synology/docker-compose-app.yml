@@ -10,7 +10,7 @@ services:
   resources:
     container_name: resources
     restart: always
-    image: ds1520plusregistry.azurecr.io/resources:1.0.0-preview-10
+    image: ds1520plusregistry.azurecr.io/resources:latest
     depends_on:
       - placement
     environment:
@@ -50,7 +50,7 @@ services:
   crawler:
     container_name: crawler
     restart: always
-    image: ds1520plusregistry.azurecr.io/crawler:1.0.0-preview-62
+    image: ds1520plusregistry.azurecr.io/crawler:latest
     depends_on:
       - placement
       - resources
@@ -91,7 +91,7 @@ services:
   feeds:
     container_name: feeds
     restart: always
-    image: ds1520plusregistry.azurecr.io/feeds:1.0.0-preview-5
+    image: ds1520plusregistry.azurecr.io/feeds:latest
     depends_on:
       - placement
       - api
@@ -133,7 +133,7 @@ services:
   api:
     container_name: api
     restart: always
-    image: ds1520plusregistry.azurecr.io/api:1.0.0-preview-3
+    image: ds1520plusregistry.azurecr.io/api:latest
     depends_on:
       - placement
     environment:
