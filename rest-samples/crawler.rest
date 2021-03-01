@@ -1,4 +1,4 @@
-@crawl-service = 127.0.0.1:5180
+@crawl-service = localhost:3500
 
 ### request Crawl
 POST http://{{crawl-service}}/v1.0/publish/crawl

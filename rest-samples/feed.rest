@@ -1,5 +1,4 @@
-@feed-service = 127.0.0.1:5200
-@feed-service-daprhttp = 127.0.0.1:5280 
+@feed-service-daprhttp = localhost:3500 
 
 ### post resource feed update event (reset)
 POST http://{{feed-service-daprhttp}}/v1.0/publish/resource-feed-updates
@@ -16,14 +15,14 @@ Content-Type: application/json
 
 
 ### Get Watch feed
-GET http://{{feed-service}}/api/feeds
+GET http://{{feed-service-daprhttp}}/v1.0/invoke/feeds/method/api/feeds
 
 
 ### List Resources
-GET http://{{feed-service}}/api/resources/2020/06/30
+GET http://{{feed-service-daprhttp}}/v1.0/invoke/feeds/method/api/resources/2020/06/30
 ### List Resources
-GET http://{{feed-service}}/api/resources/2020/07/06
+GET http://{{feed-service-daprhttp}}/v1.0/invoke/feeds/method/api/resources/2020/07/06
 ### List Resources
-GET http://{{feed-service}}/api/resources/2020/07/07
+GET http://{{feed-service-daprhttp}}/v1.0/invoke/feeds/method/api/resources/2020/07/07
 ### List Resources
-GET http://{{feed-service}}/api/resources/2020/07/08
+GET http://{{feed-service-daprhttp}}/v1.0/invoke/feeds/method/api/resources/2020/07/08
