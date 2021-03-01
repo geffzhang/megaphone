@@ -1,4 +1,4 @@
-@api = HD:40002
+@api = localhost:3500
 
 ### List Resources for Today
 GET http://{{api}}/v1.0/invoke/api/method/api/resources/

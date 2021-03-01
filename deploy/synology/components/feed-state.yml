@@ -12,5 +12,3 @@ spec:
     value: "feed_state"
   - name: keyType 
     value: "string"
-scope:
-  -feeds
