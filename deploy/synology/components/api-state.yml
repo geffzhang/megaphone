@@ -9,7 +9,7 @@ spec:
   - name: connectionString
     value: "Server=sqlserver;Database=megaphone;User Id=sa;Password=Qwerty1!;"
   - name: tableName
-    value: api-state
+    value: "api_state"
   - name: keyType 
     value: "string"
 scope:
