@@ -11,8 +11,6 @@ services:
     container_name: resources
     restart: always
     image: ds1520plusregistry.azurecr.io/resources:latest
-    depends_on:
-      - placement
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - ASPNETCORE_URLS=http://+:80
@@ -52,7 +50,6 @@ services:
     restart: always
     image: ds1520plusregistry.azurecr.io/crawler:latest
     depends_on:
-      - placement
       - resources
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -93,7 +90,6 @@ services:
     restart: always
     image: ds1520plusregistry.azurecr.io/feeds:latest
     depends_on:
-      - placement
       - api
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -134,8 +130,6 @@ services:
     container_name: api
     restart: always
     image: ds1520plusregistry.azurecr.io/api:latest
-    depends_on:
-      - placement
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - ASPNETCORE_URLS=http://+:80
