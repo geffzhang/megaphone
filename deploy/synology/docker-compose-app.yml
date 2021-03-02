@@ -167,12 +167,3 @@ services:
     depends_on:
       - api
     network_mode: "service:api"
-  ############################
-  # Dapr placement service
-  ############################
-  placement:
-    image: "daprio/dapr"
-    container_name: placement
-    command: ["./placement", "-port", "50006"]
-    ports:
-      - "50006:50006"
