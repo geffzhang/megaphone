@@ -27,7 +27,7 @@ services:
      - "10003:9090" # metrics-port
      - "10004:7777" # profile-port
   resources-dapr:
-    container_name: resources-dapr
+    container_name: dapr_resources
     restart: always
     image: "daprio/daprd:edge"
     command: ["./daprd",
@@ -67,7 +67,7 @@ services:
       - "20003:9090" # metrics-port
       - "20004:7777" # profile-port
   crawler-dapr:
-    container_name: crawler-dapr
+    container_name: dapr_crawler
     restart: always
     image: "daprio/daprd:edge"
     command: ["./daprd",
@@ -107,7 +107,7 @@ services:
       - "30003:9090" # metrics-port
       - "30004:7777" # profile-port
   feeds-dapr:
-    container_name: feeds-dapr
+    container_name: dapr_feeds
     restart: always
     image: "daprio/daprd:edge"
     command: ["./daprd",
@@ -146,7 +146,7 @@ services:
       - "40003:9090" # metrics-port
       - "40004:7777" # profile-port
   api-dapr:
-    container_name: api-dapr
+    container_name: dapr_api
     restart: always
     image: "daprio/daprd:edge"
     command: ["./daprd",
