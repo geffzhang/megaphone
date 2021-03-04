@@ -6,22 +6,11 @@ GET http://{{api}}/v1.0/invoke/api/method/api/resources/
 
 
 ### List Resources by Month
-GET http://{{api}}/v1.0/invoke/api/method/api/resources/2021/1
-
-### List Resources by Month
-GET http://{{api}}/v1.0/invoke/api/method/api/resources/2021/2
-
+GET http://{{api}}/v1.0/invoke/api/method/api/resources/2021/3
 
 
 ### List Resources by Specific Date
 GET http://{{api}}/v1.0/invoke/api/method/api/resources/2021/3/1
-
-### List Resources by Specific Date
-GET http://{{api}}/v1.0/invoke/api/method/api/resources/2020/2/28
-
-### List Resources by Specific Date
-GET http://{{api}}/v1.0/invoke/api/method/api/resources/2020/2/2
-
 
 
 ### List Feeds
