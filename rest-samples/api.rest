@@ -1,4 +1,4 @@
-@api = localhost:3500
+#@api = localhost:3500
 @api = HD:40002
 
 ### List Resources for Today
@@ -10,7 +10,7 @@ GET http://{{api}}/v1.0/invoke/api/method/api/resources/2021/3
 
 
 ### List Resources by Specific Date
-GET http://{{api}}/v1.0/invoke/api/method/api/resources/2021/3/1
+GET http://{{api}}/v1.0/invoke/api/method/api/resources/2021/3/2
 
 
 ### List Feeds

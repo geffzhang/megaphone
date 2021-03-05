@@ -36,8 +36,10 @@ services:
      "-dapr-grpc-port", "50001",
      "-dapr-http-port", "3500",
      "-placement-host-address", "placement:50006",
-     "-components-path", "/components"]
+     "-components-path", "/components",
+     "-config", "/configurations/configs.yml"]
     volumes:
+        - "./configurations/configs.yml:/configurations/configs.yml"
         - "./components/:/components"
     depends_on:
       - resources
@@ -76,8 +78,10 @@ services:
      "-dapr-grpc-port", "50001",
      "-dapr-http-port", "3500",
      "-placement-host-address", "placement:50006",
-     "-components-path", "/components"]
+     "-components-path", "/components",
+     "-config", "/configurations/configs.yml"]
     volumes:
+        - "./configurations/configs.yml:/configurations/configs.yml"
         - "./components/:/components"
     depends_on:
       - crawler
@@ -117,8 +121,10 @@ services:
      "-dapr-grpc-port", "50001",
      "-dapr-http-port", "3500",
      "-placement-host-address", "placement:50006",
-     "-components-path", "/components"]
+     "-components-path", "/components",
+     "-config", "/configurations/configs.yml"]
     volumes:
+        - "./configurations/configs.yml:/configurations/configs.yml"
         - "./components/:/components"
     depends_on:
       - feeds
@@ -155,8 +161,10 @@ services:
      "-dapr-grpc-port", "50001",
      "-dapr-http-port", "3500",
      "-placement-host-address", "placement:50006",
-     "-components-path", "/components"]
+     "-components-path", "/components",
+     "-config", "/configurations/configs.yml"]
     volumes:
+        - "./configurations/configs.yml:/configurations/configs.yml"
         - "./components/:/components"
     depends_on:
       - api

@@ -11,6 +11,28 @@ volumes:
   rabbitmq_volume:
 services:
   ############################
+  # openzipkin/zipkin
+  ############################
+  placement:
+    container_name: dapr_placement
+    image: "daprio/dapr"
+    command: ["./placement", "-port", "50006"]
+    ports:
+      - "50006:50006"
+    networks:
+      - megaphone-network
+  ############################
+  # openzipkin/zipkin
+  ############################
+  zipkin:
+    container_name: dapr_zipkin
+    restart: always
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - megaphone-network
+  ############################
   # SQL Server
   ############################
   sqlserver:
@@ -19,11 +41,11 @@ services:
     image: mcr.microsoft.com/mssql/server:2019-CU9-ubuntu-16.04
     hostname: sqlserver
     environment:
-    - ACCEPT_EULA=y
-    - MSSQL_PID=Developer
-    - MSSQL_SA_PASSWORD=Qwerty1!
+      - ACCEPT_EULA=y
+      - MSSQL_PID=Developer
+      - MSSQL_SA_PASSWORD=Qwerty1!
     volumes:
-    - "sqlserver_volume:/var/opt/mssql"
+      - "sqlserver_volume:/var/opt/mssql"
     networks:
       - megaphone-network
     ports:
