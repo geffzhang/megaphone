@@ -4,7 +4,7 @@ echo "deploy infra"
 docker-compose -p megaphone-infra -f docker-compose-infra.yml pull
 docker-compose -p megaphone-infra -f docker-compose-infra.yml up -d --force-recreate
 
-echo "wait (1 minute) for SQL to be ready"
+echo "[wait] -> (45 seconds) for SQL to be ready"
 sleep 45s
 
 echo "create megaphone database"
@@ -16,5 +16,12 @@ echo "deploy app"
 docker-compose -p megaphone-app -f docker-compose-app.yml pull
 docker-compose -p megaphone-app -f docker-compose-app.yml up -d --force-recreate
 
+echo "cleanup"
+
 docker image prune -a -f
 docker volume prune -f
+
+echo "[wait] -> (30 seconds) for warm-up"
+sleep 30s
+
+bash dataload.sh

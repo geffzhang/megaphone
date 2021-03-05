@@ -24,14 +24,14 @@ services:
   ############################
   # openzipkin/zipkin
   ############################
-  zipkin:
-    container_name: dapr_zipkin
-    restart: always
-    image: openzipkin/zipkin
-    ports:
-      - "9411:9411"
-    networks:
-      - megaphone-network
+  #zipkin:
+  #  container_name: dapr_zipkin
+  #  restart: always
+  #  image: openzipkin/zipkin
+  #  ports:
+  #    - "9411:9411"
+  #  networks:
+  #    - megaphone-network
   ############################
   # otel/opentelemetry-collector
   ############################
