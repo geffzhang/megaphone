@@ -20,6 +20,7 @@ echo "cleanup"
 
 docker image prune -a -f
 docker volume prune -f
+docker system prune -f
 
 echo "[wait] -> (30 seconds) for warm-up"
 sleep 30s
