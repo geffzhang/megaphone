@@ -62,3 +62,14 @@ Content-Type: application/json
 
 ### Remove OSS
 DELETE http://{{api}}/v1.0/invoke/api/method/api/feeds/013f232c-b274-56fe-8feb-a037535d2dd4
+
+### Add App Service Blog
+POST http://{{api}}/v1.0/invoke/api/method/api/feeds
+Content-Type: application/json
+
+{
+    "url": "https://azure.github.io/AppService/feed"
+}
+
+### Remove OSS
+DELETE http://{{api}}/v1.0/invoke/api/method/api/feeds/019f8f27-c32d-5834-a1e4-6b18ffcf7123

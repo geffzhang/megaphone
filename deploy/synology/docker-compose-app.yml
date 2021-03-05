@@ -37,9 +37,9 @@ services:
      "-dapr-http-port", "3500",
      "-placement-host-address", "placement:50006",
      "-components-path", "/components",
-     "-config", "/configurations/configs.yml"]
+     "-config", "/configurations/opentelemetry-collector-configuration.yml"]
     volumes:
-        - "./configurations/configs.yml:/configurations/configs.yml"
+        - "./configurations/opentelemetry-collector-configuration.yml:/configurations/opentelemetry-collector-configuration.yml"
         - "./components/:/components"
     depends_on:
       - resources
@@ -79,9 +79,9 @@ services:
      "-dapr-http-port", "3500",
      "-placement-host-address", "placement:50006",
      "-components-path", "/components",
-     "-config", "/configurations/configs.yml"]
+     "-config", "/configurations/opentelemetry-collector-configuration.yml"]
     volumes:
-        - "./configurations/configs.yml:/configurations/configs.yml"
+        - "./configurations/opentelemetry-collector-configuration.yml:/configurations/opentelemetry-collector-configuration.yml"
         - "./components/:/components"
     depends_on:
       - crawler
@@ -122,9 +122,9 @@ services:
      "-dapr-http-port", "3500",
      "-placement-host-address", "placement:50006",
      "-components-path", "/components",
-     "-config", "/configurations/configs.yml"]
+     "-config", "/configurations/opentelemetry-collector-configuration.yml"]
     volumes:
-        - "./configurations/configs.yml:/configurations/configs.yml"
+        - "./configurations/opentelemetry-collector-configuration.yml:/configurations/opentelemetry-collector-configuration.yml"
         - "./components/:/components"
     depends_on:
       - feeds
@@ -162,9 +162,9 @@ services:
      "-dapr-http-port", "3500",
      "-placement-host-address", "placement:50006",
      "-components-path", "/components",
-     "-config", "/configurations/configs.yml"]
+     "-config", "/configurations/opentelemetry-collector-configuration.yml"]
     volumes:
-        - "./configurations/configs.yml:/configurations/configs.yml"
+        - "./configurations/opentelemetry-collector-configuration.yml:/configurations/opentelemetry-collector-configuration.yml"
         - "./components/:/components"
     depends_on:
       - api

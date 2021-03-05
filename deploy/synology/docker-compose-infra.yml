@@ -11,7 +11,7 @@ volumes:
   rabbitmq_volume:
 services:
   ############################
-  # openzipkin/zipkin
+  # daprio/dapr
   ############################
   placement:
     container_name: dapr_placement
@@ -32,6 +32,21 @@ services:
       - "9411:9411"
     networks:
       - megaphone-network
+  ############################
+  # otel/opentelemetry-collector
+  ############################
+  opentelemetry_collector:
+    container_name: opentelemetry_collector
+    restart: always
+    image: otel/opentelemetry-collector-contrib-dev:latest
+    ports:
+      - "9412:9412"
+    networks:
+      - megaphone-network
+    command: ["./otelcol",
+     "--config", "/configurations/open-telemetry-collector-appinsights.yml"]
+    volumes:
+        - "./configurations/open-telemetry-collector-appinsights.yml:/configurations/open-telemetry-collector-appinsights.yml"
   ############################
   # SQL Server
   ############################
