@@ -27,7 +27,7 @@ services:
      - "10002:3500" # dapr-http-port 
      - "10003:9090" # metrics-port
      - "10004:7777" # profile-port
-  resources-dapr:
+  dapr_resources:
     container_name: dapr_resources
     restart: always
     image: "daprio/daprd:edge"
@@ -70,7 +70,7 @@ services:
       - "20002:3500" # dapr-http-port 
       - "20003:9090" # metrics-port
       - "20004:7777" # profile-port
-  crawler-dapr:
+  dapr_crawler:
     container_name: dapr_crawler
     restart: always
     image: "daprio/daprd:edge"
@@ -114,7 +114,7 @@ services:
       - "30002:3500" # dapr-http-port 
       - "30003:9090" # metrics-port
       - "30004:7777" # profile-port
-  feeds-dapr:
+  dapr_feeds:
     container_name: dapr_feeds
     restart: always
     image: "daprio/daprd:edge"
@@ -156,7 +156,7 @@ services:
       - "40002:3500" # dapr-http-port 
       - "40003:9090" # metrics-port
       - "40004:7777" # profile-port
-  api-dapr:
+  dapr_api:
     container_name: dapr_api
     restart: always
     image: "daprio/daprd:edge"
@@ -174,3 +174,44 @@ services:
     depends_on:
       - api
     network_mode: "service:api"
+  ############################
+  # App + Dapr sidecar
+  ############################
+  app:
+    container_name: app
+    restart: always
+    image: ds1520plusregistry.azurecr.io/app:latest
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - ASPNETCORE_URLS=http://+:80
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
+      - DOTNET_VERSION=5.0.3
+      - ASPNET_VERSION=5.0.3
+      - DAPR_HTTP_PORT=3500
+      - DAPR_GRPC_PORT=50001
+      - INSTRUMENTATION_KEY=9a7662a3-3a20-498b-b88e-324697bd783d
+    ports:
+      - "50000:80" # app-port
+      - "50001:50001" # dapr-grpc-port
+      - "50002:3500" # dapr-http-port 
+      - "50003:9090" # metrics-port
+      - "50004:7777" # profile-port
+  dapr_app:
+    container_name: dapr_app
+    restart: always
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+     "-app-id", "app",
+     "-app-port", "80",
+     "-dapr-grpc-port", "50001",
+     "-dapr-http-port", "3500",
+     "-placement-host-address", "placement:50006",
+     "-components-path", "/components",
+     "-config", "/configurations/opentelemetry-collector-configuration.yml"]
+    volumes:
+        - "./configurations/opentelemetry-collector-configuration.yml:/configurations/opentelemetry-collector-configuration.yml"
+        - "./components/:/components"
+    depends_on:
+      - app
+    network_mode: "service:app"
