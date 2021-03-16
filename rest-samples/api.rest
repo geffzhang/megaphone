@@ -21,6 +21,7 @@ POST http://{{api}}/v1.0/invoke/api/method/api/feeds
 Content-Type: application/json
 
 {
+    "display" : "",
     "url": "https://azure.microsoft.com/en-us/roadmap/feed/"
 }
 
