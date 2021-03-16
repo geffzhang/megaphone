@@ -21,7 +21,7 @@ sleep 0.2s
 echo "Azure DevOps Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/devops/feed/", "display":"Azure DevOps Blog""}' \
+  --data '{"url": "https://devblogs.microsoft.com/devops/feed/", "display":"Azure DevOps Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "ASP.NET Blog"
@@ -81,7 +81,7 @@ sleep 0.2s
 echo "Azure SDK Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/azure-sdk/feed/", "display":"Azure SDK Blog""}' \
+  --data '{"url": "https://devblogs.microsoft.com/azure-sdk/feed/", "display":"Azure SDK Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Azure SQL Devs’ Corner"
@@ -123,7 +123,7 @@ sleep 0.2s
 echo "Java at Microsoft"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/java/feed/", "display":"Java at Microsoft""}' \
+  --data '{"url": "https://devblogs.microsoft.com/java/feed/", "display":"Java at Microsoft"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "OData"

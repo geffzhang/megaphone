@@ -1,4 +1,4 @@
-@resources-service = 127.0.0.1:5380
+@resources-service = HD:40002
 @resource-id = 740f3d2f-2eb2-50e4-b695-aeed86dfe674
 
 ### Update Resource

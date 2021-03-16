@@ -1,9 +1,31 @@
-@crawl-service = localhost:3500
+@crawl-service = HD:40002
 
-### request Crawl
-POST http://{{crawl-service}}/v1.0/publish/crawl
+### Direct API Call
+POST http://{{crawl-service}}/v1.0/invoke/crawler/method/crawl-requests
 Content-Type: application/json
 
 {
-    "url": "https://azure.microsoft.com/en-us/roadmap/feed/"
+    "id": "80bc3136-dac4-4aad-94ea-4f6c0c6648e7",
+    "action": "add-feed",
+    "created": "2021-02-21T19:28:18.8220101+00:00",
+    "parameters": {
+        "display" : "Microsoft Azure Blog",
+        "url": "https://azure.microsoft.com/en-us/blog/feed/"
+    },
+    "metadata": {}
+}
+
+### request Crawl
+POST http://{{crawl-service}}/v1.0/publish/crawl-requests
+Content-Type: application/json
+
+{
+    "id": "80bc3136-dac4-4aad-94ea-4f6c0c6648e7",
+    "action": "add-feed",
+    "created": "2021-02-21T19:28:18.8220101+00:00",
+    "parameters": {
+        "display" : "Microsoft Azure Blog",
+        "url": "https://azure.microsoft.com/en-us/blog/feed/"
+    },
+    "metadata": {}
 }
