@@ -375,7 +375,7 @@ sleep 0.2s
 echo "Microsoft Quantum"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://cloudblogs.microsoft.com/quantum/feed/", "display":""Microsoft Quantum"}' \
+  --data '{"url": "https://cloudblogs.microsoft.com/quantum/feed/", "display":"Microsoft Quantum"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "SQL Server Blog"
@@ -417,7 +417,7 @@ sleep 0.2s
 echo "Microsoft on Issues"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://blogs.microsoft.com/on-the-issues/feed/", "display":""}' \
+  --data '{"url": "https://blogs.microsoft.com/on-the-issues/feed/", "display":"Microsoft on Issues"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Microsoft 365"

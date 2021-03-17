@@ -13,5 +13,15 @@ spec:
     value: "true"
   - name: deletedWhenUnused
     value: "true"
-  - name: ttlInSeconds
-    value: 600
+  - name: autoAck
+    value: "false"
+  - name: deliveryMode
+    value: "0"
+  - name: requeueInFailure
+    value: "true"
+  - name: prefetchCount
+    value: "0"
+  - name: reconnectWait
+    value: "0"
+  - name: concurrencyMode
+    value: parallel

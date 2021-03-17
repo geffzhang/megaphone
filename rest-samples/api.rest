@@ -16,7 +16,7 @@ GET http://{{api}}/v1.0/invoke/api/method/api/resources/2021/3/2
 GET http://{{api}}/v1.0/invoke/api/method/api/feeds
 
 
-### Add Azure roadmap
+### Add Azure Blog
 POST http://{{api}}/v1.0/invoke/api/method/api/feeds
 Content-Type: application/json
 
