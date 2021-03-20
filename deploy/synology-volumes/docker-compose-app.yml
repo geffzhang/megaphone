@@ -21,6 +21,9 @@ services:
       - DAPR_HTTP_PORT=3500
       - DAPR_GRPC_PORT=50001
       - INSTRUMENTATION_KEY=9a7662a3-3a20-498b-b88e-324697bd783d
+      - USE-VOLUME-STORAGE=true
+    volumes: 
+        - "/volume2/docker/data/megaphone/resources:/data"
     ports:
      - "10000:80" # app-port
      - "10001:50001" # dapr-grpc-port
@@ -108,6 +111,9 @@ services:
       - DAPR_HTTP_PORT=3500
       - DAPR_GRPC_PORT=50001
       - INSTRUMENTATION_KEY=9a7662a3-3a20-498b-b88e-324697bd783d
+      - USE-VOLUME-STORAGE=true
+    volumes: 
+        - "/volume2/docker/data/megaphone/feeds:/data"
     ports:
       - "30000:80" # app-port
       - "30001:50001" # dapr-grpc-port
@@ -150,6 +156,9 @@ services:
       - DAPR_HTTP_PORT=3500
       - DAPR_GRPC_PORT=50001
       - INSTRUMENTATION_KEY=9a7662a3-3a20-498b-b88e-324697bd783d
+      - USE-VOLUME-STORAGE=true
+    volumes: 
+        - "/volume2/docker/data/megaphone/api:/data"
     ports:
       - "40000:80" # app-port
       - "40001:50001" # dapr-grpc-port
