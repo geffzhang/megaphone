@@ -112,6 +112,7 @@ services:
       - DAPR_GRPC_PORT=50001
       - INSTRUMENTATION_KEY=9a7662a3-3a20-498b-b88e-324697bd783d
       - USE-VOLUME-STORAGE=true
+      - SCHEDULE-CRAWL-INTERVAL=20
     volumes: 
         - "/volume2/docker/data/megaphone/feeds:/data"
     ports:
