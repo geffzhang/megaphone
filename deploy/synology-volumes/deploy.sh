@@ -2,19 +2,11 @@
 
 echo "deploy infra"
 docker-compose -p megaphone-infra -f docker-compose-infra.yml pull
-docker-compose -p megaphone-infra -f docker-compose-infra.yml up -d --force-recreate
-
-echo "[wait] -> (45 seconds) for SQL to be ready"
-sleep 45s
-
-echo "create megaphone database"
-docker exec -it sqlserver /opt/mssql-tools/bin/sqlcmd \
-   -S localhost -U sa -P "Qwerty1!" \
-   -Q 'CREATE DATABASE megaphone'
+docker-compose -p megaphone-infra -f docker-compose-infra.yml up -d --force-recreate --remove-orphans
 
 echo "deploy app"
 docker-compose -p megaphone-app -f docker-compose-app.yml pull
-docker-compose -p megaphone-app -f docker-compose-app.yml up -d --force-recreate
+docker-compose -p megaphone-app -f docker-compose-app.yml up -d --force-recreate --remove-orphans
 
 echo "cleanup"
 

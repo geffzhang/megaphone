@@ -126,7 +126,6 @@ services:
     image: "daprio/daprd:edge"
     command: ["./daprd",
      "-app-id", "feeds",
-     "-app-max-concurrency","1",
      "-app-port", "80",
      "-dapr-grpc-port", "50001",
      "-dapr-http-port", "3500",
