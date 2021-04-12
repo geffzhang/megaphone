@@ -25,3 +25,6 @@ spec:
     value: "0"
   - name: concurrencyMode
     value: parallel
+scopes:
+  - feeds
+  - api

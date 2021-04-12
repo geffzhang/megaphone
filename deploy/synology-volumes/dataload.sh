@@ -15,163 +15,163 @@ sleep 0.2s
 echo "Microsoft Azure Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://azure.microsoft.com/en-us/blog/feed/", "display":"Microsoft Azure Blog"}' \
+  --data '{"url": "https://azure.microsoft.com/en-us/blog/feed", "display":"Microsoft Azure Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Azure DevOps Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/devops/feed/", "display":"Azure DevOps Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/devops/feed", "display":"Azure DevOps Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "ASP.NET Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/aspnet/feed/", "display":"ASP.NET Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/aspnet/feed", "display":"ASP.NET Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo ".NET Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/dotnet/feed/", "display":".NET Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/dotnet/feed", "display":".NET Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Visual Studio Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/visualstudio/feed/", "display":"Visual Studio Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/visualstudio/feed", "display":"Visual Studio Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 
 echo "Xamarin Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/xamarin/feed/", "display":"Xamarin Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/xamarin/feed", "display":"Xamarin Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo ".NET Parallel Programming"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/pfxteam/feed/", "display":".NET Parallel Programming"}' \
+  --data '{"url": "https://devblogs.microsoft.com/pfxteam/feed", "display":".NET Parallel Programming"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Azure Cosmos DB Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/cosmosdb/feed/", "display":"Azure Cosmos DB Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/cosmosdb/feed", "display":"Azure Cosmos DB Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 
 echo "Azure Depth Platform"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/azure-depth-platform/feed/", "display":"Azure Depth Platform"}' \
+  --data '{"url": "https://devblogs.microsoft.com/azure-depth-platform/feed", "display":"Azure Depth Platform"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Azure Government"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/azuregov/feed/", "display":"Azure Government"}' \
+  --data '{"url": "https://devblogs.microsoft.com/azuregov/feed", "display":"Azure Government"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Azure Notification Hubs Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/azure-notification-hubs/feed/", "display":"Azure Notification Hubs Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/azure-notification-hubs/feed", "display":"Azure Notification Hubs Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Azure SDK Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/azure-sdk/feed/", "display":"Azure SDK Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/azure-sdk/feed", "display":"Azure SDK Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Azure SQL Devs’ Corner"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/azure-sdk/feed/", "display":"Azure SQL Devs’ Corner"}' \
+  --data '{"url": "https://devblogs.microsoft.com/azure-sdk/feed", "display":"Azure SQL Devs’ Corner"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 
 echo "CSE Developer Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/azure-sdk/feed/", "display":"CSE Developer Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/azure-sdk/feed", "display":"CSE Developer Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Creating Startups"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/startups/feed/", "display":"Creating Startups"}' \
+  --data '{"url": "https://devblogs.microsoft.com/startups/feed", "display":"Creating Startups"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Developer Support"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/premier-developer/feed/", "display":"Developer Support"}' \
+  --data '{"url": "https://devblogs.microsoft.com/premier-developer/feed", "display":"Developer Support"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 
 echo "DirectX Developer Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/directx/feed/", "display":"DirectX Developer Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/directx/feed", "display":"DirectX Developer Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "IoT Developer"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/iotdev/feed/", "display":"IoT Developer"}' \
+  --data '{"url": "https://devblogs.microsoft.com/iotdev/feed", "display":"IoT Developer"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Java at Microsoft"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/java/feed/", "display":"Java at Microsoft"}' \
+  --data '{"url": "https://devblogs.microsoft.com/java/feed", "display":"Java at Microsoft"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "OData"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/odata/feed/", "display":"OData"}' \
+  --data '{"url": "https://devblogs.microsoft.com/odata/feed", "display":"OData"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s 
 echo "Performance and Diagnostics"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/performance-diagnostics/feed/", "display":"Performance and Diagnostics"}' \
+  --data '{"url": "https://devblogs.microsoft.com/performance-diagnostics/feed", "display":"Performance and Diagnostics"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s  
 echo "PowerShell Community"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/powershell-community/feed/", "display":"PowerShell Community"}' \
+  --data '{"url": "https://devblogs.microsoft.com/powershell-community/feed", "display":"PowerShell Community"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s  
 echo "PowerShell Team"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/powershell/feed/", "display":"PowerShell Team"}' \
+  --data '{"url": "https://devblogs.microsoft.com/powershell/feed", "display":"PowerShell Team"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s  
 echo "Python Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/python/feed/", "display":"Python Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/python/feed", "display":"Python Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s 
 echo "Q# Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/qsharp/feed/", "display":"Q# Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/qsharp/feed", "display":"Q# Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s  
 echo "Nuget Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/nuget/feed/", "display":"Nuget Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/nuget/feed", "display":"Nuget Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s  
 echo "TypeScript Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/typescript/feed/", "display":"TypeScript Blog"}' \
+  --data '{"url": "https://devblogs.microsoft.com/typescript/feed", "display":"TypeScript Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s  
 echo "VisualStudio Code Blog"
@@ -351,7 +351,7 @@ sleep 0.2s
 echo "Azure updates"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://azure.microsoft.com/en-us/updates/feed/", "display":"Azure updates"}' \
+  --data '{"url": "https://azure.microsoft.com/en-us/updates/feed", "display":"Azure updates"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "OpenShift blog"
@@ -369,19 +369,19 @@ sleep 0.2s
 echo "Microsoft Power Platform Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://cloudblogs.microsoft.com/powerplatform/feed/", "display":"Microsoft Power Platform Blog"}' \
+  --data '{"url": "https://cloudblogs.microsoft.com/powerplatform/feed", "display":"Microsoft Power Platform Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Microsoft Quantum"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://cloudblogs.microsoft.com/quantum/feed/", "display":"Microsoft Quantum"}' \
+  --data '{"url": "https://cloudblogs.microsoft.com/quantum/feed", "display":"Microsoft Quantum"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "SQL Server Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://cloudblogs.microsoft.com/sqlserver/feed/", "display":"SQL Server Blog"}' \
+  --data '{"url": "https://cloudblogs.microsoft.com/sqlserver/feed", "display":"SQL Server Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Azure Friday"
@@ -411,19 +411,19 @@ sleep 0.2s
 echo "Microsoft Research"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://www.microsoft.com/en-us/research/feed/", "display":"Microsoft Research"}' \
+  --data '{"url": "https://www.microsoft.com/en-us/research/feed", "display":"Microsoft Research"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Microsoft on Issues"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://blogs.microsoft.com/on-the-issues/feed/", "display":"Microsoft on Issues"}' \
+  --data '{"url": "https://blogs.microsoft.com/on-the-issues/feed", "display":"Microsoft on Issues"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Microsoft 365"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://www.microsoft.com/en-us/microsoft-365/blog/feed/", "display":"Microsoft 365"}' \
+  --data '{"url": "https://www.microsoft.com/en-us/microsoft-365/blog/feed", "display":"Microsoft 365"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "Linkedin Blog"
@@ -435,11 +435,11 @@ sleep 0.2s
 echo "Developer Support"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://devblogs.microsoft.com/premier-developer/feed/", "display":"Developer Support"}' \
+  --data '{"url": "https://devblogs.microsoft.com/premier-developer/feed", "display":"Developer Support"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
 sleep 0.2s
 echo "The GitHub Blog"
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"url": "https://github.blog/feed/", "display":"The GitHub Blog"}' \
+  --data '{"url": "https://github.blog/feed", "display":"The GitHub Blog"}' \
   http://HD:40002/v1.0/invoke/api/method/api/feeds
