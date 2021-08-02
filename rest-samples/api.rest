@@ -1,0 +1,29 @@
+#@api = localhost:3500
+@api = HD:40002
+
+### List Resources for Today
+GET http://{{api}}/v1.0/invoke/api/method/api/resources/
+
+### List Resources by Month
+GET http://{{api}}/v1.0/invoke/api/method/api/resources/2021/3
+
+
+### List Resources by Specific Date
+GET http://{{api}}/v1.0/invoke/api/method/api/resources/2021/3/2
+
+
+### List Feeds
+GET http://{{api}}/v1.0/invoke/api/method/api/feeds
+
+
+### Add Azure Blog
+POST http://{{api}}/v1.0/invoke/api/method/api/feeds
+Content-Type: application/json
+
+{
+    "display" : "Microsoft Azure Blog",
+    "url": "https://azure.microsoft.com/en-us/blog/feed/"
+}
+
+### Remove item from Watch feed
+DELETE http://{{api}}/v1.0/invoke/api/method/api/feeds/740f3d2f-2eb2-50e4-b695-aeed86dfe674

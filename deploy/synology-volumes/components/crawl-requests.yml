@@ -1,0 +1,30 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: crawl-requests
+spec:
+  type: bindings.rabbitmq
+  metadata:
+  - name: queueName
+    value: "crawl-requests"
+  - name: host
+    value: "amqp://guest:guest@rabbitmq:5672"
+  - name: durable
+    value: "true"
+  - name: deletedWhenUnused
+    value: "true"
+  - name: autoAck
+    value: "true"
+  - name: deliveryMode
+    value: "0"
+  - name: requeueInFailure
+    value: "true"
+  - name: prefetchCount
+    value: "0"
+  - name: reconnectWait
+    value: "0"
+  - name: concurrencyMode
+    value: parallel
+scopes:
+  - crawler
+  - feeds
